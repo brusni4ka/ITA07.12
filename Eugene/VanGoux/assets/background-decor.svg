@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="3844" viewBox="0 0 1440 3844">
+    <defs>
+        <linearGradient id="ckjg9q5yha" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1968FC" stop-opacity="0"/>
+            <stop offset="48.435%" stop-color="#1968FC" stop-opacity=".05"/>
+            <stop offset="99.938%" stop-color="#1968FC" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#1968FC" stop-opacity=".05"/>
+        </linearGradient>
+        <linearGradient id="1q34z6m1kb" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#F5F8FF"/>
+            <stop offset="100%" stop-color="#E8EFFE"/>
+        </linearGradient>
+        <linearGradient id="hi6869k96c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FAFBFF"/>
+            <stop offset="100%" stop-color="#F3F6FF"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <path fill="url(#ckjg9q5yha)" d="M0 1200H1440V3210H0z"/>
+            <path fill="url(#1q34z6m1kb)" d="M0 0L1440 0 1440 194.438 0 1025zM0 2410L1440 2410 1440 2614.438 0 3435z"/>
+            <path fill="url(#hi6869k96c)" d="M0 10L896 527 2 1042zM0 2401L896 2924 2 3433z"/>
+            <g fill="#1968FC" opacity=".5">
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(468 84.007)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(468 84.007)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(468 84.007)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(148.8 746.438)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(148.8 746.438)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(148.8 746.438)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(75.6 45.606)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(75.6 45.606)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(75.6 45.606)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(560.4 .004)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(560.4 .004)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(560.4 .004)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(603.6 255.615)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(603.6 255.615)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(603.6 255.615)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(300 580.83)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(300 580.83)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(300 580.83)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 82.807)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 82.807)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 82.807)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(842.4 122.41)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(842.4 122.41)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(842.4 122.41)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 1004.006)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 1004.006)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1220.4 1004.006)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(1208.4 1530.83)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1208.4 1530.83)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1208.4 1530.83)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(666 1072.41)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(666 1072.41)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(666 1072.41)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(640.8 135.61)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(640.8 135.61)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(640.8 135.61)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(1072.4 2927.434)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1072.4 2927.434)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1072.4 2927.434)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(1145.6 2226.602)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1145.6 2226.602)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1145.6 2226.602)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(660.8 2181)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(660.8 2181)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(660.8 2181)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(617.6 2436.612)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(617.6 2436.612)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(617.6 2436.612)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(921.2 2761.827)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(921.2 2761.827)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(921.2 2761.827)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(.8 2263.804)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(.8 2263.804)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(.8 2263.804)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(75.8 3718.434)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(75.8 3718.434)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(75.8 3718.434)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(2.6 3017.602)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(2.6 3017.602)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(2.6 3017.602)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(487.4 2972)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(487.4 2972)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(487.4 2972)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(530.6 3227.612)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(530.6 3227.612)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(530.6 3227.612)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(227 3552.827)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(227 3552.827)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(227 3552.827)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(1147.4 3054.804)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1147.4 3054.804)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1147.4 3054.804)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(378.8 2303.406)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(378.8 2303.406)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(378.8 2303.406)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(.8 3185.002)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(.8 3185.002)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(.8 3185.002)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(12.8 3711.827)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(12.8 3711.827)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(12.8 3711.827)"/>
+                </g>
+                <g>
+                    <path d="M3.84 3.84H7.68V7.68H3.84z" transform="matrix(-1 0 0 1 1300 110) translate(555.2 3253.406)"/>
+                    <path d="M3.84 3.84H9.6V9.6H3.84z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(555.2 3253.406)"/>
+                    <path d="M0 0H7.68V7.68H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(555.2 3253.406)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(580.4 2316.606)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(580.4 2316.606)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(580.4 2316.606)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(832.8 240.015)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(832.8 240.015)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(832.8 240.015)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(528 465.625)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(528 465.625)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(528 465.625)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(60 535.228)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(60 535.228)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(60 535.228)"/>
+                </g>
+                <g>
+                    <path d="M2.88 2.88H5.76V5.76H2.88z" transform="matrix(-1 0 0 1 1300 110) translate(1030.8 52.806)"/>
+                    <path d="M2.88 2.88H7.2V7.2H2.88z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(1030.8 52.806)"/>
+                    <path d="M0 0H5.76V5.76H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(1030.8 52.806)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(352 1141)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(352 1141)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(352 1141)"/>
+                </g>
+                <g>
+                    <path d="M4 4H8V8H4z" transform="matrix(-1 0 0 1 1300 110) translate(144 1113)"/>
+                    <path d="M4 4H10V10H4z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(144 1113)"/>
+                    <path d="M0 0H8V8H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(144 1113)"/>
+                </g>
+                <g>
+                    <path d="M5.76 5.76H11.52V11.52H5.76z" transform="matrix(-1 0 0 1 1300 110) translate(462 961)"/>
+                    <path d="M5.76 5.76H14.4V14.4H5.76z" opacity=".2" transform="matrix(-1 0 0 1 1300 110) translate(462 961)"/>
+                    <path d="M0 0H11.52V11.521H0z" opacity=".1" transform="matrix(-1 0 0 1 1300 110) translate(462 961)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
