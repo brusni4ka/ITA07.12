@@ -1,4 +1,232 @@
 body {
-  background-color: black;
+  background: url("../assets/background-decor.svg") no-repeat;
+  background-size: 100%;
+}
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1120px;
+}
+
+.header_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 30px;
+}
+
+.header_logo {
+  width: 180px;
+  height: 50px;
+  margin: 0 200px 0 0;
+}
+
+.header_list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.header_list_item {
+  width: 120px;
+  text-align: center;
+  list-style-type: none;
+}
+
+.header_list_link {
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-decoration: none;
+  color: black;
+}
+
+.header_list_link:hover {
+  opacity: 0.75;
+}
+
+.header_button {
+  width: 180px;
+  height: 50px;
+  margin-left: 20px;
+  -webkit-box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+          box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+  background-color: #1968fc;
+  text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+/*Section intro */
+.conteiner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#intro_title {
+  max-width: 600px;
+  margin-top: 150px;
+  font-family: Muli;
+  font-size: 40px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  color: var(--dark-blue-grey);
+}
+
+#intro_text {
+  width: 600px;
+  margin-top: 20px;
+  font-family: Muli;
+  font-size: 22px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: var(--dark-blue-grey);
+}
+
+#intro_button {
+  display: block;
+  width: 300px;
+  height: 50px;
+  margin-top: 40px;
+  text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  background-color: blue;
+}
+
+#intro_headline {
+  position: relative;
+  z-index: 1;
+}
+
+.div_intro_image {
+  position: relative;
+  left: -100px;
+  top: 250px;
+  z-index: 10;
+}
+
+#intro_image {
+  max-width: 599px;
+  height: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.review_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.review_testimonial {
+  width: 540px;
+  margin: 160px 40px 100px 0;
+  padding: 40px;
+  -webkit-box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
+          box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
+  background-color: #ffffff;
+}
+
+.review_testimonial_photo {
+  width: 100px;
+  height: 100px;
+  margin: 0 20px 40px 0;
+  float: left;
+}
+
+.review_testimonial_name {
+  display: block;
+  margin: 20px 0 0 20px;
+  font-family: Muli;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  color: var(--dark-blue-grey);
+}
+
+.review_testimonial_profesion {
+  display: block;
+  margin: 4px 0 60px 20px;
+  opacity: 0.8;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+}
+
+.review_testimonial_quote {
+  width: 60px;
+  height: 46px;
+  float: right;
+}
+
+.review_testimonial_text {
+  margin: 40px 0 0;
+  font-family: Muli;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.88;
+  letter-spacing: normal;
+  color: var(--dark-blue-grey);
+}
+
+#features_title {
+  margin: 0 0 10px 40px;
+  font-family: Muli;
+  font-size: 30px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: var(--dark-blue-grey);
 }
 /*# sourceMappingURL=style.css.map */
