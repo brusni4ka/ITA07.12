@@ -221,3 +221,72 @@ body {
     letter-spacing: normal;
     color: var(--dark-blue-grey);
 }
+
+.features_cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.features_card {
+    width: 320px;
+    height: 290px;
+    box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+    background-color: #ffffff;
+}
+
+.card_title {
+    width: 320px;
+    height: 120px;
+    margin: 0 0 40px;
+    background-color: #f3f7ff;
+
+}
+
+.card_title span {
+    display: inline-block;
+    margin: 20px;
+    width: 160px;
+    height: 80px;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: var(--dark-blue-grey);
+}
+
+.card_img {
+    width: 120px;
+    height: 120px;
+    float: left;
+}
+
+.card_text p {
+    max-width: 240px;
+    height: 90px;
+    margin: 40px 40px 0;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.88;
+    letter-spacing: normal;
+    color: var(--dark-blue-grey);
+}
+
+#card1 {
+    margin-top: 60px;
+    margin-right: 75px;
+}
+
+#card2 {
+    margin-top: 100px;
+    margin-right: 75px;
+}
+
+#card3 {
+    margin-top: 140px;
+}
