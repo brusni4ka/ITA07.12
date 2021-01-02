@@ -1,0 +1,934 @@
+$font: Muli;
+$dark-blue-grey: hsl(218, 58%, 16%);
+$usualText: 16px;
+
+$smallText: 14px;
+$biggerText: 20px;
+$mainHeadingsSize: 30px;
+$handlehelds: 428px;
+$extraSmall: 579px;
+$small: 768px;
+$medium: 767px;
+$large: 1024px;
+$largeContainer: 1200px;
+@font-face {
+  font-family: $font;
+  src: url("../fonts/Muli.ttf");
+  font-weight: normal;
+}
+@mixin respond-to($media) {
+  @if $media == handlehelds {
+    @media only screen and (max-width: $handlehelds) {
+      @content;
+    }
+  } @else if $media == extra-small {
+    @media only screen and (max-width: $extraSmall) {
+      @content;
+    }
+  } @else if $media == small-screens {
+    @media only screen and (max-width: $medium) {
+      @content;
+    }
+  } @else if $media == medium-screens {
+    @media only screen and (min-width: $medium + 1) and (max-width: $large - 1) {
+      @content;
+    }
+  } @else if $media == large-screens {
+    @media only screen and (min-width: $large) and (max-width: $largeContainer) {
+      @content;
+    }
+  } @else if $media == extra-large-screens {
+    @media only screen and (min-width: $largeContainer + 1) {
+      @content;
+    }
+  }
+}
+
+* {
+  text-decoration: none;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+}
+input,
+textarea {
+  border: none;
+  font-family: "Helvetica";
+}
+div {
+  box-sizing: border-box;
+}
+.type-btn {
+  text-transform: uppercase;
+  color: white;
+  font-size: $smallText;
+  padding: 0px 30px;
+  line-height: 50px;
+  font-weight: bold;
+  // display: block;
+  text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+  background-color: #1968fc;
+}
+
+.form-field {
+  display: block;
+  border: none;
+  border-bottom: 2px solid #1968fc;
+  padding: 16px 0;
+  margin-bottom: 20px;
+  width: 100%;
+  background: transparent;
+  &::placeholder {
+    color: black;
+    font-size: $usualText;
+  }
+}
+.section-heading {
+  text-transform: uppercase;
+  font-size: $mainHeadingsSize;
+  position: relative;
+  line-height: 2em;
+}
+.section-heading:after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  background-color: #1968fc;
+  left: -40px;
+  bottom: -10px;
+  box-shadow: 0 2px 0 0 #d1e1fe;
+  @include respond-to(small-screens) {
+    left: 0;
+  }
+  @include respond-to(large-screens) {
+    left: 0;
+  }
+  @include respond-to(medium-screens) {
+    left: 0;
+  }
+}
+body {
+  font-family: Muli;
+  color: $dark-blue-grey;
+  font-size: 20px;
+  width: 100vw;
+  background: url("../imgs/background-decor.svg") no-repeat center top;
+  background-size: 100vw;
+  overflow-x: hidden;
+  @include respond-to(small-screens) {
+    background: white url("../imgs/background-decor-mobile.png");
+  }
+  @include respond-to(medium-screens) {
+    background: white url("../imgs/background-decor-mobile.png");
+  }
+
+  .header {
+    padding-top: 30px;
+    padding-bottom: 145px;
+    width: 100vw;
+    @include respond-to(small-screens) {
+      padding-bottom: 0;
+    }
+    @include respond-to(medium-screens) {
+      padding-bottom: 0px;
+    }
+    .nav {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      height: 50px;
+      margin-bottom: 150px;
+      @include respond-to(small-screens) {
+        margin-bottom: 80px;
+      }
+      @include respond-to(medium-screens) {
+        margin-bottom: 80px;
+      }
+      &-logo {
+        display: flex;
+        align-items: center;
+        &-text {
+          font-weight: 600;
+          color: #1968fc;
+          margin-left: 15px;
+          font-size: $biggerText;
+        }
+      }
+      &-menu {
+        margin-left: auto;
+        display: flex;
+        justify-content: flex-end;
+        @include respond-to(small-screens) {
+          display: none;
+        }
+        @include respond-to(medium-screens) {
+          display: none;
+        }
+        &-item {
+          padding: 0 25px;
+          line-height: 50px;
+          font-weight: 600;
+          font-size: $smallText;
+          color: black;
+        }
+        &-btn {
+          @extend .type-btn;
+          margin-left: 20px;
+        }
+      }
+    }
+    &-content {
+      display: flex;
+      width: 100%;
+      position: relative;
+      @include respond-to(small-screens) {
+        display: block;
+      }
+      @include respond-to(medium-screens) {
+        display: block;
+      }
+      &-text {
+        width: 55%;
+        z-index: 2;
+        @include respond-to(small-screens) {
+          width: 80%;
+          margin-bottom: 50px;
+        }
+        @include respond-to(handlehelds) {
+          width: 100%;
+        }
+        @include respond-to(medium-screens) {
+          width: 80%;
+          margin-bottom: 50px;
+        }
+      }
+      &-heading {
+        font-size: 40px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      &-description {
+        font-size: $biggerText;
+        font-weight: normal;
+        margin-top: 20px;
+        line-height: 2;
+      }
+      &-btn {
+        @extend .type-btn;
+        display: inline-block;
+        margin-top: 40px;
+      }
+      .btn-hide-sm {
+        @include respond-to(small-screens) {
+          display: none;
+        }
+        @include respond-to(medium-screens) {
+          display: none;
+        }
+      }
+
+      .btn-hide-lg {
+        padding: 0 40px;
+        @include respond-to(handlehelds) {
+          display: block;
+          text-align: center;
+          padding: 0;
+        }
+        @include respond-to(large-screens) {
+          display: none;
+        }
+        @include respond-to(extra-large-screens) {
+          display: none;
+        }
+      }
+
+      &-img {
+        width: 45%;
+        position: relative;
+        text-align: center;
+        @include respond-to(small-screens) {
+          width: 100%;
+        }
+        @include respond-to(medium-screens) {
+          width: 100%;
+        }
+        img {
+          position: absolute;
+          top: 50px;
+
+          @include respond-to(small-screens) {
+            width: 100%;
+            position: relative;
+          }
+          @include respond-to(handlehelds) {
+            margin-bottom: 40px;
+          }
+          @include respond-to(medium-screens) {
+            position: relative;
+            width: 100%;
+          }
+          @include respond-to(large-screens) {
+            top: 120px;
+          }
+
+          right: 0;
+          z-index: 1;
+        }
+      }
+    }
+    &-visit {
+      display: none;
+      text-align: center;
+      @include respond-to(small-screens) {
+        display: block;
+        width: 100vw;
+        background-color: #1968fc;
+        padding: 30px 0;
+        &-info {
+          text-transform: uppercase;
+          font-size: $biggerText;
+          color: white;
+          font-weight: bold;
+          line-height: 2em;
+        }
+      }
+      @include respond-to(medium-screens) {
+        display: block;
+        width: 100vw;
+        background-color: #1968fc;
+        padding: 30px 0;
+        &-info {
+          text-transform: uppercase;
+          font-size: $biggerText;
+          color: white;
+          font-weight: bold;
+          line-height: 2em;
+        }
+      }
+    }
+    &-cards {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 160px;
+      @include respond-to(small-screens) {
+        display: block;
+        margin-bottom: 120px;
+      }
+      @include respond-to(medium-screens) {
+        display: block;
+        margin-bottom: 120px;
+      }
+      .header-card {
+        width: 48%;
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
+        background-color: #ffffff;
+        position: relative;
+        @include respond-to(small-screens) {
+          width: 100%;
+          margin-bottom: 50px;
+        }
+        @include respond-to(medium-screens) {
+          width: 100%;
+          margin-bottom: 50px;
+        }
+        &:before {
+          content: url("../imgs/illustration-quote.png");
+          position: absolute;
+          right: 40px;
+          top: 40px;
+          @include respond-to(handlehelds) {
+            display: none;
+          }
+        }
+        &-content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          @include respond-to(handlehelds) {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+        &-img {
+          margin-right: 20px;
+          @include respond-to(handlehelds) {
+            margin-right: 0;
+            margin-bottom: 20px;
+          }
+        }
+        &-name {
+          font-size: 18px;
+          color: $dark-blue-grey;
+          font-weight: 600;
+          line-height: 1.67em;
+        }
+        &-job {
+          color: #1967fa;
+          font-size: $smallText;
+          font-weight: 600;
+          opacity: 0.8;
+          line-height: 2.14em;
+        }
+        &-quote {
+          margin-top: 35px;
+          color: $dark-blue-grey;
+          font-size: $usualText;
+          line-height: 1.88em;
+        }
+      }
+    }
+  }
+  .main {
+    .features {
+      &-heading {
+        @extend .section-heading;
+        margin-bottom: 60px;
+      }
+      &-cards {
+        display: flex;
+        justify-content: space-between;
+        @include respond-to(small-screens) {
+          display: block;
+        }
+        @include respond-to(medium-screens) {
+          display: block;
+        }
+      }
+      &-card {
+        width: 29%;
+        height: 290px;
+        box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+        background-color: #ffffff;
+        position: relative;
+        @include respond-to(small-screens) {
+          width: 100%;
+          height: auto;
+        }
+        @include respond-to(medium-screens) {
+          width: 100%;
+          height: auto;
+        }
+        &-header {
+          display: flex;
+          height: 120px;
+          @include respond-to(small-screens) {
+            height: 80px;
+          }
+          @include respond-to(medium-screens) {
+            height: 80px;
+          }
+        }
+        &-img {
+          width: 120px;
+          height: 120px;
+          @include respond-to(small-screens) {
+            width: 80px;
+            height: 80px;
+          }
+          @include respond-to(medium-screens) {
+            width: 80px;
+            height: 80px;
+          }
+        }
+        &-heading {
+          h4 {
+            font-size: $biggerText;
+            @include respond-to(handlehelds) {
+              font-size: 18px;
+              margin-top: 0;
+            }
+            font-weight: 600;
+            margin-top: 10px;
+          }
+          padding: 20px;
+          background-color: #f3f7ff;
+          height: auto;
+          width: 100%;
+          @include respond-to(handlehelds) {
+            padding: 10px 5px 10px 10px;
+          }
+        }
+        &-body {
+          padding: 40px;
+          font-size: $usualText;
+          color: $dark-blue-grey;
+          line-height: 1.88em;
+        }
+      }
+
+      &-card:nth-child(2) {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+      &-card:nth-child(3) {
+        margin-top: 80px;
+        @include respond-to(small-screens) {
+          margin-top: 0;
+        }
+        @include respond-to(medium-screens) {
+          margin-top: 0;
+        }
+      }
+      &-card:first-child,
+      &-card:nth-child(2) {
+        margin-bottom: 80px;
+        @include respond-to(small-screens) {
+          margin-bottom: 62px;
+        }
+        @include respond-to(medium-screens) {
+          margin-bottom: 62px;
+        }
+        .features-card-body:after {
+          @include respond-to(small-screens) {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -61px;
+            left: 60px;
+            height: 60px;
+            width: 1px;
+            border-left: 2px dotted #1968fc;
+          }
+          @include respond-to(medium-screens) {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -61px;
+            left: 60px;
+            height: 60px;
+            width: 1px;
+            border-left: 2px dotted #1968fc;
+          }
+        }
+      }
+    }
+  }
+  .users {
+    margin-top: 120px;
+    &-heading {
+      @extend .section-heading;
+      margin-bottom: 50px;
+    }
+    &-cards {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    &-card {
+      width: 32%;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+      @include respond-to(small-screens) {
+        width: 48%;
+      }
+      @include respond-to(handlehelds) {
+        width: 100%;
+      }
+      @include respond-to(medium-screens) {
+        width: 48%;
+      }
+      &-title {
+        color: #1967fa;
+        font-weight: bold;
+        font-size: $biggerText;
+        line-height: 2em;
+        text-transform: uppercase;
+      }
+      &-description {
+        margin-top: 20px;
+        font-size: $usualText;
+        color: $dark-blue-grey;
+        line-height: 1.88em;
+      }
+    }
+  }
+  .functions {
+    margin-top: 120px;
+    margin-bottom: 80px;
+    @include respond-to(small-screens) {
+      margin-bottom: 20px;
+    }
+    @include respond-to(medium-screens) {
+      margin-bottom: 20px;
+    }
+    &-heading {
+      @extend .section-heading;
+      margin-bottom: 50px;
+    }
+    &-cards {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    &-card {
+      width: 48%;
+      display: flex;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+      @include respond-to(small-screens) {
+        width: 100%;
+      }
+      @include respond-to(medium-screens) {
+        width: 100%;
+      }
+      @include respond-to(handlehelds) {
+      }
+      &-title {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 0 20px;
+        @include respond-to(small-screens) {
+          line-height: 1.5em;
+          align-self: center;
+        }
+
+        @include respond-to(large-screens) {
+          line-height: 1.5em;
+          align-self: center;
+        }
+        h4 {
+          font-size: 18px;
+          @include respond-to(handlehelds) {
+            font-size: 14px;
+            line-height: 1.5em;
+          }
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .schedule {
+    background: #1968fc url("../imgs/illustration-whiteglove.png") no-repeat
+      right 30px;
+    padding: 80px 0;
+    @include respond-to(small-screens) {
+      background: #1968fc;
+    }
+    @include respond-to(medium-screens) {
+      background: #1968fc;
+    }
+    &-content {
+      width: 60%;
+      @include respond-to(small-screens) {
+        width: 100%;
+      }
+      @include respond-to(medium-screens) {
+        width: 100%;
+      }
+      &-heading {
+        @extend .section-heading;
+        color: white;
+        margin-bottom: 60px;
+        &:after {
+          background-color: #fff;
+          box-shadow: 0 2px 0 0 #6a9eff;
+        }
+      }
+      &-description {
+        font-size: $biggerText;
+        line-height: 2em;
+        font-weight: normal;
+        color: white;
+        margin-bottom: 40px;
+      }
+      &-btn {
+        @extend .type-btn;
+        color: #1968fc;
+        background: white;
+        display: inline-block;
+        line-height: 50px;
+        box-shadow: 4px 4px 20px 0 rgba(255, 255, 255, 0.4);
+        text-shadow: none;
+        @include respond-to(handlehelds) {
+          display: block;
+          text-align: center;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  .contact {
+    &-container {
+      font-family: "Helvetica";
+      font-weight: normal;
+      padding: 0px 0px 0 20px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-left: calc((100vw - 1120px) / 2);
+      @include respond-to(small-screens) {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+      }
+      @include respond-to(medium-screens) {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+      }
+      @include respond-to(large-screens) {
+        margin-left: calc((100vw - 980px) / 2);
+      }
+    }
+    &-left {
+      width: 40%;
+      @include respond-to(small-screens) {
+        width: 90%;
+        padding: 60px 20px 0px 20px;
+        margin: 0 auto;
+        margin-bottom: 70px;
+      }
+      @include respond-to(medium-screens) {
+        width: 720px;
+        margin: 0 auto;
+        padding: 60px 20px 0px 20px;
+        margin-bottom: 70px;
+      }
+    }
+    &-right {
+      height: 660px;
+      width: 55%;
+      @include respond-to(small-screens) {
+        width: 100%;
+      }
+      @include respond-to(medium-screens) {
+        width: 100%;
+      }
+      iframe {
+        width: 100%;
+        height: inherit;
+      }
+    }
+    &-heading {
+      @extend .section-heading;
+      font-weight: normal;
+      margin-bottom: 40px;
+    }
+    &-form {
+      padding-left: 30px;
+      padding-bottom: 20px;
+      @include respond-to(handlehelds) {
+        padding-left: 0;
+      }
+      @include respond-to(small-screens) {
+        width: 90%;
+      }
+      @include respond-to(medium-screens) {
+        width: 80%;
+      }
+      &-default_field {
+        @extend .form-field;
+      }
+      &-area_field {
+        @extend .form-field;
+        margin-bottom: 40px;
+      }
+      &-btn {
+        @extend .type-btn;
+        padding: 0px 80px;
+        margin-left: auto;
+        display: inherit;
+        @include respond-to(handlehelds) {
+          padding: 0 40px;
+        }
+      }
+    }
+    &-mob-map {
+      display: none;
+    }
+  }
+  .footer {
+    background-color: #fbfbfb;
+    padding-top: 30px;
+    @include respond-to(handlehelds) {
+      padding-top: 0;
+    }
+    &-wrap {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      @include respond-to(small-screens) {
+        &:first-child {
+          margin-bottom: 40px;
+          @include respond-to(handlehelds) {
+            margin-bottom: 0px;
+          }
+        }
+      }
+      @include respond-to(handlehelds) {
+        flex-direction: column;
+        align-items: center;
+      }
+      @include respond-to(medium-screens) {
+        &:first-child {
+          margin-bottom: 40px;
+        }
+      }
+      &:nth-child(2) {
+        display: none;
+      }
+      @include respond-to(small-screens) {
+        &:nth-child(2) {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+      }
+      @include respond-to(medium-screens) {
+        &:nth-child(2) {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+    &-logo {
+      display: flex;
+      margin-top: 10px;
+      height: 50px;
+    }
+    &-title {
+      font-size: $smallText;
+      font-weight: 600;
+      color: #1968fc;
+      line-height: 50px;
+      padding: 0 20px;
+      background-color: rgba(25, 104, 252, 0.05);
+      @include respond-to(handlehelds) {
+        white-space: nowrap;
+      }
+    }
+    &-menu {
+      display: flex;
+      padding-top: 10px;
+      @include respond-to(small-screens) {
+        display: none;
+      }
+      @include respond-to(handlehelds) {
+        flex-direction: column;
+        align-items: center;
+      }
+      @include respond-to(medium-screens) {
+        display: none;
+      }
+      &-item {
+        padding: 0 20px;
+        line-height: 50px;
+        font-size: $smallText;
+        font-weight: 600;
+        color: black;
+      }
+    }
+
+    &-social {
+      margin-top: 10px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      @include respond-to(handlehelds) {
+        margin-top: 20px;
+      }
+      &-item {
+        display: block;
+      }
+      &-item:first-child {
+        margin-right: 40px;
+      }
+    }
+    &-img {
+      display: flex;
+      @include respond-to(small-screens) {
+        display: none;
+      }
+      @include respond-to(medium-screens) {
+        display: none;
+      }
+    }
+
+    @include respond-to(small-screens) {
+      &-wrap:nth-child(2) .footer-menu {
+        display: flex;
+        margin-bottom: 40px;
+
+        .footer-menu-item {
+          padding: 0 20px;
+        }
+      }
+      &-wrap:nth-child(2) .footer-img {
+        display: flex;
+        img {
+          width: 70px;
+          height: 70px;
+          align-self: flex-end;
+        }
+      }
+    }
+    @include respond-to(extra-small) {
+      &-wrap:nth-child(2) .footer-menu {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 20px;
+        .footer-menu-item {
+          white-space: nowrap;
+        }
+      }
+      &-wrap:nth-child(2) .footer-img {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        img {
+          margin-right: 0;
+        }
+      }
+    }
+    @include respond-to(medium-screens) {
+      &-wrap:nth-child(2) .footer-menu {
+        display: flex;
+        .footer-menu-item {
+          padding: 0 30px;
+        }
+      }
+      &-wrap:nth-child(2) .footer-img {
+        display: flex;
+        img {
+          margin-right: -25px;
+        }
+      }
+    }
+  }
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0px 20px;
+  @include respond-to(small-screens) {
+    width: 90%;
+  }
+  @include respond-to(medium-screens) {
+    width: 720px;
+  }
+  @include respond-to(large-screens) {
+    width: 980px;
+  }
+  @include respond-to(extra-large-screens) {
+    width: 1120px;
+  }
+}
