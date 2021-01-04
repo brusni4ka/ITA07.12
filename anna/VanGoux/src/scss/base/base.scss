@@ -1,0 +1,63 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-family: $global-font-family;
+  font-size: 16px;
+  color: $color-text-global;
+  font-weight: $global-font-weight;
+}
+
+body {
+  box-sizing: border-box;
+  background-image: url("./assets/background-decor-mobile.png");
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logobox {
+  display: flex;
+  align-items: center;
+
+  & .logo {
+    height: 50px;
+    width: 50px;
+  }
+
+  & .logomoto {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-text-primary;
+    padding: 0 20px;
+  }
+}
+
+
+
+@media (min-width: 960px) {
+  body {
+    background-image: url("./assets/background-decor.svg");
+  }
+  .container {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding: 0;
+  }
+}

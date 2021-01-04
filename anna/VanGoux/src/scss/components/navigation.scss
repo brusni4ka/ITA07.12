@@ -1,0 +1,13 @@
+.nav {
+  flex-grow: 1;
+  align-self: center;  
+
+  & .nav__item {
+    font-size: 14px;
+    color: $color-text-dark;
+    font-weight: 600;
+    line-height: 1.43;
+    margin-right: 50px;
+  }
+}
+

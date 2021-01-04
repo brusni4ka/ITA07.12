@@ -1,0 +1,4 @@
+@mixin cardImgPrimary($pad) {
+  padding: $pad;
+  background-color: $color-primary;  
+}

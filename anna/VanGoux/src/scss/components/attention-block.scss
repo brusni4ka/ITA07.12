@@ -1,0 +1,22 @@
+.attention-block {
+  position: relative;
+  background-color: $bg-color-primary;
+  margin-bottom: 50px;
+
+  &__text {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-text-light;
+    text-transform: uppercase;
+    line-height: 2;
+    text-align: center;
+    padding: 45px 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .attention-block {
+    display: none;
+  }
+}
