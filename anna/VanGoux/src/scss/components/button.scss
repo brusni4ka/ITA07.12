@@ -1,0 +1,39 @@
+.btn {
+  height: 50px;
+  width: 300px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  text-transform: uppercase;
+  
+  border: none;
+
+  &--desktop {
+    display: none;
+  }  
+
+  &--primary {
+    background-color: $bg-color-primary;
+    color: $color-text-light;
+    box-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  }
+
+  &--light {
+    background-color: $bg-color-light;
+    color: $color-text-primary;
+    box-shadow: 4px 4px 20px 0 rgba(255, 255, 255, 0.4);
+  }
+
+}
+
+@media (min-width: 960px) {
+  .btn {
+    &--mobile {
+      display: none;
+    }
+
+    &--desktop {
+      display: inline-block;
+    }
+  }
+}

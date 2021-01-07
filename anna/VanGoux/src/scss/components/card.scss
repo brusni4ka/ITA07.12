@@ -1,0 +1,96 @@
+.card {
+  height: 100%;
+  background-color: $bg-color-light;
+  box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+
+  &__header {
+    display: flex;
+  }
+
+  &__title-box,
+  &__title {
+    font-size: 20px;
+    align-self: center;
+    padding: 0 20px;
+  }
+
+  &__text {
+    line-height: 1.88;
+  }
+
+  &--impressions {
+    padding: 40px;
+
+    box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
+
+    &__body {
+      margin-top: 40px;
+    }
+
+    &__title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.67;
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      color: $color-text-primary;
+      font-weight: 600;
+      line-height: 2.14;
+    }
+  }
+
+  &-features {
+
+    & .card__header {
+      background-color: $color-grey;
+    }
+
+    &__img {
+      @include cardImgPrimary(20px);
+    }
+
+    &__body {
+      padding: 30px 40px;
+    }
+  }
+
+  &-usecase {
+    .card__title {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 2;
+      color: $color-text-primary;
+      text-transform: uppercase;
+      padding: 0 0 20px 0;
+    }
+  }
+
+  &-possibilities {
+    &__img {
+      @include cardImgPrimary(20px);
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .card {}
+}
+
+@media (min-width: 1200px) {
+  .card {
+    &-features {
+      height: auto;
+
+      &__img {
+        @include cardImgPrimary(40px);
+      }
+
+      &__body {
+        padding: 40px;
+      }
+
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.footer {
+  position: relative;
+  padding: 40px 0;
+  background-color: $bg-color-light-secondary;
+
+  &__logobox {
+    & .logomoto {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  & .socialnetworks-box {
+    text-align: right;
+
+    & .icon-social:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+
+  &__nav {
+    padding-left: 40px;
+     margin-top: 40px;
+  }
+
+  &__img {
+    position: absolute;
+    bottom: 0;
+    right: 7%;
+    width: 12%;
+  }
+}
+
+@media (min-width: 960px) {
+  .footer {
+    &__nav {
+      padding-left: 5%;
+      margin: 0;
+    }
+
+    &__img {     
+      right: 3%;
+      width: 12%;
+    }
+  }
+}

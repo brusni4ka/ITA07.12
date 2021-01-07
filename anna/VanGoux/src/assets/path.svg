@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="19px" viewBox="0 0 10 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>A17B455E-80CF-438F-8117-357956482254</title>
+    <defs>
+        <path d="M23.3447,20.5025 L23.8632,17.1235 L20.621,17.1235 L20.621,14.9307 C20.621,14.0063 21.0739,13.1052 22.526,13.1052 L24,13.1052 L24,10.2283 C24,10.2283 22.6624,10 21.3835,10 C18.7134,10 16.9681,11.6184 16.9681,14.5482 L16.9681,17.1235 L14,17.1235 L14,20.5025 L16.9681,20.5025 L16.9681,28.6711 L20.621,28.6711 L20.621,20.5025 L23.3447,20.5025 Z" id="path-1"></path>
+        <filter x="-20.0%" y="-10.7%" width="140.0%" height="121.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Freehand-landing-page" transform="translate(-213.000000, -4024.000000)" fill-rule="nonzero">
+            <g id="Footer" transform="translate(0.000000, 3720.000000)">
+                <g id="Path" transform="translate(199.000000, 294.000000)">
+                    <use fill="#0D0D0D" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
