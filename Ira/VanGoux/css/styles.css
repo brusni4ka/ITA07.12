@@ -1,0 +1,792 @@
+@font-face {
+  font-family: "muliregular";
+  src: url("../fonts/muli-webfont.woff2") format("woff2"), url("../fonts/muli-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "mulisemibold";
+  src: url("../fonts/muli-semibold-webfont.woff2") format("woff2"), url("../fonts/muli-semibold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-top: 15px;
+  background: url("../img/bg_img.png") 82% 340px no-repeat, url("../img/background.png") 0 0;    
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+nav {
+  height: 110px;
+  margin-bottom: 160px;
+  padding: 0 115px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#logo {
+  width: 180px;
+  height: 50px;
+}
+
+#logo a {
+  display: block;
+  width: 180px;
+  height: 50px;
+}
+
+.button, #contactUsButton, #callingButton, #headerButton, #menuButton {
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 50px;
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+}
+
+#menu {
+  width: 540px;
+  height: 50px;
+  margin-left: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+#menuButton {
+  width: 180px;
+  min-width: 180px;
+  margin-left: 20px;
+  box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+  text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  background-color: #1968fc;
+  color: #ffffff;
+}
+
+.menuLink {
+  width: 120px;
+  height: 50px;
+  text-align: center;
+}
+.menuLink:last-child {
+  width: 180px;
+}
+.menuLink a {
+  display: block;
+  width: 120px;
+  height: 50px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 50px;
+  color: #000000;
+}
+.menuLink a:last-child {
+  width: 180px;
+}
+
+#header {
+  min-height: 310px;
+  margin-bottom: 80px;
+  padding: 0 115px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  font-size: 40px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  color: #11223f;
+}
+
+#headerText {
+  margin-bottom: 40px;
+  font-size: 20px;
+  line-height: 2;
+  color: #11223f;
+  font-family: "muliregular", Helvetica, sans-serif;
+}
+#headerButton {
+  width: 300px;
+  min-width: 300px;
+  margin-bottom: 40px;
+  text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+  box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+  font-family: "mulisemibold", Arial, sans-serif;
+  color: #ffffff;
+  background-color: #1968fc;
+}
+
+.onlyMobile {
+  display: none;
+}
+
+#testimonialSection {
+  min-height: 370px;
+  margin-bottom: 40px;
+  padding: 45px 115px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.testimonialCard {
+  width: 424px;
+  min-width: 424px;
+  height: 200px;
+  padding: 40px;
+  box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
+  background: #ffffff url("../img/quote.png") 90% 16% no-repeat;
+}
+.testimonialCardfirst-child {
+  margin-right: 50px;
+}
+
+.testimonialImgBloc {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 40px;
+}
+
+.testimonialPerson {
+  margin-left: 20px;
+  line-height: 2;
+}
+
+.testimonialName {
+  font-family: "mulisemibold", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #11223f;
+}
+
+.testimonialPosition {
+  opacity: 0.8;
+  font-family: "mulisemibold", Arial, sans-serif;
+  font-size: 14px;
+  color: #1967fa;
+}
+
+.testimonialText {
+  line-height: 1.88;
+  font-family: "muliregular", Helvetica, sans-serif;
+  font-size: 16px;
+  color: #11223f;
+}
+
+.line, #contactUsHeader::after, #callingTitle::after, h2::after {
+  display: table;
+  content: "";
+  height: 2px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+
+h2 {
+  margin: 0 0 40px 115px;
+  font-family: "muliregular", Helvetica, sans-serif;
+  font-size: 30px;
+  line-height: 2;
+  color: #11223f;
+  position: relative;
+}
+h2::after {
+  width: 80px;
+  margin-top: 8px;
+  margin-left: -40px;
+  background: #1968fc;
+  box-shadow: 0 2px 0 0 #d1e1fe;
+}
+
+#featuresSection {
+  min-height: 400px;
+  margin-bottom: 40px;
+  padding: 0 115px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.featuresCard {
+  width: 320px;
+  height: 290px;
+  margin-right: 60px;
+  background-color: #ffffff;
+  box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+}
+.featuresCard:first-child {
+  align-self: flex-start;
+}
+.featuresCard:last-child {
+  margin: 0;
+  align-self: flex-end;
+}
+
+.featuresImgBloc {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f3f7ff;
+}
+
+.featuresName {
+  padding: 20px;
+  font-family: "mulisemibold", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #11223f;
+}
+
+.featuresText {  
+  padding: 30px 40px;
+  font-family: "muliregular", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.88;
+  color: #11223f;
+}
+
+#whoForSection {
+  min-height: 450px;
+  max-width: 1300px;
+  margin-bottom: 40px;
+  padding: 0 100px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.whoForCard {
+  width: 310px;
+  height: 110px;
+  margin: 0 20px 20px 0;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+}
+.whoForCard:nth-child(3), .whoForCard:nth-child(6) {
+  margin: 0 0 20px 0;
+}
+
+.whoForTitle {
+  margin-bottom: 20px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 2;
+  color: #1967fa;
+}
+
+.whoForText {
+  font-size: 16px;
+  font-family: "muliregular", Helvetica, sans-serif;
+  line-height: 1.88;
+  color: #11223f;
+}
+
+#activitySection {
+  min-height: 240px;
+  margin-bottom: 40px;
+  padding: 0 115px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.activityCard {
+  width: 480px;
+  height: 80px;
+  margin: 0 40px 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  box-shadow: 0 20px 60px 0 rgba(49, 69, 244, 0.1);
+}
+.activityCard:nth-child(2), .activityCard:nth-child(4) {
+  margin: 0 0 40px 0;
+}
+
+.activityText {
+  padding: 15px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #000000;
+}
+
+#callingSection {
+  min-height: 300px;
+  padding: 80px 160px 80px 115px;
+  background: url("../img/imgBlue.png") 110% center no-repeat #1968fc;
+}
+
+#callingTitle {
+  margin: 0 0 40px 0;
+  font-family: "muliregular", Helvetica, sans-serif;
+  font-size: 30px;
+  line-height: 2;
+  color: #ffffff;
+}
+#callingTitle::after {
+  width: 80px;
+  margin-top: 8px;
+  margin-left: -40px;
+  background: #ffffff;
+  box-shadow: 0 2px 0 0 #6a9eff;
+}
+
+#callingText {
+  margin-bottom: 40px;
+  font-family: "muliregular", Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 2;
+  color: #ffffff;
+}
+
+#callingButton {
+  width: 320px;
+  min-width: 320px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  color: #1968fc;
+  background-color: #ffffff;
+  box-shadow: 4px 4px 20px 0 rgba(255, 255, 255, 0.4);
+}
+
+#contactUsSection {
+  min-height: 650px;
+  padding: 0 0 0 115px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #f5f8ff;
+}
+
+#formBlock {
+  width: 45%;
+  min-height: 500px;
+  padding: 120px 0 20px 0;
+}
+
+#contactUsTitle {
+  margin: 0 0 40px 0;
+  font-family: Helvetica, sans-serif;
+}
+
+#contactUsTitle::after {
+  width: 50px;
+  margin-top: 8px;
+  margin-left: -25px;
+  background: #1968fc;
+  box-shadow: 0 2px 0 0 #d1e1fe;
+}
+
+#contactForm {
+  padding-left: 40px;
+}
+
+.formLabel {
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.63;
+  letter-spacing: 0.53px;
+  color: #141720;
+}
+
+.formInput, .message {
+  width: 400px;
+  height: 52px;
+  border: none;
+  background-color: #f6f9fc;
+  border-bottom: 2px solid #1968fc;
+}
+
+.message {
+  margin-bottom: 40px;
+  height: 120px;
+}
+
+#contactUsButton {
+  width: 300px;
+  min-width: 300px;
+  margin-left: 98px;
+  font-family: Helvetica, sans-serif;
+  color: #ffffff;
+  background-color: #1968fc;
+  box-shadow: 4px 4px 20px 0 rgba(255, 255, 255, 0.4);
+}
+
+#mapBlock {
+  width: calc(45%-155px);
+  height: 640px;
+  margin-left: 40px;
+}
+
+#footer {
+  height: 130px;
+  min-height: 130px;
+  padding: 0 115px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fbfbfb;
+}
+.footerLogo {
+  width: 200px;
+  height: 50px;
+  margin-right: 40px;
+}
+.footerLogo a {
+  display: block;
+  width: 200px;
+  height: 50px;
+}
+.footerMenu {
+  width: 480px;
+  height: 50px;
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}  
+
+.footerLink {
+  width: 120px;
+  height: 50px;
+  text-align: center;
+}
+.footerLink a {
+  display: block;
+  width: 120px;
+  height: 50px;
+  font-family: "mulisemibold", Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 50px;
+  color: #000000;
+}
+
+.socialLink {
+  display: block;
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.footerImage {
+  margin-top: 20px;
+}
+
+/*RESPONSIVE DESIGN  */
+@media screen and (min-width: 600px) and (max-width: 800px) {
+
+    body {
+        padding-top: 15px;
+        background: url("../img/backgroundMobile.png") 0 0;        
+    }
+     
+    nav {
+        height: 80px;
+        padding: 35px 80px 0;
+        margin-bottom: 60px;
+        display: block;
+    }
+    
+    #menu, #menuButton, #headerTitle, #headerButton,
+    #headerText, .featuresName, #whoForTitle, #callingText, #footer {
+        display: none;
+    }
+     
+    #header {        
+        margin-bottom: 60px;
+        padding: 0 70px;
+        border: 2px solid green;
+    }
+
+    #headerTitleMobile {
+      display: block;      
+      font-size: 2.5em;
+      letter-spacing: 0.5;
+    }
+
+    #headerTextMobile {
+      display: block;
+      margin-bottom: 40px;
+      font-size: 1.25em;
+      line-height: 2;
+      color: #11223f;
+      font-family: "muliregular", Helvetica, sans-serif;      
+    }
+     
+    #headerButtonMobile {
+         display: block;
+         width: 300px;
+         min-width: 300px;
+         height: 50px;
+         margin-bottom: 40px;
+         text-shadow: 0 10px 40px rgba(25, 104, 252, 0.2);
+         box-shadow: 0 10px 40px 0 rgba(25, 104, 252, 0.3);
+         font-family: 'mulisemibold', Arial, sans-serif;
+         font-size: 14px;    
+         text-transform: uppercase;
+         line-height: 50px;
+         text-align: center;
+         color: #ffffff;
+         background-color: #1968fc;
+    }
+
+    #imageSectionMobile {
+        display: block;
+        margin-bottom: 60px;
+        height: 373px;
+        background: url("../img/bg_img.png") center 0 no-repeat;
+        border: 2px solid red;
+    }
+     
+    #blueSectionMobile {
+         display: block;         
+         min-height: 180px;
+         margin-bottom: 60px;
+         padding: 0 60px;
+         font-family: 'mulisemibold', Arial, sans-serif;
+         font-size: 20px;   
+         line-height: 1.5;  
+         text-align: center;
+         text-transform: uppercase;
+         color: #ffffff;
+         background-color: #1968fc;
+         border: 2px solid red;
+    }
+     
+    #blueSectionTitle {
+          padding: 60px 0;
+    }
+
+    #testimonialSection {          
+          min-height: 648px;
+          display: block;
+          margin-bottom: 0 auto 60px;
+          padding: 0;
+          border: 2px solid blue;
+    }
+     
+    .testimonialCard {
+          width: 540px;
+          min-width: 424px;
+          margin: 0 auto 50px;
+          padding: 40px 30px;
+          border: 2px solid green;
+    }
+     
+    .testimonialCard:last-child {
+          margin-bottom: 0;
+    }
+     
+    h2 {
+        margin: 0 0 40px 60px;
+    }
+     
+    #featuresSection {
+        min-height: 725px;
+        display: block;        
+        padding: 0 60px;
+        border: 2px solid yellow;
+    }
+     
+    .featuresCard {  
+        width: 100%;    
+        min-width: 520px;
+        height: 200px;
+        margin-right: 0;
+        margin-bottom: 55px;
+        position: relative;
+    }
+     
+    .featuresCardImg {
+        width: 80px;
+        height: 80px;
+    }
+
+    .featuresCard:first-child::after,
+    .featuresCard:nth-child(2)::after {  
+         display: table;
+         content: "";
+         width: 1px;
+         height: 60px;
+         position: absolute;
+         left: 0;
+         top: 100%;
+         margin-left: 60px;
+         border-left: dotted 2px #1968fc;
+    }
+     
+    #imageSectionMobile {
+        height: 503px;
+        padding: 0 21px;
+        margin-bottom: 60px;
+        background: url("../img/bg_img.png") 0 0 no-repeat;
+        border: 2px solid green;
+    }
+    .featuresNameMobile {
+        display: block;
+        padding: 20px;
+        font-family: "mulisemibold", Arial, sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 1.5;
+        color: #11223f;
+    }
+
+    #whoForSection {      
+      margin-bottom: 60px;
+      padding: 0 60px;
+      border: 2px solid green;
+
+    }     
+    
+    #whoForTitleMobile {
+      display: block;
+    }
+
+    .whoForCard {
+      width: 173px;
+      height: 150px;
+      min-height: 140px;          
+      border: 2px solid blue;
+    }
+
+    .whoForCard:nth-child(3),  .whoForCard:nth-child(6) {
+      margin: 0 20px 20px 0;
+    }
+    .whoForTitle {
+      line-height: 1.5;
+    }
+    
+    .whoForText {
+      line-height: 1.2;
+    }
+
+    #activitySection {      
+      display: block;
+      min-height: 440px;
+      margin-bottom: 0 auto 60px;
+      padding: 0 60px;
+      text-align: center;
+    }
+
+    .activityCard {
+      width: 100%;
+      min-width: 520px;
+    }
+
+    #callingSection {
+      min-height: 350px;
+      margin-bottom: 60px; 
+      padding: 0 60px;
+      background: #1968fc;
+    }
+    
+    #callingTextMobile {
+      display: block;
+      margin-bottom: 40px;
+      font-family: "muliregular", Helvetica, sans-serif;
+      font-size: 20px;
+      line-height: 2;
+      color: #ffffff;
+    }
+
+    #contactUsSection {  
+      min-width: 600px;      
+      display: block;
+      padding: 0;
+    }    
+    
+    #contactUsTitle::after {
+      width: 80px;      
+      margin-left: -40px;      
+    }
+
+    #formBlock {
+      width: calc(100% - 120px);  
+      min-width: calc(100% - 120px);    
+      min-height: 500px;
+      margin: 0 60px 60px 60px;
+      padding: 0 0 20px 0;
+      border: 2px solid red;
+    }
+    
+    #mapBlock {      
+      margin-left: 0;      
+      border: 2px solid red;
+    }
+
+    .formInput, .message {
+      width: 450px;     
+    }
+
+    #footerMobile {
+      display: block;
+      height: 200px;
+      min-height: 180px;
+      display: inline-block;
+      padding: 0 60px;
+      border: 2px solid red;            
+    }
+
+    .footerLogo {   
+      display: inline-block;   
+      margin-right: 30%;
+    }
+     
+    .socialBlock { 
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+      margin-top: 10px;
+   }
+   
+     .socialLink {
+       display: inline-block;
+       margin: 0;
+     }
+
+     .footerMenu {
+       display: block;
+     }
+     
+     .footerImage {
+       display: inline-block;
+     }
+     
+     
+     
+     
+     
+     
+     
+     
+  }
