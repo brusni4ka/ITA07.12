@@ -9,7 +9,7 @@
   <body>
     <header class="header">
       <div class="container">
-        <nav class="nav">
+        <div class="nav">
           <a href="./index.html" class="nav-logo">
             <div class="nav-logo-img">
               <img
@@ -17,79 +17,78 @@
                 alt="Logo image"
               />
             </div>
-            <h1 class="nav-logo-text">VanGoux</h1>
+            <span class="nav-logo-text">VanGoux</span>
           </a>
-          <div class="nav-menu">
+          <nav class="nav-menu">
             <a href="#" class="nav-menu-item">How it works</a>
             <a href="#" class="nav-menu-item">Features</a>
             <a href="#" class="nav-menu-item">Use cases</a>
             <a href="#" class="nav-menu-item">Schedule a demo</a>
-            <a href="" class="nav-menu-btn">Upload sketch</a>
-          </div>
-        </nav>
-        <div class="header-content">
-          <div class="header-content-text">
-            <h2 class="header-content-heading">
-              Launch beautiful websites directly from Sketch
-            </h2>
-            <div class="header-content-description">
-              Create pixel perfect websites, landing pages & portfolios directly
-              from your Sketch designs
-            </div>
-            <a href="" class="header-content-btn btn-hide-sm"> Upload Your Sketch File </a>
-            <a href="" class="header-content-btn btn-hide-lg"> See VanGouX in action </a>
-          </div>
-          <div class="header-content-img">
-            <img src="./imgs/illustration-main.png" alt="" />
-          </div>
+            <button class="nav-menu-btn">Upload sketch</button>
+          </nav>
         </div>
-      </div>
-      <div class="header-visit">
-        <div class="container">
-          <p class = "header-visit-info">
-            Please visit our desktop site to upload your Sketch designs
-          </p>
-        </div>
-      </div>
+    </header>
+    <main class="main">
       <div class="container">
-        <div class="header-cards">
-          <div class="header-card">
-            <div class="header-card-content">
-              <div class="header-card-img">
+        <section class="intro">
+          <div class="intro-content">
+            <div class="intro-content-text">
+              <h1 class="intro-content-heading">
+                Launch beautiful websites directly from Sketch
+              </h1>
+              <div class="intro-content-description">
+                Create pixel perfect websites, landing pages & portfolios directly
+                from your Sketch designs
+              </div>
+              <button class="intro-content-btn btn-hide-sm"> Upload Your Sketch File </button>
+              <button class="intro-content-btn btn-hide-lg"> See VanGouX in action </button>
+            </div>
+            <div class="intro-content-img">
+              <img src="./imgs/illustration-main.png" alt="" />
+            </div>
+          </div>
+        <div class="intro-visit">
+          <div class="container">
+            <p class = "intro-visit-info">
+              Please visit our desktop site to upload your Sketch designs
+            </p>
+          </div>
+        </div>
+        <div class="intro-cards">
+          <div class="intro-card">
+            <div class="intro-card-content">
+              <div class="intro-card-img">
                 <img src="./imgs/testimonial-picture.png" alt="" />
               </div>
-              <div class="header-card-info">
-                <p class="header-card-name">John Doe</p>
-                <span class="header-card-job">CEO, PrettyDopeSpecialist</span>
+              <div class="intro-card-info">
+                <p class="intro-card-name">John Doe</p>
+                <span class="intro-card-job">CEO, PrettyDopeSpecialist</span>
               </div>
             </div>
-            <blockquote class="header-card-quote">
+            <blockquote class="intro-card-quote">
               “Our senior frontend developer was 70% faster in building React.js
               components thanks to VanGoux!”
             </blockquote>
           </div>
-          <div class="header-card">
-            <div class="header-card-content">
-              <div class="header-card-img">
+          <div class="intro-card">
+            <div class="intro-card-content">
+              <div class="intro-card-img">
                 <img src="./imgs/testimonial-picture (1).png" alt="" />
               </div>
-              <div class="header-card-info">
-                <p class="header-card-name">Jane Goodman</p>
-                <span class="header-card-job">Founder, ImpactNation</span>
+              <div class="intro-card-info">
+                <p class="intro-card-name">Jane Goodman</p>
+                <span class="intro-card-job">Founder, ImpactNation</span>
               </div>
             </div>
-            <blockquote class="header-card-quote">
+            <blockquote class="intro-card-quote">
               “It was awesome to see VanGoux turn our MVP designs into code
               within minutes.”
             </blockquote>
           </div>
         </div>
-      </div>
-    </header>
-    <main class="main">
-      <div class="container">
+        </section>
         <section class="features">
-          <h3 class="features-heading">Features</h3>
+          <h2 class="features-heading">Features</h2>
           <div class="features-cards">
             <div class="features-card">
               <div class="features-card-header">
@@ -99,7 +98,7 @@
                   alt=""
                 />
                 <div class="features-card-heading">
-                  <h4>Pixel perfect output</h4>
+                  <h3>Pixel perfect output</h3>
                 </div>
               </div>
               <div class="features-card-body">
@@ -115,7 +114,7 @@
                   alt=""
                 />
                 <div class="features-card-heading">
-                  <h4>Flexible & responsive</h4>
+                  <h3>Flexible & responsive</h3>
                 </div>
               </div>
               <div class="features-card-body">
@@ -131,7 +130,7 @@
                   alt=""
                 />
                 <div class="features-card-heading">
-                  <h4>Complete code freedom</h4>
+                  <h3>Complete code freedom</h3>
                 </div>
               </div>
               <div class="features-card-body">
@@ -142,42 +141,42 @@
           </div>
         </section>
         <section class="users">
-          <h3 class="users-heading">Who is VanGoux for</h3>
+          <h2 class="users-heading">Who is VanGoux for</h2>
           <div class="users-cards">
             <div class="users-card">
-              <h4 class="users-card-title">UX engineers</h4>
+              <h3 class="users-card-title">UX engineers</h3>
               <div class="users-card-description">
                 Build MVPs for your web app as fast as you can design
               </div>
             </div>
             <div class="users-card">
-              <h4 class="users-card-title">UX designers</h4>
+              <h3 class="users-card-title">UX designers</h3>
               <div class="users-card-description">
                 Create and share reaslistic prototypes of your website or app
               </div>
             </div>
             <div class="users-card">
-              <h4 class="users-card-title">React developers</h4>
+              <h3 class="users-card-title">React developers</h3>
               <div class="users-card-description">
                 Auto-generate boilerplate components and design systems
               </div>
             </div>
          
             <div class="users-card">
-              <h4 class="users-card-title">Design agencies</h4>
+              <h3 class="users-card-title">Design agencies</h3>
               <div class="users-card-description">
                 Close more clients by showing them how quickly you can build
                 apps
               </div>
             </div>
             <div class="users-card">
-              <h4 class="users-card-title">Startups</h4>
+              <h3 class="users-card-title">Startups</h3>
               <div class="users-card-description">
                 Go to market quickly by spinning up your website and apps
               </div>
             </div>
             <div class="users-card">
-              <h4 class="users-card-title">Enterprises</h4>
+              <h3 class="users-card-title">Enterprises</h3>
               <div class="users-card-description">
                 Quickly build design systems for your UX and product teams
               </div>
@@ -185,7 +184,7 @@
           </div>
         </section>
         <section class="functions">
-          <h3 class="functions-heading">What can you do with VanGoux</h3>
+          <h2 class="functions-heading">What can you do with VanGoux</h2>
           <div class="functions-cards">
             <div class="functions-card">
               <img
@@ -194,7 +193,7 @@
                 alt=""
               />
               <div class="functions-card-title">
-                <h4>Make realistic prototypes</h4>
+                <h3>Make realistic prototypes</h3>
               </div>
             </div>
             <div class="functions-card">
@@ -204,7 +203,7 @@
                 alt=""
               />
               <div class="functions-card-title">
-                <h4>Build an MVP as quickly as you can design</h4>
+                <h3>Build an MVP as quickly as you can design</h3>
               </div>
             </div>
         
@@ -215,7 +214,7 @@
                 alt=""
               />
               <div class="functions-card-title">
-                <h4>Create pixel-perfect landing pages</h4>
+                <h3>Create pixel-perfect landing pages</h3>
               </div>
             </div>
             <div class="functions-card">
@@ -225,7 +224,7 @@
                 alt=""
               />
               <div class="functions-card-title">
-                <h4>Generate a design system for your product</h4>
+                <h3>Generate a design system for your product</h3>
               </div>
             </div>
           </div>
@@ -235,7 +234,7 @@
           <div class="schedule-content">
             <h3 class="schedule-content-heading">Don’t know how to work with code?</h3>
             <p class="schedule-content-description">Schedule a call and we'll show you how you could become a design-to-code rockstar using VanGoux.</p>
-            <a href="#" class="schedule-content-btn">Schedule a call with us</a>
+            <buttom class="schedule-content-btn">Schedule a call with us</button>
           </div>
         </div>
       </section>
@@ -260,12 +259,12 @@
     <footer class = "footer">
       <div class="container">
         <div class="footer-wrap">
-          <div class = "footer-logo">
+          <a  href = "#" class = "footer-logo">
             <img src="./imgs/logo-small-solid_2020-12-25/logo-small-solid.png" alt="">
             <h5 class="footer-title">
               Site made with VanGouX
             </h5>
-          </div>
+          </a>
           <div class="footer-menu">
             <a href="" class="footer-menu-item">Contact</a>
             <a href="" class="footer-menu-item">Feedback</a>
