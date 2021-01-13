@@ -628,13 +628,6 @@ body {
       }
       &-card:first-child,
       &-card:nth-child(2) {
-        // margin-bottom: 80px;
-        // @include respond-to(small-screens) {
-        //   margin-bottom: 62px;
-        // }
-        // @include respond-to(medium-screens) {
-        //   margin-bottom: 62px;
-        // }
         .features-card-body:after {
           @include respond-to(small-screens) {
             content: "";
@@ -734,11 +727,6 @@ body {
       &:nth-child(2) {
         margin-bottom: 40px;
       }
-
-      // &:nth-child(1),
-      // &:nth-child(3) {
-      //   margin-right: 40px;
-      // }
       @include respond-to(small-screens) {
         width: 100%;
         &:nth-child(3) {
@@ -985,7 +973,6 @@ body {
     }
     &-menu {
       display: flex;
-      // padding-top: 10px;
       @include respond-to(small-screens) {
         display: none;
       }
@@ -1006,7 +993,6 @@ body {
     }
 
     &-social {
-      // margin-top: 10px;
       height: 50px;
       display: flex;
       align-items: center;
