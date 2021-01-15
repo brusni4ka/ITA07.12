@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./fonts/stylesheet.css">
   <title>Van Goux</title>
 
 </head>
@@ -14,67 +15,44 @@
   <!-- header start -->
   <header class="header">
     <div class="wrapper">
-
       <div class="header_wrapper">
         <div class="header_logo">
           <a href="/" class="header_logo_link">
-            <img src="./assets/logo.png" alt="logo">
+            <img src="./assets/logo-small-solid.png" alt="logo">
           </a>
+          <span>VanGoux</span>
         </div>
-
-        <div class="header_nav">
-          <ul class="header_list">
-            <li class="header_list_item">
-              <a href="#" class="header_list_link">
-                How it works
-              </a>
-            </li>
-            <li class="header_list_item">
-              <a href="#" class="header_list_link">
-                Features
-              </a>
-            </li>
-            <li class="header_list_item">
-              <a href="#" class="header_list_link">
-                Use cases
-              </a>
-            </li>
-            <li class="header_list_item">
-              <a href="#" class="header_list_link">
-                Schedule a demo
-              </a>
-            </li>
-          </ul>
-        </div>
-
+        <nav class="header_nav">
+          <a href="#" class="header_nav_link">How it works</a>
+          <a href="#" class="header_nav_link">Features</a>
+          <a href="#" class="header_nav_link">Use cases</a>
+          <a href="#" class="header_nav_link">Schedule a demo</a>
+        </nav>
         <div class="header_upload_button">
           <button class="header_button">UPLOAD SKETCH</button>
         </div>
       </div>
-
     </div>
   </header>
+
   <!-- header end -->
   <main>
     <!-- intro start -->
     <section class="intro">
       <div class="wrapper">
-
         <div class="conteiner">
-
           <div id="intro_headline">
             <h1 id="intro_title">
               Launch beautiful websites directly from Sketch
             </h1>
-            <h3 id="intro_text">
+            <p id="intro_text">
               Create pixel perfect websites, landing pages & portfolios directly
               from your Sketch designs
-            </h3>
+            </p>
             <button id="intro_button">
               UPLOAD YOUR SKETCH FILE
             </button>
           </div>
-
           <div class="div_intro_image">
             <img src="./assets/illustration-main.png" alt="intro_image" id="intro_image">
           </div>
@@ -87,8 +65,10 @@
 
     <!-- section for mibile version -->
     <section class="upload_sketch">
-      <div class="upload_sketch_wrapper">
-        <p>Please visit our desktop site to upload your Sketch designs</p>
+      <div class="wrapper">
+        <div class="upload_sketch_wrapper">
+          <p>PLEASE VISIT OUR DESKTOP SITE TO UPLOAD YOUR SKETCH DESIGNS</p>
+        </div>
       </div>
     </section>
 
@@ -96,7 +76,6 @@
     <section class="review">
       <div class="wrapper">
         <div class="review_wrapper">
-
           <div class="review_testimonial">
             <img src="./assets/illustration-quote.png" alt="quote" class="review_testimonial_quote">
             <img src="./assets/testimonial-picture1.png" alt="photo" class="review_testimonial_photo">
@@ -106,12 +85,10 @@
             <span class="review_testimonial_profesion">
               CEO, PrettyDopeDesigns
             </span>
-
             </span class="review_testimonial_text">
             “Our senior frontend developer was 70% faster in building React.js components thanks to VanGoux!”
             </span>
           </div>
-
           <div class="review_testimonial">
             <img src="./assets/illustration-quote.png" alt="quote" class="review_testimonial_quote">
             <img src="./assets/testimonial-picture2.png" alt="photo" class="review_testimonial_photo">
@@ -121,12 +98,10 @@
             <span class="review_testimonial_profesion">
               Founder, ImpactNation
             </span>
-
             </span class="review_testimonial_text">
             “It was awesome to see VanGoux turn our MVP designs into code within minutes.”
             </span>
           </div>
-
         </div>
       </div>
     </section>
@@ -135,11 +110,12 @@
     <!-- features start -->
     <section class="features">
       <div class="wrapper">
-
-        <h2 id="section_title">
-          FEATURES
-        </h2>
-        <hr class="title_hr">
+        <div class="section_header">
+          <h2 id="section_title">
+            FEATURES
+          </h2>
+          <hr class="title_hr">
+        </div>
         <div class="features_cards">
           <div class="features_card" id="card1">
             <div class="card_title">
@@ -153,7 +129,7 @@
               </p>
             </div>
           </div>
-
+          <div class="mobile_line"></div>
           <div class="features_card" id="card2">
             <div class="card_title">
               <img src="./assets/icon-solid-flexible-responsive.svg" alt="flexible-responsive" class="card_img">
@@ -166,10 +142,10 @@
               </p>
             </div>
           </div>
-
+          <div class="mobile_line"></div>
           <div class="features_card" id="card3">
             <div class="card_title">
-              <img src="./assets/icon-solid-reusable-components.svg" alt="reusable-components" class="card_img">
+              <img src="./assets/icon-solid-flexible-responsive.svg" alt="reusable-components" class="card_img">
               <span>Complete code freedom</span>
             </div>
 
@@ -186,61 +162,77 @@
     <!-- who_is_VanGoux_for start -->
     <section class="who_is_VanGoux_for">
       <div class="wrapper">
-        <h2 id="section_title">
-          WHO IS VANGOUX FOR
-        </h2>
-        <hr class="title_hr">
-      </div>
 
-      <div class="who_is_VanGoux_for_Cards">
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX engineers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Build MVPs for your web app as fast as you can design
-          </p>
+        <div class="section_header">
+          <h2 id="section_title">
+            WHO IS VANGOUX FOR
+          </h2>
+          <hr class="title_hr">
         </div>
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX designers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Create and share reaslistic prototypes of your website or app
-          </p>
+
+        <div class="who_is_VanGoux_for_Cards">
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              UX engineers
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Build MVPs for your web app as fast as you can design
+              </p>
+            </div>
+          </div>
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              UX designers
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Create and share reaslistic prototypes of your website or app
+              </p>
+            </div>
+          </div>
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              React developers
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Auto-generate boilerplate components and design systems
+              </p>
+            </div>
+          </div>
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              Design agencies
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Close more clients by showing them how quickly you can build apps
+              </p>
+            </div>
+          </div>
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              Startups
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Go to market quickly by spinning up your website and apps
+              </p>
+            </div>
+          </div>
+          <div class="who_is_VanGoux_for_Card">
+            <h3 class="who_is_VanGoux_for_Card_title">
+              Enterprises
+            </h3>
+            <div class="who_is_VanGoux_for_Card_text">
+              <p>
+                Quickly build design systems for your UX and product teams
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX engineers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Build MVPs for your web app as fast as you can design
-          </p>
-        </div>
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX engineers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Build MVPs for your web app as fast as you can design
-          </p>
-        </div>
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX engineers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Build MVPs for your web app as fast as you can design
-          </p>
-        </div>
-        <div class="who_is_VanGoux_for_Card">
-          <h3 class="who_is_VanGoux_for_Card_title">
-            UX engineers
-          </h3>
-          <p class="who_is_VanGoux_for_Card_text">
-            Build MVPs for your web app as fast as you can design
-          </p>
-        </div>
+      </div>
       </div>
     </section>
     <!-- Who is VanGoux_for end -->
@@ -248,10 +240,14 @@
     <!-- What can you do with VanGoux start -->
     <section class="what_can_you_do_with_VanGoux">
       <div class="wrapper">
-        <h2 id="section_title">
-          WHAT CAN YOU DO WITH VANGOUX
-        </h2>
-        <hr class="title_hr">
+
+        <div class="section_header">
+          <h2 id="section_title">
+            WHAT CAN YOU DO WITH VANGOUX
+          </h2>
+          <hr class="title_hr">
+        </div>
+
         <div class="what_can_you_cards">
 
           <div class="what_can_you_card">
@@ -286,25 +282,27 @@
 
     <!-- Schedule a Call start -->
     <section class="schedule_a_call">
-      <div class="schedule_a_call_wrapper">
+      <div class="wrapper">
+        <div class="schedule_a_call_wrapper">
 
-        <div class="title_block">
-          <h2 id="schedule_a_call_title">
-            DON’T KNOW HOW TO WORK WITH CODE?
-          </h2>
-          <hr id="schedule_a_call_hr">
-          <p class="schedule_a_call_text">
-            Schedule a call and we'll show you how you could become a design-to-code rockstar using VanGoux.
-          </p>
-          <button class="schedule_a_call_button">
-            SCHEDULE A CALL WITH US
-          </button>
+          <div class="title_block">
+            <h2 id="schedule_a_call_title">
+              DON’T KNOW HOW TO WORK WITH CODE?
+            </h2>
+            <hr class="title_hr">
+            <p class="schedule_a_call_text">
+              Schedule a call and we'll show you how you could become a design-to-code rockstar using VanGoux.
+            </p>
+            <button class="schedule_a_call_button">
+              SCHEDULE A CALL WITH US
+            </button>
+          </div>
+
+          <div class="image_block">
+            <img src="./assets/illustration-whiteglove.png" alt="whiteglove">
+          </div>
         </div>
-
-        <div class="image_block">
-          <img src="./assets/illustration-whiteglove.png" alt="whiteglove">
-        </div>
-
+      </div>
       </div>
     </section>
     <!-- Schedule a Call can you do with VanGoux end -->
@@ -314,7 +312,7 @@
       <div class="wrapper">
         <div class="contact_us_wrapper">
           <div class="contact_us_div_form">
-            <h2 class="section_title">
+            <h2 class="section_title_form">
               CONTACT US
             </h2>
             <hr class="title_hr">
@@ -329,7 +327,7 @@
               </label>
               <label for="message" class="input_label">
                 Message
-                <input type="text" name="message" class="form_input" id="message">
+                <textarea class="form_textarea"></textarea>
               </label>
               <button class="form_button">Contact Us</button>
             </form>
@@ -349,36 +347,21 @@
   <footer class="footer">
     <div class="wrapper">
       <div class="footer_wrapper">
+
+
         <div class="footer_logo">
           <a href="/" class="footer_logo_link">
-            <img src="./assets/group-2.png" alt="logo">
+            <img src="./assets/logo-small-solid.png" alt="logo">
           </a>
+          <span>Site made with VanGoux</span>
         </div>
 
-        <div class="footer_nav">
-          <ul class="footer_list">
-            <li class="footer_list_item">
-              <a href="#" class="footer_list_link">
-                Contact
-              </a>
-            </li>
-            <li class="footer_list_item">
-              <a href="#" class="footer_list_link">
-                Feedback
-              </a>
-            </li>
-            <li class="footer_list_item">
-              <a href="#" class="footer_list_link">
-                Join our Slack
-              </a>
-            </li>
-            <li class="footer_list_item">
-              <a href="#" class="footer_list_link">
-                Terms
-              </a>
-            </li>
-          </ul>
-        </div>
+        <nav class="footer_nav">
+          <a href="#" class="footer_nav_link">Contact</a>
+          <a href="#" class="footer_nav_link">Feedback</a>
+          <a href="#" class="footer_nav_link">Join our Slack</a>
+          <a href="#" class="footer_nav_link">Terms</a>
+        </nav>
 
         <div class="footer_social_media">
           <div class="footer_social_media_icon">
