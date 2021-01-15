@@ -39,7 +39,6 @@
 
     &__body {
       max-width: 700px;
-
     }
 
     &__text {
@@ -50,10 +49,6 @@
   }
 
   &-hero {
-    &__wrapper {
-      padding-top: 80px;
-    }
-
     &__body {
       max-width: 480px;
       margin: 0 auto 80px auto;
@@ -74,7 +69,6 @@
       font-size: 20px;
       line-height: 2;
       padding: 20px 0 40px;
-
     }
 
     &__img {
@@ -98,7 +92,6 @@
   .section {
     &-hero {
       &__wrapper {
-        padding-top: 100px;
         display: flex;
       }
 

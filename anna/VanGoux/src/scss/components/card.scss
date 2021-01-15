@@ -23,6 +23,18 @@
 
     box-shadow: 0 20px 60px 0 rgba(25, 104, 252, 0.1);
 
+    & .card__header {
+      position: relative;
+      &::after {
+        content: url(./assets/illustration-quote.png);
+        width: 60px;
+        height: auto;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+
     &__body {
       margin-top: 40px;
     }

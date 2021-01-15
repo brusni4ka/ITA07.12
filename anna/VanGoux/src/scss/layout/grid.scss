@@ -4,7 +4,7 @@ $columns:12;
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
 
   & .col {
     @for $index from 1 through $columns {
