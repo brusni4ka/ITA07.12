@@ -1,11 +1,11 @@
 .header {
   display: flex;
-  padding: 30px 0;
-
+  margin-bottom: 80px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   &__btn {
     display: none;
-    width: auto;
-    padding: 0 30px;
+    width: auto;   
   }
 
   &__nav {
@@ -16,6 +16,7 @@
 
 @media (min-width: 960px) {
   .header {
+    margin-bottom: 100px;
     &__btn {
       display: block;
     }
