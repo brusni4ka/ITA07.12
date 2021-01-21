@@ -1,0 +1,96 @@
+const Movies = [
+  {
+    id: 0,
+    title: "Titanic",
+    tagline: "One more sad movie",
+    vote_average: 8,
+    vote_count: 123,
+    release_date: "2001",
+    poster_path:
+      "https://images-na.ssl-images-amazon.com/images/I/51G13d3EwBL._AC_UL600_SR405,600_.jpg",
+    overview:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tristique senectus et netus et malesuada fames. Rhoncus aenean vel elit scelerisque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Erat nam at lectus urna.",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 200,
+    genres: ["Drama"],
+  },
+  {
+    id: 1,
+    title: "Avengers",
+    tagline: "Exciting movie",
+    vote_average: 5,
+    vote_count: 123,
+    release_date: "2020",
+    poster_path:
+      "https://static.posters.cz/image/750/%D0%9F%D0%BB%D0%B0%D0%BA%D0%B0%D1%82/avengers-infinity-war-one-sheet-i58560.jpg",
+    overview:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tristique senectus et netus et malesuada fames. Rhoncus aenean vel elit scelerisque. Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. Erat nam at lectus urna.",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 123,
+    genres: ["Action"],
+  },
+  {
+    id: 2,
+    title: "American Pie",
+    tagline: "",
+    vote_average: 11,
+    vote_count: 123,
+    release_date: "2005",
+    poster_path:
+      "https://cdn.shopify.com/s/files/1/1416/8662/products/american_pie_1999_original_film_art_1200x.jpg?v=1577562813",
+    overview: "Here's the overview",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 123,
+    genres: ["Comedy"],
+  },
+  {
+    id: 3,
+    title: "Pirates of the Carribean",
+    tagline: "",
+    vote_average: 9,
+    vote_count: 123,
+    release_date: "2003",
+    poster_path:
+      "https://cdn.shopify.com/s/files/1/0037/8008/3782/products/pirates_of_the_caribbean_advance_cast_style_WC23692_B_2_framed1.jpg?v=1581768597",
+    overview: "Here's the overview",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 123,
+    genres: ["Action", "Adventure"],
+  },
+  {
+    id: 4,
+    title: "Home Alone",
+    tagline: "",
+    vote_average: 5.0,
+    vote_count: 123,
+    release_date: "2017",
+    poster_path:
+      "https://images-na.ssl-images-amazon.com/images/I/81EWrTadiJL._AC_SY741_.jpg",
+    overview: "Here's the overview",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 123,
+    genres: ["Comedy"],
+  },
+  {
+    id: 5,
+    title: "Green Book",
+    tagline: "",
+    vote_average: 5,
+    vote_count: 123,
+    release_date: "2012",
+    poster_path:
+      "https://images-na.ssl-images-amazon.com/images/I/61Z6bxl6JsL._AC_SL1204_.jpg",
+    overview: "Here's the overview",
+    budget: 1000000,
+    revenue: 0,
+    runtime: 123,
+    genres: ["Comedy", "Drama"],
+  },
+];
+
+export default Movies;

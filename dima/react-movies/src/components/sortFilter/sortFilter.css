@@ -1,0 +1,16 @@
+.movie-panel_sort-filter-btn {
+  color: black;
+  background: transparent;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.movie-panel_sort-filter {
+  margin-left: auto;
+  color: black;
+  font-weight: 600;
+}
+
+.sort-filter-active {
+  color: #ff0040;
+}
