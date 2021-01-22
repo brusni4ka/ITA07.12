@@ -11,8 +11,6 @@ interface AppState {
   movies: MovieInterface[];
   searchedMovies: null | MovieInterface[];
   currentSortType: string;
-  searchBarValue: string;
-  searchedBy: string;
 }
 class App extends Component<{}, AppState> {
   state: AppState = {
@@ -20,36 +18,10 @@ class App extends Component<{}, AppState> {
     movies: Movies,
     searchedMovies: null,
     currentSortType: "release date",
-    searchBarValue: "",
-    searchedBy: "title",
   };
   componentDidMount() {
     this.sortMovies(this.state.currentSortType);
   }
-  onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value: searchBarValue } = e.target;
-    console.log(searchBarValue);
-    this.setState({ searchBarValue });
-  };
-  onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { searchBarValue, searchedBy } = this.state;
-    const { movies } = this.state;
-    const searchedMovies = this.searchMovies(
-      searchBarValue,
-      searchedBy,
-      movies
-    );
-    this.setState({ searchBarValue: "", searchedMovies });
-  };
-  toggleSearchCategory = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    const { value } = e.currentTarget;
-    console.log(value);
-    this.setState({ searchedBy: value.toLowerCase() });
-  };
-
   setCurrentSortType = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
@@ -59,11 +31,8 @@ class App extends Component<{}, AppState> {
       this.setState({ currentSortType });
     }
   };
-  searchMovies(
-    value: string,
-    category: string,
-    movies: MovieInterface[]
-  ): MovieInterface[] {
+  searchMovies = (value: string, category: string): MovieInterface[] => {
+    const { movies } = this.state;
     if (category === "title") {
       return movies.filter((movie) =>
         movie.title.toLowerCase().includes(value.toLowerCase())
@@ -78,8 +47,10 @@ class App extends Component<{}, AppState> {
       }
       return movies;
     }
-  }
-
+  };
+  setSearchedMovies = (searchedMovies: MovieInterface[]) => {
+    this.setState({ searchedMovies });
+  };
   sortMovies(type: string) {
     const { movies, searchedMovies } = this.state;
     if (type === "release date") {
@@ -120,25 +91,15 @@ class App extends Component<{}, AppState> {
   }
 
   render() {
-    const {
-      movies,
-      searchedMovies,
-      currentSortType,
-      searchedBy,
-      searchBarValue,
-    } = this.state;
+    const { movies, searchedMovies, currentSortType } = this.state;
     return (
       <>
         <MainPage
           movies={movies}
           searchedMovies={searchedMovies}
-          searchedBy={searchedBy}
           currentSortType={currentSortType}
-          searchBarValue={searchBarValue}
-          onFormSubmit={this.onFormSubmit}
-          onSearchBarChanged={this.onSearchBarChange}
           setCurrentSortType={this.setCurrentSortType}
-          toggleSearchCategory={this.toggleSearchCategory}
+          setSearchedMovies={this.setSearchedMovies}
           searchMovies={this.searchMovies}
         />
         {/* <MoviePage movie={Movies[1]} movies={Movies} /> */}

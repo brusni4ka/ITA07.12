@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Component } from "react";
 
 import ContentContainer from "../../components/contentContainer";
 import FirstScreen from "../../components/firstScreen";
@@ -14,38 +13,24 @@ import MoviesResult from "../../components/moviesResult";
 import SortFilter from "../../components/sortFilter";
 
 import "./mainpage.css";
-import Movies from "../../api/movies";
 interface MainPageProps {
   movies: MovieInterface[];
   searchedMovies: null | MovieInterface[];
   currentSortType: string;
-  searchBarValue: string;
-  searchedBy: string;
-  onSearchBarChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   setCurrentSortType: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
-  toggleSearchCategory: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-  searchMovies: (
-    value: string,
-    category: string,
-    movies: MovieInterface[]
-  ) => MovieInterface[];
+  searchMovies: (value: string, category: string) => MovieInterface[];
+  setSearchedMovies: (searchedMovies: MovieInterface[]) => void;
 }
 const MainPage = (props: MainPageProps) => {
   const {
     searchedMovies,
-    searchBarValue,
-    searchedBy,
     movies,
     currentSortType,
     setCurrentSortType,
-    onFormSubmit,
-    onSearchBarChanged,
-    toggleSearchCategory,
+    searchMovies,
+    setSearchedMovies,
   } = props;
   const moviesToDisplay = searchedMovies ? searchedMovies : movies;
   const renderPanel = () => {
@@ -71,11 +56,8 @@ const MainPage = (props: MainPageProps) => {
           <Header moviePage={false} />
           <ErrorBoundary>
             <SearchBar
-              searchBarValue={searchBarValue}
-              searchedBy={searchedBy}
-              onFormSubmit={onFormSubmit}
-              onSearchBarChange={onSearchBarChanged}
-              toggleSearchCategory={toggleSearchCategory}
+              searchMovies={searchMovies}
+              setSearchedMovies={setSearchedMovies}
             />
           </ErrorBoundary>
         </ContentContainer>
