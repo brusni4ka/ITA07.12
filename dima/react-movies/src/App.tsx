@@ -59,7 +59,6 @@ class App extends Component<{}, AppState> {
       this.setState({ currentSortType });
     }
   };
-
   searchMovies(
     value: string,
     category: string,
@@ -129,8 +128,8 @@ class App extends Component<{}, AppState> {
       searchBarValue,
     } = this.state;
     return (
-      <div>
-        {/* <MainPage
+      <>
+        <MainPage
           movies={movies}
           searchedMovies={searchedMovies}
           searchedBy={searchedBy}
@@ -141,9 +140,9 @@ class App extends Component<{}, AppState> {
           setCurrentSortType={this.setCurrentSortType}
           toggleSearchCategory={this.toggleSearchCategory}
           searchMovies={this.searchMovies}
-        /> */}
-        <MoviePage movie={Movies[1]} movies={Movies} />
-      </div>
+        />
+        {/* <MoviePage movie={Movies[1]} movies={Movies} /> */}
+      </>
     );
   }
 }

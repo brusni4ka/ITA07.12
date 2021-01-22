@@ -12,6 +12,7 @@ interface SearchBarProps {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
 }
+
 const SearchBar = ({
   searchBarValue,
   searchedBy,
