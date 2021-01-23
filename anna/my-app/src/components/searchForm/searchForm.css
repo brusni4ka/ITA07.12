@@ -1,0 +1,54 @@
+.search-form {
+  color: white;
+}
+
+.search-form .searchby-wrapper {
+  display: flex;
+}
+
+.search-form-input {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  border: none;
+  font-size: 16px;
+  color: white;
+  border-bottom: 3px solid #f92b5b;
+  margin-bottom: 15px;
+}
+
+.search-form-btn {
+  margin-left: auto;
+}
+
+input[type=radio] {
+  visibility: hidden;
+  position: absolute;
+}
+input[type=radio] + label {
+  cursor:pointer;
+}
+
+#input-ganre[type=radio] + label {   
+  content: "ganre"; 
+}
+
+#input-title[type=radio] + label:before {   
+  content: "title"; 
+}
+
+#input-ganre[type=radio] + label:before {   
+  content: "ganre"; 
+}
+
+input[type=radio] + label:before { 
+  margin-left: 10px;
+  content: "kkk "; 
+  vertical-align: baseline;
+  transition: 0.3s;  
+  text-transform: uppercase;
+}
+
+input[type=radio]:checked + label:before{
+  background-color:  #f92b5b;
+}
