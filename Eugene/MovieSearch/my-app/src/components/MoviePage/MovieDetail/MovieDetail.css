@@ -1,0 +1,60 @@
+.movie-detail {
+  display: flex;
+}
+
+.movie-img-block {
+  width: 60%;
+  margin: 30px 30px 30px 0;
+}
+
+.movie_img {
+  width: 100%;
+  height: auto;
+}
+
+.movie-description {
+  padding: 20px;
+}
+
+.movie-info {
+  display: flex;
+  align-items: center;
+}
+
+.movie-title {
+  color: coral;
+  font-size: 28px;
+}
+
+.movie-rate {
+  padding: 5px;
+  display: inline-block;
+  color: white;
+  margin-left: 20px;
+  border: 2px solid white; /* Параметры границы */
+  border-radius: 20px;
+}
+
+.movie-tagline {
+  color: lightgray;
+}
+
+.movie-year-time {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.movie-year {
+  color: white;
+}
+
+.movie-time {
+  color: white;
+  margin-left: 20px;
+}
+
+.movie_overview {
+  color: lightgray;
+}
