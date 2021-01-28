@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import FilterProperty from "../../../enums/FilterPropery";
 
 interface SearchFilterProps {
   searchedBy: string;
@@ -16,11 +17,11 @@ const SearchFilter = ({
       <button
         type="button"
         className={
-          searchedBy === "title"
+          searchedBy === FilterProperty.title
             ? "btn search-bar_title-btn btn-active"
             : "btn search-bar_title-btn"
         }
-        onClick={(e) => toggleSearchCategory(e)}
+        onClick={toggleSearchCategory}
         value="title"
       >
         Title
@@ -28,14 +29,12 @@ const SearchFilter = ({
       <button
         type="button"
         className={
-          searchedBy === "genre"
+          searchedBy === FilterProperty.genre
             ? "btn search-bar_genre-btn btn-active"
             : "btn search-bar_genre-btn"
         }
-        onClick={(e) => {
-          toggleSearchCategory(e);
-        }}
-        value="genre"
+        onClick={toggleSearchCategory}
+        value="genres"
       >
         Genre
       </button>

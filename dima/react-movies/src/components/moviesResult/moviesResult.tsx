@@ -1,14 +1,12 @@
-import * as React from "react";
+import React from "react";
 import MovieInterface from "../../interfaces/movieInterface";
 
 interface MoviesResultProps {
-  searchedMovies: MovieInterface[] | null;
+  movies: MovieInterface[] | null;
 }
 
-const MoviesResult = ({ searchedMovies }: MoviesResultProps) => {
-  return searchedMovies ? (
-    <span className="">{searchedMovies.length} movies was found</span>
-  ) : null;
+const MoviesResult = ({ movies }: MoviesResultProps) => {
+  return movies && <span className="">{movies.length} movies was found</span>;
 };
 
 export default MoviesResult;

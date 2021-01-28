@@ -1,10 +1,13 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./footer.css";
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <h3 className="footer-logo">netflixroulette</h3>
+        <Link to="/">
+          <h3 className="footer-logo">netflixroulette</h3>
+        </Link>
       </div>
     </footer>
   );

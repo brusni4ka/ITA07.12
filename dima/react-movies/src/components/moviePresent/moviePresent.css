@@ -18,13 +18,17 @@
 }
 .movie-header {
   display: flex;
-  align-items: center;
+  flex: 1;
+  /* align-items: center; */
 }
 .movie-title {
   color: #ff0040;
+  display: inline-block;
   font-size: 42px;
   margin-right: 30px;
   font-weight: 700;
+  max-width: 80%;
+  margin-right: 30px;
 }
 
 .movie-rating {
@@ -32,7 +36,9 @@
   font-size: 28px;
   line-height: 58px;
   width: 60px;
+  align-self: center;
   height: 60px;
+
   border-radius: 50%;
   border: 2px solid darkseagreen;
   text-align: center;

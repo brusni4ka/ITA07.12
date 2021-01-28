@@ -1,15 +1,21 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./header.css";
 interface HeaderProps {
-  moviePage: boolean;
+  showSearchBtn: boolean;
 }
 function Header(props: HeaderProps) {
   return (
     <header className="header">
-      <h3 className="logo">netflixroulette</h3>
-      {props.moviePage ? (
-        <button className="btn header_search-btn">Search</button>
-      ) : null}
+      <Link to="/">
+        <h3 className="logo">netflixroulette</h3>
+      </Link>
+
+      {props.showSearchBtn && (
+        <Link to="/search">
+          <button className="btn header_search-btn">Search</button>
+        </Link>
+      )}
     </header>
   );
 }

@@ -38,3 +38,16 @@ code {
   background: rgb(64, 82, 82);
   font-weight: 600;
 }
+.first-screen-wrapper {
+  background: url("./imgs/2.jpg") center center, rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
+}
+
+.second-screen-wrapper {
+  background: #e0e0de;
+}
+
+.third-screen-wrapper {
+  flex-grow: 1;
+  padding-top: 50px;
+}

@@ -1,15 +1,16 @@
-import * as React from "react";
+import React from "react";
 import SearchFilter from "./searchFilter";
 import "./searchBar.css";
 import ErrorBoundary from "../errorBoundary";
-import MovieInterface from "../../interfaces/movieInterface";
+import * as QueryString from "query-string";
+import FilterProperty from "../../enums/FilterPropery";
+import { RouteComponentProps } from "react-router";
 
 interface SearchBarProps {
-  searchMovies: (
-    searchBarValue: string,
-    searchedBy: string
-  ) => MovieInterface[];
-  setSearchedMovies: (searchedMovies: MovieInterface[]) => void;
+  searchMovies: (searchBarValue: string, searchedBy: string) => void;
+  route: RouteComponentProps;
+  fetchMovies: () => void;
+  currentSortType: string;
 }
 
 interface SearchBarState {
@@ -23,26 +24,32 @@ export default class SearchBar extends React.Component<
 > {
   state: SearchBarState = {
     searchBarValue: "",
-    searchedBy: "title",
+    searchedBy: FilterProperty.title,
   };
   onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value: searchBarValue } = e.target;
-    console.log(searchBarValue);
+    // console.log(searchBarValue);
     this.setState({ searchBarValue });
   };
   toggleSearchCategory = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
     const { value } = e.currentTarget;
-    console.log(value);
     this.setState({ searchedBy: value.toLowerCase() });
   };
 
   onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { history } = this.props.route;
     const { searchBarValue, searchedBy } = this.state;
-    const searchedMovies = this.props.searchMovies(searchBarValue, searchedBy);
-    this.props.setSearchedMovies(searchedMovies);
+    const urlParams = {
+      searchBy: searchedBy,
+      search: searchBarValue,
+    };
+    history.push({
+      pathname: "/search",
+      search: QueryString.stringify(urlParams),
+    });
     this.setState({ searchBarValue: "" });
   };
   render() {

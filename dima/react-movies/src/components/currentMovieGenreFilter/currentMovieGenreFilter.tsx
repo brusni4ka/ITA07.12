@@ -1,19 +1,10 @@
-import * as React from "react";
+import React from "react";
 
 interface CurrentMovieGenreFilterProps {
-  genres: string[];
+  genre: string;
 }
-const CurrentMovieGenreFilter = ({ genres }: CurrentMovieGenreFilterProps) => {
-  return (
-    <span className="filter-genre">
-      {" "}
-      Films by{" "}
-      {genres.map((genre) =>
-        genres.indexOf(genre) !== genres.length - 1 ? genre + "&" : genre
-      )}{" "}
-      genre
-    </span>
-  );
+const CurrentMovieGenreFilter = ({ genre }: CurrentMovieGenreFilterProps) => {
+  return <span className="filter-genre">Films by {genre} genre</span>;
 };
 
 export default CurrentMovieGenreFilter;
