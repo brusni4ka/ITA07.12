@@ -28,7 +28,6 @@ export default class SearchBar extends React.Component<
   };
   onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value: searchBarValue } = e.target;
-    // console.log(searchBarValue);
     this.setState({ searchBarValue });
   };
   toggleSearchCategory = (

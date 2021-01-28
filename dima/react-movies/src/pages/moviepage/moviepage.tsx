@@ -8,9 +8,10 @@ import Header from "../../components/header";
 import MoviePresent from "../../components/moviePresent/moviePresent";
 import MoviesContainer from "../../components/moviesContainer";
 import MovieInterface from "../../interfaces/movieInterface";
+import Loader from "../../components/loader";
 
 import * as QueryString from "query-string";
-
+import "./moviepage.css";
 interface MoviePageProps {
   route: RouteComponentProps<{ id: string }>;
   movies: MovieInterface[];
@@ -32,11 +33,9 @@ class MoviePage extends Component<MoviePageProps> {
   }
   fetchAllMovies(): void {
     const { id } = this.props.route.match.params;
-    console.log(id);
     fetch(`https://reactjs-cdp.herokuapp.com/movies/${id}`)
       .then((res) => res.json())
       .then((movie) => {
-        console.log(movie);
         if (Object.keys(movie).length !== 0) {
           this.props.setMovie(movie);
           this.fetchMoviesByGenre(movie);
@@ -65,7 +64,13 @@ class MoviePage extends Component<MoviePageProps> {
     if (!isMovieExisted) {
       return <Redirect to="../page-not-found" />;
     } else if (!movie && isMovieExisted) {
-      return <p>Loading...</p>;
+      return (
+        <div className="first-screen-wrapper loader-cont">
+          <div className="loader">
+            <Loader />
+          </div>
+        </div>
+      );
     } else if (movie && isMovieExisted) {
       return (
         <div className="app">

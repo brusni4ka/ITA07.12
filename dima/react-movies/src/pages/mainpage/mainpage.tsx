@@ -15,17 +15,18 @@ import { RouteComponentProps } from "react-router-dom";
 import "./mainpage.css";
 
 interface MainPageProps {
+  route: RouteComponentProps;
   movies: MovieInterface[];
   currentSortType: string;
+  isMoviesExisted: boolean;
   setCurrentSortType: (currentSortType: string) => void;
   searchMovies: (value: string, category: string) => void;
-  route: RouteComponentProps;
+  setIsMoviesExisted: (isMoviesExisted: boolean) => void;
   setMovies: (movies: MovieInterface[]) => void;
 }
 
 class MainPage extends React.Component<MainPageProps> {
   componentDidMount() {
-    console.log("mounted");
     this.fetchMovies();
   }
   componentDidUpdate(prevProps: MainPageProps) {
@@ -34,31 +35,34 @@ class MainPage extends React.Component<MainPageProps> {
     }
   }
   fetchMovies = (): void => {
-    const { route, currentSortType } = this.props;
+    const {
+      route,
+      currentSortType,
+      setIsMoviesExisted,
+      setMovies,
+    } = this.props;
     if (route.location.pathname === "/") {
       fetch(
         `https://reactjs-cdp.herokuapp.com/movies?limit=9&sortBy=release_date&sortOrder=desc`
       )
         .then((response) => response.json())
-        .then((receivedData) => {
-          this.props.setMovies(receivedData.data);
+        .then((movies) => {
+          if (Object.keys(movies).length > 0) {
+            setMovies(movies.data);
+            setIsMoviesExisted(true);
+          } else {
+            setIsMoviesExisted(false);
+            setMovies([]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     } else if (route.location.pathname === "/search") {
       const { search } = route.location;
       const oldParamsObj = QueryString.parse(search);
-      console.log();
-
       let url = "https://reactjs-cdp.herokuapp.com/movies?";
       if (!oldParamsObj.sortBy) {
-        console.log(
-          QueryString.stringify({
-            ...oldParamsObj,
-            sortBy: currentSortType,
-            limit: 9,
-            sortOrder: "desc",
-          })
-        );
-
         url = url.concat(
           QueryString.stringify({
             ...oldParamsObj,
@@ -78,8 +82,14 @@ class MainPage extends React.Component<MainPageProps> {
       }
       fetch(url)
         .then((response) => response.json())
-        .then(({ data: movies }) => {
-          this.props.setMovies(movies);
+        .then((movies) => {
+          if (Object.keys(movies.data).length > 0) {
+            setMovies(movies.data);
+            setIsMoviesExisted(true);
+          } else {
+            setMovies([]);
+            setIsMoviesExisted(false);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -100,7 +110,6 @@ class MainPage extends React.Component<MainPageProps> {
         ...oldParam,
         sortBy: value,
       });
-      console.log(newParamString);
 
       route.history.push({
         pathname: this.props.route.location.pathname,
@@ -111,11 +120,11 @@ class MainPage extends React.Component<MainPageProps> {
   };
 
   renderPanel = (): React.ReactNode => {
-    const { movies, currentSortType } = this.props;
+    const { movies, currentSortType, isMoviesExisted } = this.props;
     return (
       <>
         <ErrorBoundary>
-          <MoviesResult movies={movies} />
+          <MoviesResult movies={movies} isMoviesExisted={isMoviesExisted} />
         </ErrorBoundary>
         <ErrorBoundary>
           <SortFilter
@@ -128,7 +137,13 @@ class MainPage extends React.Component<MainPageProps> {
   };
 
   render() {
-    const { movies, currentSortType, searchMovies, route } = this.props;
+    const {
+      movies,
+      currentSortType,
+      searchMovies,
+      route,
+      isMoviesExisted,
+    } = this.props;
     return (
       <div className="app">
         <div className="first-screen-wrapper">
@@ -154,7 +169,10 @@ class MainPage extends React.Component<MainPageProps> {
         <div className="third-screen-wrapper">
           <ContentContainer>
             <ErrorBoundary>
-              <MoviesContainer movies={movies} />
+              <MoviesContainer
+                movies={movies}
+                isMoviesExisted={isMoviesExisted}
+              />
             </ErrorBoundary>
           </ContentContainer>
         </div>

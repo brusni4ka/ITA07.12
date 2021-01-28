@@ -18,6 +18,7 @@ interface AppState {
   movie: MovieInterface | null;
   movies: MovieInterface[];
   isMovieExisted: boolean;
+  isMoviesExisted: boolean;
   currentSortType: string;
 }
 
@@ -26,6 +27,7 @@ class App extends Component<{}, AppState> {
     movie: null,
     movies: [],
     isMovieExisted: true,
+    isMoviesExisted: true,
     currentSortType: SortProperty.date,
   };
 
@@ -53,38 +55,47 @@ class App extends Component<{}, AppState> {
       });
     }
   };
-  setIsMovieExisted = (isMovieExisted: boolean) => {
+  setIsMoviesExisted = (isMoviesExisted: boolean): void => {
+    this.setState({ isMoviesExisted });
+  };
+  setIsMovieExisted = (isMovieExisted: boolean): void => {
     this.setState({ isMovieExisted });
   };
-  setMovies = (movies: MovieInterface[]) => {
+  setMovies = (movies: MovieInterface[]): void => {
     this.setState({ movies });
   };
-  setMovie = (movie: MovieInterface) => {
+  setMovie = (movie: MovieInterface): void => {
     this.setState({ movie });
   };
-  sortMovies(type: string) {
-    const { movies } = this.state;
-    if (type === SortProperty.date) {
-      this.setState({
-        movies: [...movies].sort((a, b) => {
-          return (
-            Number.parseInt(b.release_date) - Number.parseInt(a.release_date)
-          );
-        }),
-      });
-    } else {
-      this.setState({
-        movies: [
-          ...movies.sort((a, b) => {
-            return b.vote_average - a.vote_average;
-          }),
-        ],
-      });
-    }
-  }
+  // sortMovies(type: string):void {
+  //   const { movies } = this.state;
+  //   if (type === SortProperty.date) {
+  //     this.setState({
+  //       movies: [...movies].sort((a, b) => {
+  //         return (
+  //           Number.parseInt(b.release_date) - Number.parseInt(a.release_date)
+  //         );
+  //       }),
+  //     });
+  //   } else {
+  //     this.setState({
+  //       movies: [
+  //         ...movies.sort((a, b) => {
+  //           return b.vote_average - a.vote_average;
+  //         }),
+  //       ],
+  //     });
+  //   }
+  // }
 
   render() {
-    const { movies, movie, currentSortType, isMovieExisted } = this.state;
+    const {
+      movies,
+      movie,
+      currentSortType,
+      isMovieExisted,
+      isMoviesExisted,
+    } = this.state;
     return (
       <>
         <Router>
@@ -97,6 +108,8 @@ class App extends Component<{}, AppState> {
                   route={{ ...props }}
                   movies={movies}
                   currentSortType={currentSortType}
+                  isMoviesExisted={isMoviesExisted}
+                  setIsMoviesExisted={this.setIsMoviesExisted}
                   setCurrentSortType={this.setCurrentSortType}
                   searchMovies={this.searchMovies}
                   setMovies={this.setMovies}
