@@ -1,38 +1,70 @@
 import React from "react";
 import "./SortPanel.css";
-// import IMovie from "../../interface/IMovie/IMovie";
+import { Location } from "history";
+import { parse } from "querystring";
 
 interface ISortPanelProps {
   movieCount: number;
+  handleSort(sortBy: string): void;
+  location: Location;
 }
 
 interface ISortPanelState {
   sortBy: string;
 }
 
+enum SortBy {
+  Rating = "vote_average",
+  ReleaseDate = "release_date",
+}
+
 class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
   state: ISortPanelState = {
-    sortBy: "rating",
+    sortBy: SortBy.Rating,
   };
 
-  handleSearchByBtn = (btnType: string) => {
+  componentDidMount() {
+    const searchParams = this.props.location.search.slice(1);
+    const parsed = parse(searchParams) as {
+      sortBy: string;
+    };
+
+    if (parsed.sortBy) {
+      if (parsed.sortBy == "vote_average") {
+        this.setState({ sortBy: SortBy.Rating });
+      } else {
+        this.setState({ sortBy: SortBy.ReleaseDate });
+      }
+    } 
+
+
+  }
+
+  handleSearchByBtn = (btnType: SortBy) => {
     this.setState({
       sortBy: btnType,
     });
+    this.props.handleSort(btnType);
   };
 
   render() {
     return (
-      <div className="sort-panel-wrapper">
+      <div
+        className={
+          this.props.movieCount == 0
+            ? "sort-panel-hidden"
+            : "sort-panel-wrapper"
+        }
+      >
         <div className="movie-count">
           <span>{this.props.movieCount} movies found</span>
         </div>
         <div className="sort-by">
           <span>Sort by</span>
           <button
-            onClick={() => this.handleSearchByBtn("releaseDate")}
+            onClick={() => this.handleSearchByBtn(SortBy.ReleaseDate)}
             className={
-              this.state.sortBy === "releaseDate"
+              this.state.sortBy === SortBy.ReleaseDate
                 ? "sort-by-btn-active"
                 : "sort-by-btn"
             }
@@ -40,9 +72,9 @@ class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
             release date
           </button>
           <button
-            onClick={() => this.handleSearchByBtn("rating")}
+            onClick={() => this.handleSearchByBtn(SortBy.Rating)}
             className={
-              this.state.sortBy === "rating"
+              this.state.sortBy === SortBy.Rating
                 ? "sort-by-btn-active"
                 : "sort-by-btn"
             }

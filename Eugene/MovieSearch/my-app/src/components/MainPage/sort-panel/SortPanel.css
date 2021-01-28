@@ -1,3 +1,7 @@
+.sort-panel-hidden {
+  display: none;
+}
+
 .sort-panel-wrapper {
   background-color: #d3d3d3;
   height: 60px;

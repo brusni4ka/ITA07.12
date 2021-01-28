@@ -1,21 +1,55 @@
+import { parse, stringify } from "querystring";
 import React from "react";
 import "./SearchPanel.css";
-import IMovie from "../../../interface/IMovie/IMovie";
+import { Location } from "history";
 
 interface ISearchPanelProps {
-  updateData(value: IMovie[]):void;
+  handleSearch(input: string, searchBy: string): void;
+  location: Location;
 }
 
 interface ISearchPanelState {
   input: string;
-  searchBy: string;
+  searchBy: SearchBy;
 }
 
-class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> {
+enum SearchBy {
+  Title = "title",
+  Genre = "genres",
+}
+
+class SearchPanel extends React.Component<
+  ISearchPanelProps,
+  ISearchPanelState
+> {
   state: ISearchPanelState = {
     input: "",
-    searchBy: "title",
+    searchBy: SearchBy.Title,
   };
+
+  componentDidMount() {
+    const searchParams = this.props.location.search.slice(1);
+    const parsed = parse(searchParams) as {
+      search: string;
+      searchBy: string;
+    };
+
+    if (parsed.search) {
+      this.setState({ input: parsed.search });
+    } else {
+      this.setState({ input: "" });
+    }
+
+    if (parsed.searchBy) {
+      if (parsed.searchBy == "title") {
+        this.setState({ searchBy: SearchBy.Title });
+      } else {
+        this.setState({ searchBy: SearchBy.Genre });
+      }
+    } else {
+      this.setState({ searchBy: SearchBy.Title });
+    }
+  }
 
   handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -23,7 +57,7 @@ class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> 
     });
   };
 
-  handleSearchByBtn = (btnType: string) => {
+  handleSearchByBtn = (btnType: SearchBy) => {
     this.setState({
       input: "",
       searchBy: btnType,
@@ -31,13 +65,7 @@ class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> 
   };
 
   handleSearchBtn = () => {
-    fetch(
-      `https://reactjs-cdp.herokuapp.com/movies?search=${this.state.input}&searchBy=${this.state.searchBy}`
-    )
-      .then((response) => response.json())
-      .then((receivedData) => {
-        this.props.updateData(receivedData.data)
-      });
+    this.props.handleSearch(this.state.input, this.state.searchBy);
   };
 
   render() {
@@ -55,9 +83,9 @@ class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> 
           <div className="search-by-btns">
             <p>SEARCH BY</p>
             <button
-              onClick={() => this.handleSearchByBtn("title")}
+              onClick={() => this.handleSearchByBtn(SearchBy.Title)}
               className={
-                this.state.searchBy === "title"
+                this.state.searchBy === SearchBy.Title
                   ? "search-by-btn-active"
                   : "search-by-btn"
               }
@@ -65,9 +93,9 @@ class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> 
               TITLE
             </button>
             <button
-              onClick={() => this.handleSearchByBtn("genres")}
+              onClick={() => this.handleSearchByBtn(SearchBy.Genre)}
               className={
-                this.state.searchBy === "genres"
+                this.state.searchBy === SearchBy.Genre
                   ? "search-by-btn-active"
                   : "search-by-btn"
               }
@@ -76,10 +104,7 @@ class SearchPanel extends React.Component<ISearchPanelProps, ISearchPanelState> 
             </button>
           </div>
           <div>
-            <button
-              onClick={() => this.handleSearchBtn()}
-              className="search-btn"
-            >
+            <button onClick={this.handleSearchBtn} className="search-btn">
               SEARCH
             </button>
           </div>
