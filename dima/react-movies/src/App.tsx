@@ -6,32 +6,25 @@ import SortProperty from "./enums/SortProperty";
 import FilterProperty from "./enums/FilterPropery";
 import PageNotFound from "./pages/pageNotFound";
 
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 interface AppState {
   movie: MovieInterface | null;
   movies: MovieInterface[];
-  isMovieExisted: boolean;
-  isMoviesExisted: boolean;
-  currentSortType: string;
+  loading: boolean;
+  currentSortType: SortProperty;
 }
 
 class App extends Component<{}, AppState> {
   state: AppState = {
     movie: null,
     movies: [],
-    isMovieExisted: true,
-    isMoviesExisted: true,
+    loading: true,
     currentSortType: SortProperty.date,
   };
 
-  setCurrentSortType = (currentSortType: string): void => {
+  setCurrentSortType = (currentSortType: SortProperty): void => {
     this.setState({ currentSortType });
   };
   searchMovies = (value: string, category: string): void => {
@@ -55,47 +48,18 @@ class App extends Component<{}, AppState> {
       });
     }
   };
-  setIsMoviesExisted = (isMoviesExisted: boolean): void => {
-    this.setState({ isMoviesExisted });
-  };
-  setIsMovieExisted = (isMovieExisted: boolean): void => {
-    this.setState({ isMovieExisted });
+  setLoading = (loading: boolean): void => {
+    this.setState({ loading });
   };
   setMovies = (movies: MovieInterface[]): void => {
     this.setState({ movies });
   };
-  setMovie = (movie: MovieInterface): void => {
+  setMovie = (movie: MovieInterface | null): void => {
     this.setState({ movie });
   };
-  // sortMovies(type: string):void {
-  //   const { movies } = this.state;
-  //   if (type === SortProperty.date) {
-  //     this.setState({
-  //       movies: [...movies].sort((a, b) => {
-  //         return (
-  //           Number.parseInt(b.release_date) - Number.parseInt(a.release_date)
-  //         );
-  //       }),
-  //     });
-  //   } else {
-  //     this.setState({
-  //       movies: [
-  //         ...movies.sort((a, b) => {
-  //           return b.vote_average - a.vote_average;
-  //         }),
-  //       ],
-  //     });
-  //   }
-  // }
 
   render() {
-    const {
-      movies,
-      movie,
-      currentSortType,
-      isMovieExisted,
-      isMoviesExisted,
-    } = this.state;
+    const { movies, movie, currentSortType, loading } = this.state;
     return (
       <>
         <Router>
@@ -105,11 +69,11 @@ class App extends Component<{}, AppState> {
               path={["/", "/search"]}
               render={(props) => (
                 <MainPage
-                  route={{ ...props }}
+                  {...props}
                   movies={movies}
                   currentSortType={currentSortType}
-                  isMoviesExisted={isMoviesExisted}
-                  setIsMoviesExisted={this.setIsMoviesExisted}
+                  loading={loading}
+                  setLoading={this.setLoading}
                   setCurrentSortType={this.setCurrentSortType}
                   searchMovies={this.searchMovies}
                   setMovies={this.setMovies}
@@ -120,21 +84,18 @@ class App extends Component<{}, AppState> {
               path={`/film/:id`}
               render={(props) => (
                 <MoviePage
-                  route={{ ...props }}
+                  {...props}
                   movies={movies}
                   movie={movie}
-                  isMovieExisted={isMovieExisted}
                   setMovies={this.setMovies}
                   setMovie={this.setMovie}
-                  setIsMovieExisted={this.setIsMovieExisted}
+                  loading={loading}
+                  setLoading={this.setLoading}
                 />
               )}
             />
 
-            <Route path="/page-not-found" component={PageNotFound} />
-            <Route>
-              <Redirect to="/page-not-found" />
-            </Route>
+            <Route path="*" component={PageNotFound} />
           </Switch>
         </Router>
       </>

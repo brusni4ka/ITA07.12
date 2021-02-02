@@ -8,10 +8,10 @@ import "./moviesContainer.css";
 
 interface MoviesContainerProps {
   movies: MovieInterface[];
-  isMoviesExisted?: boolean;
+  loading?: boolean;
 }
 
-const MoviesContainer = ({ movies, isMoviesExisted }: MoviesContainerProps) => {
+const MoviesContainer = ({ movies, loading }: MoviesContainerProps) => {
   const renderMovies = (): JSX.Element => {
     return (
       <div className="movies-wrapper">
@@ -25,23 +25,20 @@ const MoviesContainer = ({ movies, isMoviesExisted }: MoviesContainerProps) => {
       </div>
     );
   };
-  if (isMoviesExisted !== undefined) {
-    if (movies.length) {
-      return renderMovies();
-    } else if (!movies.length && isMoviesExisted) {
-      return (
-        <div className="movies-loader">
-          <Loader />
-        </div>
-      );
-    }
+  if (!loading && !movies.length) {
     return (
       <div className="movies-wrapper">
         <p className="nothing-msg">No films found</p>
       </div>
     );
+  } else if (movies.length) {
+    return renderMovies();
   }
-  return renderMovies();
+  return (
+    <div className="movies-loader">
+      <Loader />
+    </div>
+  );
 };
 
 export default MoviesContainer;

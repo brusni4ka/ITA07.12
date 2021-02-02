@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 interface HeaderProps {
-  showSearchBtn: boolean;
+  showSearchBtn?: boolean;
 }
 function Header(props: HeaderProps) {
   return (

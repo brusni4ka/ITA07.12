@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, RouteComponentProps } from "react-router";
+import { RouteComponentProps } from "react-router";
 import ContentContainer from "../../components/contentContainer";
 import CurrentMovieGenreFilter from "../../components/currentMovieGenreFilter";
 import ErrorBoundary from "../../components/errorBoundary";
@@ -12,40 +12,48 @@ import Loader from "../../components/loader";
 
 import * as QueryString from "query-string";
 import "./moviepage.css";
+
 interface MoviePageProps {
-  route: RouteComponentProps<{ id: string }>;
   movies: MovieInterface[];
   movie: MovieInterface | null;
-  isMovieExisted: boolean;
+  loading: boolean;
   setMovies: (movies: MovieInterface[]) => void;
-  setMovie: (movie: MovieInterface) => void;
-  setIsMovieExisted: (isMovieExisted: boolean) => void;
+  setMovie: (movie: MovieInterface | null) => void;
+  setLoading: (loading: boolean) => void;
 }
 
-class MoviePage extends Component<MoviePageProps> {
+class MoviePage extends Component<
+  MoviePageProps & RouteComponentProps<{ id: string }>
+> {
+  componentWillUnmount() {
+    this.props.setMovie(null);
+  }
   componentDidMount() {
     this.fetchAllMovies();
   }
-  componentDidUpdate(prevProps: MoviePageProps) {
-    if (this.props.route.location !== prevProps.route.location) {
+  componentDidUpdate(
+    prevProps: MoviePageProps & RouteComponentProps<{ id: string }>
+  ) {
+    if (this.props.location !== prevProps.location) {
       this.fetchAllMovies();
     }
   }
+
   fetchAllMovies(): void {
-    const { id } = this.props.route.match.params;
+    this.props.setLoading(true);
+    const { id } = this.props.match.params;
     fetch(`https://reactjs-cdp.herokuapp.com/movies/${id}`)
       .then((res) => res.json())
       .then((movie) => {
-        if (Object.keys(movie).length !== 0) {
+        if (Object.keys(movie).length) {
           this.props.setMovie(movie);
           this.fetchMoviesByGenre(movie);
         } else {
-          this.props.setIsMovieExisted(false);
+          this.props.setMovie(null);
+          this.props.setLoading(false);
         }
       })
-      .catch(() => {
-        this.props.setIsMovieExisted(false);
-      });
+      .catch(() => {});
   }
 
   fetchMoviesByGenre(movie: MovieInterface): void {
@@ -55,28 +63,18 @@ class MoviePage extends Component<MoviePageProps> {
       .then((res) => res.json())
       .then(({ data: movies }) => {
         this.props.setMovies(movies);
+        this.props.setLoading(false);
       });
   }
 
   render() {
-    const { movie, movies, isMovieExisted } = this.props;
-
-    if (!isMovieExisted) {
-      return <Redirect to="../page-not-found" />;
-    } else if (!movie && isMovieExisted) {
-      return (
-        <div className="first-screen-wrapper loader-cont">
-          <div className="loader">
-            <Loader />
-          </div>
-        </div>
-      );
-    } else if (movie && isMovieExisted) {
+    const { movie, movies, loading } = this.props;
+    if (movie) {
       return (
         <div className="app">
           <div className="first-screen-wrapper">
             <ContentContainer>
-              <Header showSearchBtn={true} />
+              <Header showSearchBtn />
               <ErrorBoundary>
                 <MoviePresent movie={movie} />
               </ErrorBoundary>
@@ -89,10 +87,18 @@ class MoviePage extends Component<MoviePageProps> {
           </div>
           <div className="third-screen-wrapper">
             <ContentContainer>
-              <MoviesContainer movies={movies} />
+              <MoviesContainer movies={movies} loading={loading} />
             </ContentContainer>
           </div>
           <Footer />
+        </div>
+      );
+    } else if (!movie) {
+      return (
+        <div className="first-screen-wrapper loader-cont">
+          <div className="loader">
+            <Loader />
+          </div>
         </div>
       );
     }

@@ -5,17 +5,15 @@ import ErrorBoundary from "../errorBoundary";
 import * as QueryString from "query-string";
 import FilterProperty from "../../enums/FilterPropery";
 import { RouteComponentProps } from "react-router";
-
+import ParamsToPush from "../../interfaces/paramsToPush";
 interface SearchBarProps {
-  searchMovies: (searchBarValue: string, searchedBy: string) => void;
-  route: RouteComponentProps;
-  fetchMovies: () => void;
-  currentSortType: string;
+  location: RouteComponentProps["location"];
+  pushParams: (urlParams: ParamsToPush) => void;
 }
 
 interface SearchBarState {
   searchBarValue: string;
-  searchedBy: string;
+  searchBy: FilterProperty;
 }
 
 export default class SearchBar extends React.Component<
@@ -24,35 +22,65 @@ export default class SearchBar extends React.Component<
 > {
   state: SearchBarState = {
     searchBarValue: "",
-    searchedBy: FilterProperty.title,
+    searchBy:
+      QueryString.parse(this.props.location.search).searchBy ===
+      FilterProperty.genre
+        ? FilterProperty.genre
+        : FilterProperty.title,
   };
+
+  componentDidMount() {
+    if (QueryString.parse(this.props.location.search).searchBy) {
+      this.toggleSearchCategory();
+    }
+  }
+  componentDidUpdate(prevProps: SearchBarProps) {
+    if (
+      QueryString.parse(prevProps.location.search).searchBy !==
+      QueryString.parse(this.props.location.search).searchBy
+    ) {
+      this.toggleSearchCategory();
+    }
+  }
   onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value: searchBarValue } = e.target;
     this.setState({ searchBarValue });
   };
   toggleSearchCategory = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null = null
   ): void => {
-    const { value } = e.currentTarget;
-    this.setState({ searchedBy: value.toLowerCase() });
+    if (e) {
+      const { value } = e.currentTarget;
+      this.setState({
+        searchBy:
+          value.toLowerCase() === FilterProperty.genre
+            ? FilterProperty.genre
+            : FilterProperty.title,
+      });
+    } else {
+      this.setState({
+        searchBy:
+          QueryString.parse(this.props.location.search).searchBy ===
+          FilterProperty.title
+            ? FilterProperty.title
+            : FilterProperty.genre,
+      });
+    }
   };
 
   onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { history } = this.props.route;
-    const { searchBarValue, searchedBy } = this.state;
-    const urlParams = {
-      searchBy: searchedBy,
-      search: searchBarValue,
+    const { pushParams } = this.props;
+    const { searchBarValue: search, searchBy } = this.state;
+    const urlParams: ParamsToPush = {
+      search,
+      searchBy,
     };
-    history.push({
-      pathname: "/search",
-      search: QueryString.stringify(urlParams),
-    });
     this.setState({ searchBarValue: "" });
+    pushParams(urlParams);
   };
   render() {
-    const { searchBarValue, searchedBy } = this.state;
+    const { searchBarValue, searchBy } = this.state;
     return (
       <form onSubmit={this.onFormSubmit} className="search-bar">
         <h2 className="search-bar_heading">Find your movie</h2>
@@ -66,7 +94,7 @@ export default class SearchBar extends React.Component<
         <div className="search-bar_wrapper">
           <ErrorBoundary>
             <SearchFilter
-              searchedBy={searchedBy}
+              searchedBy={searchBy}
               toggleSearchCategory={this.toggleSearchCategory}
             />
           </ErrorBoundary>

@@ -3,11 +3,11 @@ import MovieInterface from "../../interfaces/movieInterface";
 
 interface MoviesResultProps {
   movies: MovieInterface[] | null;
-  isMoviesExisted: boolean;
+  loading?: boolean;
 }
 
-const MoviesResult = ({ movies, isMoviesExisted }: MoviesResultProps) => {
-  if (movies && isMoviesExisted) {
+const MoviesResult = ({ movies, loading }: MoviesResultProps) => {
+  if (movies && !loading) {
     return <span className="">{movies.length} movies was found</span>;
   }
   return null;

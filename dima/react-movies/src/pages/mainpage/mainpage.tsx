@@ -13,94 +13,101 @@ import * as QueryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 
 import "./mainpage.css";
+import SortProperty from "../../enums/SortProperty";
+import FilterProperty from "../../enums/FilterPropery";
+import ParamsToPush from "../../interfaces/paramsToPush";
 
 interface MainPageProps {
-  route: RouteComponentProps;
   movies: MovieInterface[];
   currentSortType: string;
-  isMoviesExisted: boolean;
-  setCurrentSortType: (currentSortType: string) => void;
+  loading?: boolean;
+  setCurrentSortType: (currentSortType: SortProperty) => void;
   searchMovies: (value: string, category: string) => void;
-  setIsMoviesExisted: (isMoviesExisted: boolean) => void;
+  setLoading: (Loading: boolean) => void;
   setMovies: (movies: MovieInterface[]) => void;
 }
 
-class MainPage extends React.Component<MainPageProps> {
+class MainPage extends React.Component<
+  MainPageProps & RouteComponentProps<{ searchBy: FilterProperty }>
+> {
   componentDidMount() {
+    this.props.setLoading(true);
     this.fetchMovies();
   }
-  componentDidUpdate(prevProps: MainPageProps) {
-    if (prevProps.route.location.search !== this.props.route.location.search) {
+  componentDidUpdate(prevProps: MainPageProps & RouteComponentProps) {
+    if (prevProps.location.search !== this.props.location.search) {
       this.fetchMovies();
     }
   }
+  componentWillUnmount(): void {
+    this.props.setLoading(true);
+  }
+
+  pushParams = (urlParams: ParamsToPush): void => {
+    const { history } = this.props;
+    history.push({
+      pathname: "/search",
+      search: QueryString.stringify(urlParams),
+    });
+  };
+
+  makeFetch = (params: string): void => {
+    const { setLoading, setMovies } = this.props;
+    fetch(`https://reactjs-cdp.herokuapp.com/movies?${params}`)
+      .then((response) => response.json())
+      .then((movies) => {
+        if (Object.keys(movies).length) {
+          setMovies(movies.data);
+          setLoading(false);
+        } else {
+          setMovies([]);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  compareSortFromUrlToState = (sortBy: string | string[] | null) =>
+    sortBy !== this.props.currentSortType;
+
   fetchMovies = (): void => {
-    const {
-      route,
-      currentSortType,
-      setIsMoviesExisted,
-      setMovies,
-    } = this.props;
-    if (route.location.pathname === "/") {
-      fetch(
-        `https://reactjs-cdp.herokuapp.com/movies?limit=9&sortBy=release_date&sortOrder=desc`
-      )
-        .then((response) => response.json())
-        .then((movies) => {
-          if (Object.keys(movies).length > 0) {
-            setMovies(movies.data);
-            setIsMoviesExisted(true);
-          } else {
-            setIsMoviesExisted(false);
-            setMovies([]);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (route.location.pathname === "/search") {
-      const { search } = route.location;
-      const oldParamsObj = QueryString.parse(search);
-      let url = "https://reactjs-cdp.herokuapp.com/movies?";
-      if (!oldParamsObj.sortBy) {
-        url = url.concat(
+    let defaultParams = {
+      limit: 9,
+      sortBy: "release_date",
+      sortOrder: "desc",
+    };
+    const { location, currentSortType } = this.props;
+    const { date, rating } = SortProperty;
+    const oldParamsObj = QueryString.parse(location.search);
+    const { sortBy } = oldParamsObj;
+    switch (location.pathname) {
+      case "/":
+        if (sortBy && this.compareSortFromUrlToState(sortBy))
+          this.props.setCurrentSortType(sortBy === date ? date : rating);
+        this.makeFetch(QueryString.stringify(defaultParams));
+        break;
+      case "/search":
+        if (sortBy && this.compareSortFromUrlToState(sortBy))
+          this.props.setCurrentSortType(sortBy === date ? date : rating);
+        this.makeFetch(
           QueryString.stringify({
+            ...defaultParams,
             ...oldParamsObj,
-            sortBy: currentSortType,
-            limit: 9,
-            sortOrder: "desc",
+            sortBy: oldParamsObj.searchBy
+              ? oldParamsObj.searchBy
+              : currentSortType,
           })
         );
-      } else {
-        url = url.concat(
-          QueryString.stringify({
-            ...oldParamsObj,
-            limit: 9,
-            sortOrder: "desc",
-          })
-        );
-      }
-      fetch(url)
-        .then((response) => response.json())
-        .then((movies) => {
-          if (Object.keys(movies.data).length > 0) {
-            setMovies(movies.data);
-            setIsMoviesExisted(true);
-          } else {
-            setMovies([]);
-            setIsMoviesExisted(false);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        break;
     }
   };
   switchCurrentSortType = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
-    const { route, currentSortType } = this.props;
-    const oldParam = QueryString.parse(route.location.search);
+    const { location, history, currentSortType } = this.props;
+    const oldParam = QueryString.parse(location.search);
     const { value } = e.currentTarget;
     if (
       !oldParam.sortBy ||
@@ -110,21 +117,22 @@ class MainPage extends React.Component<MainPageProps> {
         ...oldParam,
         sortBy: value,
       });
-
-      route.history.push({
-        pathname: this.props.route.location.pathname,
+      history.push({
+        pathname: location.pathname,
         search: newParamString,
       });
-      this.props.setCurrentSortType(value);
+      this.props.setCurrentSortType(
+        value === SortProperty.date ? SortProperty.date : SortProperty.rating
+      );
     }
   };
 
   renderPanel = (): React.ReactNode => {
-    const { movies, currentSortType, isMoviesExisted } = this.props;
+    const { movies, currentSortType, loading } = this.props;
     return (
       <>
         <ErrorBoundary>
-          <MoviesResult movies={movies} isMoviesExisted={isMoviesExisted} />
+          <MoviesResult movies={movies} loading={loading} />
         </ErrorBoundary>
         <ErrorBoundary>
           <SortFilter
@@ -137,24 +145,16 @@ class MainPage extends React.Component<MainPageProps> {
   };
 
   render() {
-    const {
-      movies,
-      currentSortType,
-      searchMovies,
-      route,
-      isMoviesExisted,
-    } = this.props;
+    const { movies, loading } = this.props;
     return (
       <div className="app">
         <div className="first-screen-wrapper">
           <ContentContainer>
-            <Header showSearchBtn={false} />
+            <Header />
             <ErrorBoundary>
               <SearchBar
-                searchMovies={searchMovies}
-                route={route}
-                fetchMovies={this.fetchMovies}
-                currentSortType={currentSortType}
+                location={this.props.location}
+                pushParams={this.pushParams}
               />
             </ErrorBoundary>
           </ContentContainer>
@@ -169,10 +169,7 @@ class MainPage extends React.Component<MainPageProps> {
         <div className="third-screen-wrapper">
           <ContentContainer>
             <ErrorBoundary>
-              <MoviesContainer
-                movies={movies}
-                isMoviesExisted={isMoviesExisted}
-              />
+              <MoviesContainer movies={movies} loading={loading} />
             </ErrorBoundary>
           </ContentContainer>
         </div>

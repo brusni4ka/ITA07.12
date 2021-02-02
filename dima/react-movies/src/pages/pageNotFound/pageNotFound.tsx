@@ -8,7 +8,7 @@ const PageNotFound = () => {
     <div className="not-found">
       <div className="first-screen-wrapper first">
         <ContentContainer>
-          <Header showSearchBtn={false} />
+          <Header />
           <h2 className="page-info">Sorry, this page doesn't exist.</h2>
         </ContentContainer>
       </div>
