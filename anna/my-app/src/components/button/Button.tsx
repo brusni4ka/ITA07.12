@@ -4,21 +4,20 @@ import './button.css';
 
 interface IButtonProps {
   children: React.ReactNode,
+  id?: string,
   className: string,
-  active: boolean,
   href?: string,
-  type?: "button" | "submit" | "reset" | undefined,
-  onClick: Function
+  type?: "button" | "submit" | "reset",
+  onClick(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
 
-  const { children, onClick, className, active, ...attrs } = props;
+  const { children, onClick, className, ...attrs } = props;
 
   const classes = classNames(
     'btn',
-    className,
-    { active },
+    className,    
   );
 
   const Tag = attrs.href ? 'a' : 'button';

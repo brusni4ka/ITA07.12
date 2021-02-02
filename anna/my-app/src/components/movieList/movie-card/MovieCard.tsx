@@ -3,7 +3,7 @@ import IMovie from './IMovie';
 import './movie.css';
 
 interface IMovieCardProps {
-  movie: IMovie
+  movie: IMovie 
 }
 
 const MovieCard: React.FC<IMovieCardProps> = (props) => {

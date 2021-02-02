@@ -6,7 +6,9 @@
   padding: 0;
   box-sizing: inherit;
 }
-
+html, body, .root {
+  height: 100%;
+}
 html {  
   font-size: 16px;
   color: rgb(66, 72, 85); 
@@ -21,7 +23,7 @@ body {
   margin: 0 auto;
 }
 
-.App .section-dark {
+.section-dark {
   color: #ffffff;
   padding-top: 100px;
   padding-bottom: 70px;
@@ -34,9 +36,10 @@ body {
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 20px;
+  padding-top: 61px;
 }
 
-.App .logo {
+.logo {
   color: #f92b5b;
   font-size: 20px;
   font-weight: 700;

@@ -1,7 +1,7 @@
 import React from 'react';
 import './movieList.css';
 import MovieCardPrew from './movie-card';
-import IMovie  from './movie-card/IMovie';
+import IMovie from './movie-card/IMovie';
 import classNames from 'classnames';
 
 interface IMovieListProps {
@@ -19,12 +19,16 @@ const MovieList: React.FC<IMovieListProps> = (props) => {
   )
 
   return (
-    <div className={classes}>
-      {movies.map((movie: IMovie) => {
-        return <MovieCardPrew key={movie.id} movie={movie} />
-      })
-      }
-    </div>
+    movies.length ?
+      <div className={classes}>
+        {
+          movies.map((movie: IMovie) => {
+            return <MovieCardPrew key={movie.id} movie={movie} />
+          })
+        }
+      </div>
+      : <p className="movie-list-message">No films found</p>
+
   );
 }
 

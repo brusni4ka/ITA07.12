@@ -3,37 +3,51 @@ import './searchForm.css';
 import Button from '../../components/button';
 
 interface ISearchFormProps {
-  onSubmit({ }: ISearchFormState): void;
+  onSubmit(arg0: ISearchFormState): void;
 }
 
 export interface ISearchFormState {
-  value: string;
+  search: string;
   searchBy: string
+}
+
+enum SearchType {
+  Title = "title",
+  Ganre = "genres"
 }
 
 class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
   state: ISearchFormState = {
-    value: '',
-    searchBy: 'title'
+    search: '',
+    searchBy: SearchType.Title
   };
 
-  changeValue = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ value: e.target.value });
-  handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ searchBy: e.target.value });
+  changeValue = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ search: e.target.value });
 
-  handleSubmit = () => this.props.onSubmit({
-    value: this.state.value,
-    searchBy: this.state.searchBy
-  });
+  handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ 
+      search: "",
+      searchBy: e.target.value,
+     });
+  }
+
+  handleSubmit = () => {
+    this.props.onSubmit({
+      search: this.state.search,
+      searchBy: this.state.searchBy
+    });
+  }
+  // search=drama&searchBy=genres
 
   render() {
-    const { value } = this.state;
+    const { search } = this.state;
 
     return (
       <form className="search-form container">
         <input
-        className="search-form-input"
+          className="search-form-input"
           type="text"
-          value={value}
+          value={search}
           onChange={this.changeValue}
         />
 
@@ -43,8 +57,8 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
             id="input-title"
             type="radio"
             name="react-tips"
-            value="title"
-            checked={this.state.searchBy === "title"}
+            value={SearchType.Title}
+            checked={this.state.searchBy === SearchType.Title}
             onChange={this.handleOptionChange}
             className="form-check-input"
           />
@@ -54,16 +68,16 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
             id="input-ganre"
             type="radio"
             name="react-tips"
-            value="ganre"
-            checked={this.state.searchBy === "ganre"}
+            value={SearchType.Ganre}
+            checked={this.state.searchBy === SearchType.Ganre}
             onChange={this.handleOptionChange}
             className="form-check-input"
           />
           <label htmlFor="input-ganre"></label>
-          <Button onClick={this.handleSubmit} className="btn-primary search-form-btn" active={false}>Search</Button>
+          <Button onClick={this.handleSubmit} className="btn-primary search-form-btn">Search</Button>
         </div>
 
-        
+
       </form>
     );
   };

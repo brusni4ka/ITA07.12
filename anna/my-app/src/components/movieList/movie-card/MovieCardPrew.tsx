@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import IMovie from '../movie-card/IMovie';
 import './movie.css';
 
@@ -12,7 +13,7 @@ const MovieCardPrew: React.FC<IMovieCardPrewProps> = (props) => {
   const { movie } = props;
 
   return (
-    <a href="/" className="movie-link">
+    <Link to={`/film/${movie.id}`} className="movie-link">    
       <div className="movie-card">
         <img src={movie.poster_path} className="movie-card-img" alt="movie poster" />
         <div className="movie-card-body">
@@ -20,8 +21,8 @@ const MovieCardPrew: React.FC<IMovieCardPrewProps> = (props) => {
           <p className="movie-release-date">{movie.release_date.split('-')[0]}</p>
           <p className="ganre">{movie.genres.slice(0, 3).join(' & ')}</p>
         </div>
-      </div>
-    </a>
+      </div>    
+    </Link>
   )
 }
 

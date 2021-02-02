@@ -4,3 +4,9 @@
   grid-gap: 50px;
   margin-bottom: 50px;
 }
+
+.movie-list-message {
+  font-size: 50px;
+  text-align: center;
+  padding: 100px 0 200px 0;
+}
