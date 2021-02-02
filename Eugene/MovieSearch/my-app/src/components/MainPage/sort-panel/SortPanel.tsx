@@ -1,16 +1,16 @@
 import React from "react";
 import "./SortPanel.css";
-import { Location } from "history";
 import { parse } from "querystring";
+import { withRouter } from "react-router";
+import { RouteComponentProps } from "react-router-dom";
 
-interface ISortPanelProps {
+interface ISortPanelProps extends RouteComponentProps {
   movieCount: number;
-  handleSort(sortBy: string): void;
-  location: Location;
+  handleSort(sortBy: SortBy): void;
 }
 
 interface ISortPanelState {
-  sortBy: string;
+  sortBy: SortBy;
 }
 
 enum SortBy {
@@ -30,7 +30,7 @@ class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
     };
 
     if (parsed.sortBy) {
-      if (parsed.sortBy == "vote_average") {
+      if (parsed.sortBy == SortBy.Rating) {
         this.setState({ sortBy: SortBy.Rating });
       } else {
         this.setState({ sortBy: SortBy.ReleaseDate });
@@ -87,4 +87,4 @@ class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
   }
 }
 
-export default SortPanel;
+export default withRouter(SortPanel);

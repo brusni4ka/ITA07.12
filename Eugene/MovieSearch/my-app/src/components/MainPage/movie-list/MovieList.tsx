@@ -9,7 +9,6 @@ interface IMainProps {
 }
 
 class MovieList extends React.Component<IMainProps, {}> {
-
   render() {
     if (this.props.movies.length == 0) {
       return (
@@ -22,7 +21,7 @@ class MovieList extends React.Component<IMainProps, {}> {
         <div className="movie-list">
           {this.props.movies.map((movie) => (
             <Link to={`/movies/${movie.id}`}>
-              <Movie key={movie.id} movie={movie}></Movie>
+              <Movie key={movie.id} movie={movie} />
             </Link>
           ))}
         </div>

@@ -47,17 +47,17 @@ class MainPage extends React.Component<IMainPageProps> {
   }
 
   uploadMovies() {
-    if (this.props.history.location.pathname == "/") {
+    if (this.props.history.location.pathname == "/search") {
       fetch(
-        `https://reactjs-cdp.herokuapp.com/movies?sortBy=vote_average&limit=9`
+        `https://reactjs-cdp.herokuapp.com/movies${this.props.history.location.search}`
       )
         .then((response) => response.json())
         .then((receivedData) => {
           this.props.updateMovies(receivedData.data);
         });
-    } else if (this.props.history.location.pathname == "/search") {
+    } else {
       fetch(
-        `https://reactjs-cdp.herokuapp.com/movies${this.props.history.location.search}`
+        `https://reactjs-cdp.herokuapp.com/movies?sortBy=vote_average&limit=9`
       )
         .then((response) => response.json())
         .then((receivedData) => {
@@ -73,11 +73,9 @@ class MainPage extends React.Component<IMainPageProps> {
         <div className="container">
           <Header />
           <SearchPanel
-            location={this.props.location}
             handleSearch={this.handleSearch}
           />
           <SortPanel
-            location={this.props.location}
             handleSort={this.handleSort}
             movieCount={this.props.movies.length}
           />

@@ -1,11 +1,11 @@
 import { parse, stringify } from "querystring";
 import React from "react";
+import { withRouter } from "react-router";
 import "./SearchPanel.css";
-import { Location } from "history";
+import { RouteComponentProps } from "react-router-dom";
 
-interface ISearchPanelProps {
+interface ISearchPanelProps extends RouteComponentProps {
   handleSearch(input: string, searchBy: string): void;
-  location: Location;
 }
 
 interface ISearchPanelState {
@@ -28,24 +28,18 @@ class SearchPanel extends React.Component<
   };
 
   componentDidMount() {
+    console.log(this.props.history);
+    
     const searchParams = this.props.location.search.slice(1);
     const parsed = parse(searchParams) as {
       search: string;
       searchBy: string;
     };
 
-    if (parsed.search) {
-      this.setState({ input: parsed.search });
-    } else {
-      this.setState({ input: "" });
-    }
+    this.setState({ input: parsed.search || "" });
 
-    if (parsed.searchBy) {
-      if (parsed.searchBy == "title") {
-        this.setState({ searchBy: SearchBy.Title });
-      } else {
-        this.setState({ searchBy: SearchBy.Genre });
-      }
+    if (parsed.searchBy && parsed.searchBy === SearchBy.Genre) {
+      this.setState({ searchBy: SearchBy.Genre });
     } else {
       this.setState({ searchBy: SearchBy.Title });
     }
@@ -66,13 +60,21 @@ class SearchPanel extends React.Component<
 
   handleSearchBtn = () => {
     this.props.handleSearch(this.state.input, this.state.searchBy);
+    this.setState({ input: "" });
   };
 
+  keyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      this.props.handleSearch(this.state.input, this.state.searchBy);
+      this.setState({ input: "" });
+    }
+  };
   render() {
     return (
       <div className="search-panel-wrapper">
         <h2 className="search-panel-label">FIND YOUR MOVIE</h2>
         <input
+          onKeyPress={this.keyPress}
           onChange={this.handleSearchChange}
           type="text"
           name=""
@@ -114,4 +116,4 @@ class SearchPanel extends React.Component<
   }
 }
 
-export default SearchPanel;
+export default withRouter(SearchPanel);

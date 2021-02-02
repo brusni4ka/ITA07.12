@@ -70,7 +70,7 @@ class MoviePage extends React.Component<IMoviePageProps, IMoviePageState> {
         <div className="container">
           <MovieDetailHeader />
           <MovieDetail movie={this.state.movie} />
-          <MovieSortPanel genre={this.state.movie.genres[0]}/>
+          <MovieSortPanel genre={this.state.movie.genres[0]} />
           <MovieList movies={this.props.movies} />
           <Footer />
         </div>
