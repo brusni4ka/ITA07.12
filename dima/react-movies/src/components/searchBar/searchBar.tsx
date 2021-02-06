@@ -46,6 +46,7 @@ export default class SearchBar extends React.Component<
     const { value: searchBarValue } = e.target;
     this.setState({ searchBarValue });
   };
+
   toggleSearchCategory = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null = null
   ): void => {
@@ -79,6 +80,7 @@ export default class SearchBar extends React.Component<
     this.setState({ searchBarValue: "" });
     pushParams(urlParams);
   };
+
   render() {
     const { searchBarValue, searchBy } = this.state;
     return (

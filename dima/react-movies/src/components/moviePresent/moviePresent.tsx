@@ -1,12 +1,15 @@
 import React from "react";
+import { Redirect } from "react-router";
 import MovieInterface from "../../interfaces/movieInterface";
+import Loader from "../loader";
 import "./moviePresent.css";
 interface MoviePresentProps {
-  movie: MovieInterface;
+  movie: MovieInterface | null;
+  loading: boolean;
 }
 
-const MoviePresent = ({ movie }: MoviePresentProps) => {
-  if (movie) {
+const MoviePresent = ({ movie, loading }: MoviePresentProps) => {
+  if (movie && !loading) {
     return (
       <div className="movie-container">
         <div className="movie-img">
@@ -34,8 +37,16 @@ const MoviePresent = ({ movie }: MoviePresentProps) => {
         </div>
       </div>
     );
+  } else if (loading) {
+    return (
+      <div className="first-screen-wrapper loader-cont">
+        <div className="loader">
+          <Loader />
+        </div>
+      </div>
+    );
   }
-  return null;
+  return <Redirect to="/page-not-found" />;
 };
 
 export default MoviePresent;

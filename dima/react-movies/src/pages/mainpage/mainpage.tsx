@@ -8,7 +8,6 @@ import MovieInterface from "../../interfaces/movieInterface";
 import MoviesResult from "../../components/moviesResult";
 import SortFilter from "../../components/sortFilter";
 import Footer from "../../components/footer";
-
 import * as QueryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -16,31 +15,40 @@ import "./mainpage.css";
 import SortProperty from "../../enums/SortProperty";
 import FilterProperty from "../../enums/FilterPropery";
 import ParamsToPush from "../../interfaces/paramsToPush";
+import { MainConnectProps } from ".";
 
-interface MainPageProps {
-  movies: MovieInterface[];
+interface OwnProps {
+  // movies: MovieInterface[];
+  // movie: MovieInterface | null;
+  // loading: boolean;
   currentSortType: string;
-  loading?: boolean;
   setCurrentSortType: (currentSortType: SortProperty) => void;
-  searchMovies: (value: string, category: string) => void;
-  setLoading: (Loading: boolean) => void;
-  setMovies: (movies: MovieInterface[]) => void;
+  // setLoading: (Loading: boolean) => void;
+  // setMovies: (movies: MovieInterface[], loading: boolean) => void;
+  // fetchMovies: (loading: boolean) => void;
 }
 
+type MainPageProps = OwnProps &
+  MainConnectProps &
+  RouteComponentProps<{ searchBy: FilterProperty }>;
+
 class MainPage extends React.Component<
-  MainPageProps & RouteComponentProps<{ searchBy: FilterProperty }>
+  MainPageProps & RouteComponentProps<{ searchBy: string }>
 > {
   componentDidMount() {
-    this.props.setLoading(true);
+    this.props.fetchMovies(true);
     this.fetchMovies();
   }
-  componentDidUpdate(prevProps: MainPageProps & RouteComponentProps) {
+
+  componentDidUpdate(
+    prevProps: MainPageProps & RouteComponentProps & MainConnectProps
+  ) {
     if (prevProps.location.search !== this.props.location.search) {
       this.fetchMovies();
     }
   }
   componentWillUnmount(): void {
-    this.props.setLoading(true);
+    this.props.setMovies([], true);
   }
 
   pushParams = (urlParams: ParamsToPush): void => {
@@ -50,28 +58,23 @@ class MainPage extends React.Component<
       search: QueryString.stringify(urlParams),
     });
   };
-
   makeFetch = (params: string): void => {
-    const { setLoading, setMovies } = this.props;
+    const { setMovies } = this.props;
     fetch(`https://reactjs-cdp.herokuapp.com/movies?${params}`)
       .then((response) => response.json())
       .then((movies) => {
         if (Object.keys(movies).length) {
-          setMovies(movies.data);
-          setLoading(false);
+          setMovies(movies.data, false);
         } else {
-          setMovies([]);
-          setLoading(false);
+          setMovies([], false);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   compareSortFromUrlToState = (sortBy: string | string[] | null) =>
     sortBy !== this.props.currentSortType;
-
   fetchMovies = (): void => {
     let defaultParams = {
       limit: 9,
@@ -91,13 +94,19 @@ class MainPage extends React.Component<
       case "/search":
         if (sortBy && this.compareSortFromUrlToState(sortBy))
           this.props.setCurrentSortType(sortBy === date ? date : rating);
+        console.log(
+          QueryString.stringify({
+            ...defaultParams,
+            ...oldParamsObj,
+            sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
+          })
+        );
+
         this.makeFetch(
           QueryString.stringify({
             ...defaultParams,
             ...oldParamsObj,
-            sortBy: oldParamsObj.searchBy
-              ? oldParamsObj.searchBy
-              : currentSortType,
+            sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
           })
         );
         break;
@@ -146,6 +155,8 @@ class MainPage extends React.Component<
 
   render() {
     const { movies, loading } = this.props;
+    // console.log(items);
+
     return (
       <div className="app">
         <div className="first-screen-wrapper">

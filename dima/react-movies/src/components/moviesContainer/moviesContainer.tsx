@@ -8,7 +8,7 @@ import "./moviesContainer.css";
 
 interface MoviesContainerProps {
   movies: MovieInterface[];
-  loading?: boolean;
+  loading: boolean;
 }
 
 const MoviesContainer = ({ movies, loading }: MoviesContainerProps) => {
@@ -25,18 +25,20 @@ const MoviesContainer = ({ movies, loading }: MoviesContainerProps) => {
       </div>
     );
   };
-  if (!loading && !movies.length) {
+  if (loading) {
     return (
-      <div className="movies-wrapper">
-        <p className="nothing-msg">No films found</p>
+      <div className="movies-loader">
+        <Loader />
       </div>
     );
-  } else if (movies.length) {
+  }
+  if (movies.length) {
     return renderMovies();
   }
+
   return (
-    <div className="movies-loader">
-      <Loader />
+    <div className="movies-wrapper">
+      <p className="nothing-msg">No films found</p>
     </div>
   );
 };
