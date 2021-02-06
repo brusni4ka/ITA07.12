@@ -6,38 +6,29 @@ import './sortBox.css';
 
 interface ISortBoxProps {
   movieCount?: number
-  sortFilms?: (sortBy: string) => void
+  sortFilms?: (sortBy: SortType) => void
   movieGanre?: string
+  onSortByChange?(arg0: SortType): void;
+  sortBy?: SortType
 }
 
-export interface ISortBoxState {
-  sortBy: string,
-  active: string
-}
-
-enum SortType {
+export enum SortType {
   ReleaseDate = "release_date",
   Rating = "vote_count"
 }
 
-class SortBox extends React.Component<ISortBoxProps, ISortBoxState> {
-
-  state: ISortBoxState = {
-    sortBy: SortType.ReleaseDate,
-    active: SortType.ReleaseDate
-  };
+class SortBox extends React.Component<ISortBoxProps> {
 
   handleSortTypeChange = (e: React.MouseEvent<HTMLElement>) => {
-    this.setState({
-      sortBy: (e.target as HTMLLinkElement).id,
-    }, () => {
-      this.props.sortFilms && this.props.sortFilms(this.state.sortBy);
-    });
+    this.props.onSortByChange && this.props.onSortByChange((e.target as HTMLLinkElement).id as SortType)
+    if (this.props.sortFilms && this.props.sortBy) {
+      this.props.sortFilms(this.props.sortBy);
+    }
   }
 
   render() {
-    const { movieCount, movieGanre } = this.props;
-    const { sortBy } = this.state;
+    const { movieCount, movieGanre, sortBy } = this.props;
+
     return (
       <div className="sort-box">
         <Container className="sortbox-wrapper">
@@ -58,6 +49,7 @@ class SortBox extends React.Component<ISortBoxProps, ISortBoxState> {
                   }
                 >Rating</Button>
               </div></>
+
           }
           {
             this.props.movieGanre && <><p className="film-search-ganre">Films by {movieGanre} ganre</p></>

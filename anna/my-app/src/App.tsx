@@ -26,14 +26,16 @@ class App extends React.Component<{}, IAppState> {
     return (
       <Router>
         <Switch>
-          <Route exact path={["/", "/search"]} render={props => (
-            <ErrorBoundary>
+          <ErrorBoundary>
+            <Route exact path={["/", "/search"]} render={props => (
+
               <HomePage movies={this.state.movies} changeMovies={this.changeMovies} {...props} />
-            </ErrorBoundary>
-          )}
-          />
-          <Route path="/film/:id" component={MoviePage} />
-          <Route component={NotFoundPage}/>
+
+            )}
+            />
+            <Route exact path="/film/:id" component={MoviePage} />
+            <Route path="*" exact component={NotFoundPage} />           
+          </ErrorBoundary>
         </Switch>
       </Router>
     );

@@ -1,28 +1,40 @@
 import IMovie from "./components/movieList/movie-card/IMovie";
+import { SearchType } from "./components/searchForm/SearchForm";
+import { SortType } from "./components/sortBox/SortBox";
+import * as QueryString from "query-string";
 
-
+export interface ISearchParams {
+  search?: string,
+  searchBy?: SearchType,
+  sotrBy?: SortType
+}
 
 class Api {
 
   static baseUrl = 'https://reactjs-cdp.herokuapp.com/movies';
-  static baseSortingSettings = 'limit=9&sortOrder=desc';
-  
-  static fetchMovies= async (searchParams: string): Promise<IMovie[]> => {
-    const response = await fetch(`${Api.baseUrl}${searchParams}&${Api.baseSortingSettings}`);
+
+  static baseSortingSettings = {
+    limit: 9,
+    sortOrder: 'desc'
+  }
+
+  static fetchMovies = async (searchParams: ISearchParams): Promise<IMovie[]> => {
+    const search = {
+      ...searchParams,
+      ...Api.baseSortingSettings
+    }
+    console.log(QueryString.stringify(search))
+    const response = await fetch(`${Api.baseUrl}?${QueryString.stringify(search)}`);
     const responseData = await response.json();
     const movies: IMovie[] = responseData.data;
     return movies;
-  }  
+  }
 
-  // fetch(`https://reactjs-cdp.herokuapp.com/movies/${movieId}`)
-    // .then(response => response.json())
-    // .then(responseData => {
-
-  static fetchMovie= async (id:string): Promise<IMovie> => {
-    const response = await fetch(`https://reactjs-cdp.herokuapp.com/movies/${id}`);
+  static fetchMovie = async (id: string): Promise<IMovie> => {
+    const response = await fetch(`${Api.baseUrl}/${id}`);
     const movie = await response.json();
     return movie;
-  }  
+  }
 }
 
 export default Api;
