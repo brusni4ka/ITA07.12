@@ -4,7 +4,6 @@ import Header from "../../components/header";
 import SearchBar from "../../components/searchBar";
 import MoviesContainer from "../../components/moviesContainer";
 import ErrorBoundary from "../../components/errorBoundary";
-import MovieInterface from "../../interfaces/movieInterface";
 import MoviesResult from "../../components/moviesResult";
 import SortFilter from "../../components/sortFilter";
 import Footer from "../../components/footer";
@@ -18,14 +17,8 @@ import ParamsToPush from "../../interfaces/paramsToPush";
 import { MainConnectProps } from ".";
 
 interface OwnProps {
-  // movies: MovieInterface[];
-  // movie: MovieInterface | null;
-  // loading: boolean;
   currentSortType: string;
   setCurrentSortType: (currentSortType: SortProperty) => void;
-  // setLoading: (Loading: boolean) => void;
-  // setMovies: (movies: MovieInterface[], loading: boolean) => void;
-  // fetchMovies: (loading: boolean) => void;
 }
 
 type MainPageProps = OwnProps &
@@ -36,82 +29,73 @@ class MainPage extends React.Component<
   MainPageProps & RouteComponentProps<{ searchBy: string }>
 > {
   componentDidMount() {
-    this.props.fetchMovies(true);
-    this.fetchMovies();
+    const params = QueryString.parse(this.props.history.location.search);
+    let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
+    this.fetchMovies(pageNum);
   }
 
   componentDidUpdate(
     prevProps: MainPageProps & RouteComponentProps & MainConnectProps
   ) {
     if (prevProps.location.search !== this.props.location.search) {
-      this.fetchMovies();
+      const params = QueryString.parse(this.props.history.location.search);
+      let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
+      this.fetchMovies(pageNum);
     }
   }
   componentWillUnmount(): void {
-    this.props.setMovies([], true);
+    this.props.resetMovies();
   }
 
   pushParams = (urlParams: ParamsToPush): void => {
     const { history } = this.props;
     history.push({
       pathname: "/search",
-      search: QueryString.stringify(urlParams),
+      search: QueryString.stringify({ ...urlParams, page: 1 }),
     });
   };
-  makeFetch = (params: string): void => {
-    const { setMovies } = this.props;
-    fetch(`https://reactjs-cdp.herokuapp.com/movies?${params}`)
-      .then((response) => response.json())
-      .then((movies) => {
-        if (Object.keys(movies).length) {
-          setMovies(movies.data, false);
-        } else {
-          setMovies([], false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
   compareSortFromUrlToState = (sortBy: string | string[] | null) =>
     sortBy !== this.props.currentSortType;
-  fetchMovies = (): void => {
+
+  fetchMovies = (pageNum: number): void => {
     let defaultParams = {
       limit: 9,
       sortBy: "release_date",
       sortOrder: "desc",
+      offset: 0,
     };
     const { location, currentSortType } = this.props;
     const { date, rating } = SortProperty;
     const oldParamsObj = QueryString.parse(location.search);
     const { sortBy } = oldParamsObj;
+
     switch (location.pathname) {
       case "/":
         if (sortBy && this.compareSortFromUrlToState(sortBy))
           this.props.setCurrentSortType(sortBy === date ? date : rating);
-        this.makeFetch(QueryString.stringify(defaultParams));
+
+        this.props.fetchMovies({
+          ...defaultParams,
+          sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
+          offset: pageNum * 9,
+        });
+
         break;
+
       case "/search":
         if (sortBy && this.compareSortFromUrlToState(sortBy))
           this.props.setCurrentSortType(sortBy === date ? date : rating);
-        console.log(
-          QueryString.stringify({
-            ...defaultParams,
-            ...oldParamsObj,
-            sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
-          })
-        );
-
-        this.makeFetch(
-          QueryString.stringify({
-            ...defaultParams,
-            ...oldParamsObj,
-            sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
-          })
-        );
+        this.props.fetchMovies({
+          ...defaultParams,
+          ...oldParamsObj,
+          sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
+          offset: pageNum * 9,
+        });
         break;
     }
   };
+
   switchCurrentSortType = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
@@ -135,13 +119,29 @@ class MainPage extends React.Component<
       );
     }
   };
-
+  getPage = (): number => {
+    const { history } = this.props;
+    const params = QueryString.parse(history.location.search);
+    const numPage =
+      params.page && Number(params.page.toString()) - 1 >= 0
+        ? Number(params.page.toString()) - 1
+        : 0;
+    return numPage;
+  };
+  onPageChanged = (selected: number): void => {
+    const { history } = this.props;
+    const params = QueryString.parse(history.location.search);
+    history.push({
+      pathname: history.location.pathname,
+      search: QueryString.stringify({ ...params, page: selected + 1 }),
+    });
+  };
   renderPanel = (): React.ReactNode => {
     const { movies, currentSortType, loading } = this.props;
     return (
       <>
         <ErrorBoundary>
-          <MoviesResult movies={movies} loading={loading} />
+          <MoviesResult total={movies.total} loading={loading} />
         </ErrorBoundary>
         <ErrorBoundary>
           <SortFilter
@@ -155,7 +155,7 @@ class MainPage extends React.Component<
 
   render() {
     const { movies, loading } = this.props;
-    // console.log(items);
+    const { data, total } = movies;
 
     return (
       <div className="app">
@@ -173,14 +173,20 @@ class MainPage extends React.Component<
         <div className="second-screen-wrapper">
           <ContentContainer>
             <div className="flex-wrapper">
-              {movies?.length !== 0 && this.renderPanel()}
+              {data?.length !== 0 && this.renderPanel()}
             </div>
           </ContentContainer>
         </div>
         <div className="third-screen-wrapper">
           <ContentContainer>
             <ErrorBoundary>
-              <MoviesContainer movies={movies} loading={loading} />
+              <MoviesContainer
+                movies={data}
+                total={total}
+                getPage={this.getPage}
+                loading={loading}
+                onPageChanged={this.onPageChanged}
+              />
             </ErrorBoundary>
           </ContentContainer>
         </div>

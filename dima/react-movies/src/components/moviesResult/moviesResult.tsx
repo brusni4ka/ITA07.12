@@ -1,14 +1,13 @@
 import React from "react";
-import MovieInterface from "../../interfaces/movieInterface";
 
 interface MoviesResultProps {
-  movies: MovieInterface[] | null;
+  total: number;
   loading?: boolean;
 }
 
-const MoviesResult = ({ movies, loading }: MoviesResultProps) => {
-  if (movies && !loading) {
-    return <span className="">{movies.length} movies was found</span>;
+const MoviesResult = ({ total, loading }: MoviesResultProps) => {
+  if (total && !loading) {
+    return <span className="">{total} movies was found</span>;
   }
   return null;
 };

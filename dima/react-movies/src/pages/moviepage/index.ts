@@ -5,10 +5,9 @@ import {
   setMovie,
   fetchMovies,
   setMovies,
-  MoviesAction,
+  resetMovie,
 } from "../../redux/moviesActions";
 import MoviePage from "./moviepage";
-// export default MoviePage;
 
 const mapStateToProps = (state: StateInterface) => {
   return {
@@ -24,6 +23,7 @@ const mapDispatchToProps = {
   setMovies,
   setMovie,
   fetchMovies,
+  resetMovie,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

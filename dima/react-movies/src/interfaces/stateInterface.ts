@@ -1,8 +1,8 @@
 import MovieInterface from "./movieInterface";
-
+import MoviesDataInterface from "../interfaces/moviesDataInterface";
 export interface MoviesStateInterface {
   movie: MovieInterface | null;
-  movies: MovieInterface[];
+  movies: MoviesDataInterface;
   loadingMovie: boolean;
   loadingMovies: boolean;
 }

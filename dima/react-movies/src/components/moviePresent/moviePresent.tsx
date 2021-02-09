@@ -9,7 +9,7 @@ interface MoviePresentProps {
 }
 
 const MoviePresent = ({ movie, loading }: MoviePresentProps) => {
-  if (movie && !loading) {
+  if (movie && Object.keys(movie)) {
     return (
       <div className="movie-container">
         <div className="movie-img">
@@ -39,7 +39,7 @@ const MoviePresent = ({ movie, loading }: MoviePresentProps) => {
     );
   } else if (loading) {
     return (
-      <div className="first-screen-wrapper loader-cont">
+      <div className="loader-cont">
         <div className="loader">
           <Loader />
         </div>
