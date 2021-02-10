@@ -30,14 +30,29 @@ class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
     };
 
     if (parsed.sortBy) {
-      if (parsed.sortBy == SortBy.Rating) {
+      if (parsed.sortBy === SortBy.Rating) {
         this.setState({ sortBy: SortBy.Rating });
       } else {
         this.setState({ sortBy: SortBy.ReleaseDate });
       }
-    } 
+    }
+  }
 
+  componentDidUpdate(prevprops: RouteComponentProps) {
+    if (this.props.location.search !== prevprops.location.search) {
+      const searchParams = this.props.location.search.slice(1);
+      const parsed = parse(searchParams) as {
+        sortBy: string;
+      };
 
+      if (parsed.sortBy) {
+        if (parsed.sortBy === SortBy.Rating) {
+          this.setState({ sortBy: SortBy.Rating });
+        } else {
+          this.setState({ sortBy: SortBy.ReleaseDate });
+        }
+      }
+    }
   }
 
   handleSearchByBtn = (btnType: SortBy) => {
@@ -51,7 +66,7 @@ class SortPanel extends React.Component<ISortPanelProps, ISortPanelState> {
     return (
       <div
         className={
-          this.props.movieCount == 0
+          this.props.movieCount === 0
             ? "sort-panel-hidden"
             : "sort-panel-wrapper"
         }

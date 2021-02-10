@@ -1,4 +1,4 @@
-import { parse, stringify } from "querystring";
+import { parse } from "querystring";
 import React from "react";
 import { withRouter } from "react-router";
 import "./SearchPanel.css";
@@ -28,8 +28,6 @@ class SearchPanel extends React.Component<
   };
 
   componentDidMount() {
-    console.log(this.props.history);
-    
     const searchParams = this.props.location.search.slice(1);
     const parsed = parse(searchParams) as {
       search: string;
@@ -38,10 +36,28 @@ class SearchPanel extends React.Component<
 
     this.setState({ input: parsed.search || "" });
 
-    if (parsed.searchBy && parsed.searchBy === SearchBy.Genre) {
+    if (parsed.searchBy === SearchBy.Genre) {
       this.setState({ searchBy: SearchBy.Genre });
     } else {
       this.setState({ searchBy: SearchBy.Title });
+    }
+  }
+
+  componentDidUpdate(prevprops: RouteComponentProps) {
+    if (this.props.location.search !== prevprops.location.search) {
+      const searchParams = this.props.location.search.slice(1);
+      const parsed = parse(searchParams) as {
+        search: string;
+        searchBy: string;
+      };
+
+      this.setState({ input: parsed.search || "" });
+
+      if (parsed.searchBy === SearchBy.Genre) {
+        this.setState({ searchBy: SearchBy.Genre });
+      } else {
+        this.setState({ searchBy: SearchBy.Title });
+      }
     }
   }
 

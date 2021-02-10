@@ -3,21 +3,35 @@ import "./MainPage.css";
 import Header from "./header/Header";
 import SearchPanel from "./search-panel/SearchPanel";
 import SortPanel from "./sort-panel/SortPanel";
-import IMovie from "../../interface/IMovie/IMovie";
 import MovieList from "./movie-list/MovieList";
 import Footer from "./footer/Footer";
 import { parse, stringify } from "query-string";
-
 import { RouteComponentProps } from "react-router-dom";
+import { requestMovies, reset } from "../../redux/reducers/moviesReducer";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../redux/store";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-interface IMainPageProps extends RouteComponentProps {
-  movies: IMovie[];
-  updateMovies(value: IMovie[]): void;
-}
+const mapStateToProps = (state: RootState) => {
+  return {
+    movies: state.movies.movies,
+  };
+};
 
-class MainPage extends React.Component<IMainPageProps> {
+const mapDispatchToProps = {
+  requestMovies,
+  reset,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector> & RouteComponentProps;
+
+class MainPage extends React.Component<PropsFromRedux, {}> {
   handleSearch = (search: string, searchBy: string) => {
-    const urlParams = stringify({ search, searchBy });
+    const parsed = parse(this.props.history.location.search) as {
+      sortBy: string;
+    };
+    const urlParams = stringify({ ...parsed, search, searchBy });
     this.props.history.push({
       pathname: "/search",
       search: urlParams,
@@ -41,45 +55,64 @@ class MainPage extends React.Component<IMainPageProps> {
   }
 
   componentDidUpdate(prevprops: RouteComponentProps) {
-    if (this.props.location.search != prevprops.location.search) {
+    if (this.props.location.search !== prevprops.location.search) {
       this.uploadMovies();
     }
   }
 
+  // componentWillUnmount() {
+  //   this.props.reset();
+  // }
+
   uploadMovies() {
-    if (this.props.history.location.pathname == "/search") {
-      fetch(
-        `https://reactjs-cdp.herokuapp.com/movies${this.props.history.location.search}`
-      )
-        .then((response) => response.json())
-        .then((receivedData) => {
-          this.props.updateMovies(receivedData.data);
-        });
-    } else {
-      fetch(
-        `https://reactjs-cdp.herokuapp.com/movies?sortBy=vote_average&limit=9`
-      )
-        .then((response) => response.json())
-        .then((receivedData) => {
-          this.props.updateMovies(receivedData.data);
-        });
-    }
+    const parsed = parse(this.props.history.location.search) as {
+      search: string;
+      searchBy: string;
+      sortBy: string;
+    };
+    let { search, searchBy, sortBy } = parsed;
+    this.props.requestMovies(search, searchBy, sortBy, 0);
   }
 
+  uploadMoreMovies = () => {
+    const parsed = parse(this.props.history.location.search) as {
+      search: string;
+      searchBy: string;
+      sortBy: string;
+    };
+    let { search, searchBy, sortBy } = parsed;
+    this.props.requestMovies(
+      search,
+      searchBy,
+      sortBy,
+      this.props.movies.length + 10
+    );
+  };
+
   render() {
-    console.log();
     return (
       <div className="wrapper">
         <div className="container">
           <Header />
-          <SearchPanel
-            handleSearch={this.handleSearch}
-          />
+          <SearchPanel handleSearch={this.handleSearch} />
           <SortPanel
             handleSort={this.handleSort}
             movieCount={this.props.movies.length}
           />
-          <MovieList movies={this.props.movies} />
+
+          <InfiniteScroll
+            dataLength={this.props.movies.length} //This is important field to render the next data
+            next={this.uploadMoreMovies}
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <MovieList movies={this.props.movies} />
+          </InfiniteScroll>
           <Footer />
         </div>
       </div>
@@ -87,4 +120,4 @@ class MainPage extends React.Component<IMainPageProps> {
   }
 }
 
-export default MainPage;
+export default connector(MainPage);

@@ -10,7 +10,7 @@ interface IMainProps {
 
 class MovieList extends React.Component<IMainProps, {}> {
   render() {
-    if (this.props.movies.length == 0) {
+    if (this.props.movies.length === 0) {
       return (
         <div className="movie-list-error">
           <p>No films found</p>
