@@ -1,6 +1,11 @@
 import ActionTypes from "../enums/ActionTypes";
 import { takeLatest, put, call, all } from "redux-saga/effects";
-import { FetchMovieAction, setMovie, fetchMovies } from "./moviesActions";
+import {
+  FetchMovieAction,
+  setMovie,
+  fetchMovies,
+  fetchMovieError,
+} from "./moviesActions";
 import MovieInterface from "../interfaces/movieInterface";
 
 const fetchMovie = async (id: string): Promise<MovieInterface> => {
@@ -19,7 +24,7 @@ function* fetchMovieSaga(action: FetchMovieAction) {
     const { offset } = action.payload;
     yield put(fetchMovies({ filter: movie.genres[0], limit: 9, offset }));
   } catch (e) {
-    yield put(setMovie(null, false));
+    yield put(fetchMovieError());
   }
 }
 

@@ -9,7 +9,6 @@ import MoviePresent from "../../components/moviePresent/moviePresent";
 import MoviesContainer from "../../components/moviesContainer";
 import QueryString from "query-string";
 import { MovieConnectProps } from ".";
-
 import "./moviepage.css";
 
 class MoviePage extends Component<
@@ -68,20 +67,20 @@ class MoviePage extends Component<
             </ErrorBoundary>
           </ContentContainer>
         </div>
-        {movie?.genres ? (
+        {movie?.genres && (
           <div className="second-screen-wrapper">
             <ContentContainer>
               <CurrentMovieGenreFilter genre={movie.genres[0]} />
             </ContentContainer>
           </div>
-        ) : null}
-        {movie && Object.keys(movie) && (
+        )}
+        {movie && (
           <div className="third-screen-wrapper">
             <ContentContainer>
               <MoviesContainer
                 movies={movies.data}
                 total={movies.total}
-                getPage={this.getPage}
+                page={this.getPage()}
                 loading={loadingMovies}
                 onPageChanged={this.onPageChanged}
               />

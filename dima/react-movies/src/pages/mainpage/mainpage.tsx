@@ -7,27 +7,27 @@ import ErrorBoundary from "../../components/errorBoundary";
 import MoviesResult from "../../components/moviesResult";
 import SortFilter from "../../components/sortFilter";
 import Footer from "../../components/footer";
-import * as QueryString from "query-string";
+import QueryString from "query-string";
 import { RouteComponentProps } from "react-router-dom";
-
-import "./mainpage.css";
 import SortProperty from "../../enums/SortProperty";
 import FilterProperty from "../../enums/FilterPropery";
 import ParamsToPush from "../../interfaces/paramsToPush";
 import { MainConnectProps } from ".";
+import "./mainpage.css";
 
-interface OwnProps {
-  currentSortType: string;
-  setCurrentSortType: (currentSortType: SortProperty) => void;
-}
-
-type MainPageProps = OwnProps &
-  MainConnectProps &
+type MainPageProps = MainConnectProps &
   RouteComponentProps<{ searchBy: FilterProperty }>;
 
+interface MainPageState {
+  currentSortType: SortProperty;
+}
 class MainPage extends React.Component<
-  MainPageProps & RouteComponentProps<{ searchBy: string }>
+  MainPageProps & RouteComponentProps<{ searchBy: string }>,
+  MainPageState
 > {
+  state: MainPageState = {
+    currentSortType: SortProperty.date,
+  };
   componentDidMount() {
     const params = QueryString.parse(this.props.history.location.search);
     let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
@@ -47,6 +47,9 @@ class MainPage extends React.Component<
     this.props.resetMovies();
   }
 
+  setCurrentSortType = (currentSortType: SortProperty): void => {
+    this.setState({ currentSortType });
+  };
   pushParams = (urlParams: ParamsToPush): void => {
     const { history } = this.props;
     history.push({
@@ -56,7 +59,7 @@ class MainPage extends React.Component<
   };
 
   compareSortFromUrlToState = (sortBy: string | string[] | null) =>
-    sortBy !== this.props.currentSortType;
+    sortBy !== this.state.currentSortType;
 
   fetchMovies = (pageNum: number): void => {
     let defaultParams = {
@@ -65,41 +68,28 @@ class MainPage extends React.Component<
       sortOrder: "desc",
       offset: 0,
     };
-    const { location, currentSortType } = this.props;
-    const { date, rating } = SortProperty;
+    const { location } = this.props;
+    const { currentSortType } = this.state;
     const oldParamsObj = QueryString.parse(location.search);
     const { sortBy } = oldParamsObj;
+    if (sortBy && this.compareSortFromUrlToState(sortBy))
+      this.setCurrentSortType(
+        sortBy === SortProperty.date ? SortProperty.date : SortProperty.rating
+      );
 
-    switch (location.pathname) {
-      case "/":
-        if (sortBy && this.compareSortFromUrlToState(sortBy))
-          this.props.setCurrentSortType(sortBy === date ? date : rating);
-
-        this.props.fetchMovies({
-          ...defaultParams,
-          sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
-          offset: pageNum * 9,
-        });
-
-        break;
-
-      case "/search":
-        if (sortBy && this.compareSortFromUrlToState(sortBy))
-          this.props.setCurrentSortType(sortBy === date ? date : rating);
-        this.props.fetchMovies({
-          ...defaultParams,
-          ...oldParamsObj,
-          sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
-          offset: pageNum * 9,
-        });
-        break;
-    }
+    this.props.fetchMovies({
+      ...defaultParams,
+      ...oldParamsObj,
+      sortBy: oldParamsObj.sortBy ? oldParamsObj.sortBy : currentSortType,
+      offset: pageNum * 9,
+    });
   };
 
   switchCurrentSortType = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
-    const { location, history, currentSortType } = this.props;
+    const { currentSortType } = this.state;
+    const { location, history } = this.props;
     const oldParam = QueryString.parse(location.search);
     const { value } = e.currentTarget;
     if (
@@ -114,7 +104,7 @@ class MainPage extends React.Component<
         pathname: location.pathname,
         search: newParamString,
       });
-      this.props.setCurrentSortType(
+      this.setCurrentSortType(
         value === SortProperty.date ? SortProperty.date : SortProperty.rating
       );
     }
@@ -136,25 +126,10 @@ class MainPage extends React.Component<
       search: QueryString.stringify({ ...params, page: selected + 1 }),
     });
   };
-  renderPanel = (): React.ReactNode => {
-    const { movies, currentSortType, loading } = this.props;
-    return (
-      <>
-        <ErrorBoundary>
-          <MoviesResult total={movies.total} loading={loading} />
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <SortFilter
-            currentSortType={currentSortType}
-            switchCurrentSortType={this.switchCurrentSortType}
-          />
-        </ErrorBoundary>
-      </>
-    );
-  };
 
   render() {
     const { movies, loading } = this.props;
+    const { currentSortType } = this.state;
     const { data, total } = movies;
 
     return (
@@ -165,7 +140,7 @@ class MainPage extends React.Component<
             <ErrorBoundary>
               <SearchBar
                 location={this.props.location}
-                pushParams={this.pushParams}
+                pushParamsOnSubmit={this.pushParams}
               />
             </ErrorBoundary>
           </ContentContainer>
@@ -173,7 +148,19 @@ class MainPage extends React.Component<
         <div className="second-screen-wrapper">
           <ContentContainer>
             <div className="flex-wrapper">
-              {data?.length !== 0 && this.renderPanel()}
+              {data?.length !== 0 && (
+                <>
+                  <ErrorBoundary>
+                    <MoviesResult total={movies.total} loading={loading} />
+                  </ErrorBoundary>
+                  <ErrorBoundary>
+                    <SortFilter
+                      currentSortType={currentSortType}
+                      switchCurrentSortType={this.switchCurrentSortType}
+                    />
+                  </ErrorBoundary>
+                </>
+              )}
             </div>
           </ContentContainer>
         </div>
@@ -183,7 +170,7 @@ class MainPage extends React.Component<
               <MoviesContainer
                 movies={data}
                 total={total}
-                getPage={this.getPage}
+                page={this.getPage()}
                 loading={loading}
                 onPageChanged={this.onPageChanged}
               />

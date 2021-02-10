@@ -6,6 +6,8 @@ enum ActionTypes {
   RESET_MOVIES = "resetMovies",
   SET_PAGE = "setPage",
   RESET_MOVIE = "resetMovie",
+  FETCH_MOVIES_ERROR = "fetchMoviesError",
+  FETCH_MOVIE_ERROR = "fetchMovieError",
 }
 
 export default ActionTypes;

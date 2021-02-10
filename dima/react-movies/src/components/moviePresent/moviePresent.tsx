@@ -9,7 +9,7 @@ interface MoviePresentProps {
 }
 
 const MoviePresent = ({ movie, loading }: MoviePresentProps) => {
-  if (movie && Object.keys(movie)) {
+  if (movie) {
     return (
       <div className="movie-container">
         <div className="movie-img">

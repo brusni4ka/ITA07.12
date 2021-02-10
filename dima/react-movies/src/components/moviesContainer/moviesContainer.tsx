@@ -11,7 +11,7 @@ interface MoviesContainerProps {
   movies: MovieInterface[];
   loading: boolean;
   total: number;
-  getPage: () => number;
+  page: number;
   onPageChanged: (selected: number) => void;
 }
 
@@ -19,10 +19,17 @@ const MoviesContainer = ({
   movies,
   loading,
   total,
-  getPage,
+  page,
   onPageChanged,
 }: MoviesContainerProps) => {
-  const renderMovies = (): JSX.Element => {
+  if (loading) {
+    return (
+      <div className="movies-loader">
+        <Loader />
+      </div>
+    );
+  }
+  if (movies.length) {
     return (
       <div className="movies-wrapper">
         <ErrorBoundary>
@@ -36,8 +43,8 @@ const MoviesContainer = ({
             pageRangeDisplayed={5}
             marginPagesDisplayed={2}
             containerClassName="paginate-wrapper"
-            initialPage={getPage()}
-            forcePage={getPage()}
+            initialPage={page}
+            forcePage={page}
             pageLinkClassName="page-number"
             activeLinkClassName="page-number-active"
             onPageChange={({ selected }) => onPageChanged(selected)}
@@ -46,16 +53,6 @@ const MoviesContainer = ({
         </ErrorBoundary>
       </div>
     );
-  };
-  if (loading) {
-    return (
-      <div className="movies-loader">
-        <Loader />
-      </div>
-    );
-  }
-  if (movies.length) {
-    return renderMovies();
   }
 
   return (

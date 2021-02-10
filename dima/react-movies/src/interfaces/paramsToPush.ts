@@ -1,5 +1,5 @@
 import FilterProperty from "../enums/FilterPropery";
 export default interface ParamsToPush {
-  search: string;
+  search: string | undefined;
   searchBy: FilterProperty;
 }
