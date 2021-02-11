@@ -12,7 +12,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
   return (
     <header className="header container">
       <a href="/" className="logo">nexflixroullet</a>
-      {pageName !== 'home' && <Link to="/" onClick={() => console.log('clicked')} href="/" className="btn-light">Search</Link>}
+      {pageName !== 'home' && <Link to="/" onClick={() => console.log('clicked')} href="/" className="btn-header-light">Search</Link>}
     </header>
   );
 }

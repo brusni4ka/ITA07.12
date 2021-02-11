@@ -30,22 +30,27 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
   changeValue = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ search: e.target.value });
 
   handleSearchByChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ 
+    this.setState({
       search: '',
       searchBy: e.target.value as SearchType,
     }, () => {
       this.props.onSearchByChange(this.state);
-    })
+    });
   }
 
   componentDidMount() {
     const { location } = this.props;
-    console.log(location.search, 'search update')
+    console.log(location.search, 'search mount')
     const searchParams = QueryString.parse(location.search);
-    console.log(searchParams)
+
     if (searchParams.searchBy) {
       this.setState({
         searchBy: searchParams.searchBy as SearchType
+      });
+    } else if (searchParams.search) {
+      console.log("search catched")
+      this.setState({
+        search: searchParams.search as SearchType
       })
     }
   }

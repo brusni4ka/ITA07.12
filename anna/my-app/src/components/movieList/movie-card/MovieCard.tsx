@@ -8,13 +8,15 @@ interface IMovieCardProps {
 
 const MovieCard: React.FC<IMovieCardProps> = (props) => {
   const { movie } = props;
-
+console.log(movie);
   return (
+    
+    !movie.title ? <></> :
     <div className="movie-card-full">
       <img src={movie.poster_path} className="movie-card-full-img" alt="movie poster" />
       <div className="movie-card-body">
         <h2 className="movie-title">{movie.title}</h2> 
-        <span className="movie-rating">{movie.vote_average}</span>
+        <span className="movie-rating">{movie.vote_count}</span>
         <p className="ganre">{movie.genres.slice(0, 3).join(' & ')}</p>
         <span className="movie-release-date">{movie.release_date.split('-')[0]}</span>
         <span className="movie-runtime">{movie.runtime} min</span>

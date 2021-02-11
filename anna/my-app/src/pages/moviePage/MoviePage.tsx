@@ -2,66 +2,52 @@ import React from 'react';
 import Layout from '../../components/layout';
 import './moviePage.css';
 import MovieList from '../../components/movieList';
-import IMovie from '../../components/movieList/movie-card/IMovie';
 import SortBox from '../../components/sortBox';
 import Container from '../../components/container';
 import MovieCard from '../../components/movieList/movie-card/MovieCard';
 import { RouteComponentProps } from "react-router-dom";
-import Api, {ISearchParams} from '../../Api';
-
-import * as QueryString from "query-string";
-
-interface IMoviePageState {
-  movies: Array<IMovie>,
-  movie?: IMovie
-}
+import { MovieConnectedProps } from '.';
 
 interface RouteParams { id: string }
 
-class MoviePage extends React.Component<RouteComponentProps<RouteParams>, IMoviePageState> {
-
-  state: IMoviePageState = {
-    movies: [],
-  }
+class MoviePage extends React.Component<RouteComponentProps<RouteParams> & MovieConnectedProps> {
 
   componentDidUpdate(prewProps: RouteComponentProps<RouteParams>) {
     const { match } = this.props;
-    console.log("updated");    
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     if (prewProps.match.params.id !== match.params.id) {
       this.getMovies();
     }
   }
 
+  componentWillUnmount() {
+    this.props.resetMovies();
+  }
+
   componentDidMount() {
     console.log("mount");
     this.getMovies();
- }
+  }
 
-  async getMovies() {
-    const { match } = this.props;    
-
+  getMovies() {
+    const { match } = this.props;
     const movieId = match.params.id;
-    const movie = await Api.fetchMovie(movieId);
-    const searchParams: ISearchParams = QueryString.parse(`?search=${movie && movie.genres[0]}&searchBy=genres`)
-
-    this.setState({movie});
-
-    const movies = await Api.fetchMovies(searchParams);
-    this.setState({ movies})
-    
+    this.props.fetchMovieRequested(movieId);
   }
 
   render() {
-    const { movies, movie } = this.state;
+    console.log(this.props)
+    const { movies, movie, loadingMovie, loadingMovies } = this.props;
     return (
       <Layout className="movie-page" pageName={'moviePage'}>
         <section className="section-dark">
-          <Container>{movie && <MovieCard movie={movie} />}</Container>
+          <Container>
+            {loadingMovie ? <p className="loading-movie">Loading...</p> : <MovieCard movie={movie} />}
+          </Container>
         </section>
         <section className="section">
-          {movie && <SortBox movieGanre={movie.genres[0]}/>}
-          <MovieList className="container" movies={movies} />
+          <SortBox movieGanre={movie.genres ? movie.genres[0] : ''} />
+          {loadingMovies ? <p className="loading-list">Loading...</p> : <MovieList className="container" movies={movies} />}
         </section>
       </Layout>
     )

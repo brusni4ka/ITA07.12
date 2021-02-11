@@ -85,15 +85,17 @@
 }
 
 .movie-card-full-img {
-  width: 30%;
+  width: 35%;
   flex-grow: 0;
   margin-right: 50px;
   flex-shrink: 0;
 }
 
 .movie-card-full .movie-rating {
-   vertical-align: super;
-  position: relative;
+  vertical-align: super;
+  position: absolute;
+  top: 54px;
+  right: 68px;
 }
 
 .movie-card-full .movie-rating::before {
