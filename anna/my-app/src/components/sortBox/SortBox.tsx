@@ -14,7 +14,7 @@ interface ISortBoxProps {
 
 export enum SortType {
   ReleaseDate = "release_date",
-  Rating = "vote_count"
+  Rating = "vote_average"
 }
 
 class SortBox extends React.Component<ISortBoxProps> {
@@ -33,8 +33,8 @@ class SortBox extends React.Component<ISortBoxProps> {
       <div className="sort-box">
         <Container className="sortbox-wrapper">
           {
-            this.props.movieCount
-            && <><p className="film-search-number">{movieCount} films found</p>
+            (this.props.movieCount && this.props.movieCount > 0) ?
+            <><p className="film-search-number">{movieCount} films found</p>
               <div className="">
                 <span>Sort by </span>
                 <Button onClick={this.handleSortTypeChange} href="/" id={SortType.ReleaseDate}
@@ -48,15 +48,13 @@ class SortBox extends React.Component<ISortBoxProps> {
                     : "btn-light"
                   }
                 >Rating</Button>
-              </div></>
-
+              </div></> : <></>
           }
           {
             this.props.movieGanre && <><p className="film-search-ganre">Films by {movieGanre} ganre</p></>
           }
         </Container>
       </div>
-
     )
   }
 }

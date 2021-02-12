@@ -12,17 +12,17 @@ interface IMovieListProps {
 }
 
 class MovieList extends React.Component<IMovieListProps, MoviesConnectedProps> {
- 
+
   render() {
     const { movies, className } = this.props;
-    
+
     const classes = classNames(
       'movie-search-result',
       className
     );
 
     return (
-      movies.length ?
+      movies.length > 0 ?
         <div className={classes}>
           {
             movies.map((movie: IMovie, index: number) => {
@@ -34,7 +34,6 @@ class MovieList extends React.Component<IMovieListProps, MoviesConnectedProps> {
           }
         </div>
         : <p className="movie-list-message">No films found</p>
-
     )
   }
 }

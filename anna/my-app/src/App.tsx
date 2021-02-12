@@ -7,22 +7,9 @@ import ErrorBoundary from './components/errorBoundary';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-// interface IAppState {
-//   movies: IMovie[];
-// }
-
 class App extends React.Component {
 
-  // state: IAppState = {
-  //   movies: []
-  // }
-
-  // changeMovies = (movies: IMovie[]) => {
-  //   this.setState({ movies });
-  // }
-
   render() {
-
     return (
       <ErrorBoundary>
         <Router>

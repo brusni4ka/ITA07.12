@@ -16,7 +16,6 @@ class Api {
 
   static baseSortingSettings = {
     limit: 9,
-    // offset: 0,
     sortOrder: 'desc'
   }
 
@@ -25,12 +24,11 @@ class Api {
       ...searchParams,
       ...Api.baseSortingSettings
     }
-    console.log(search)
+    // console.log(search)
    
     const response = await fetch(`${Api.baseUrl}?${QueryString.stringify(search)}`);
     const responseData = await response.json();
     const movies: IMovie[] = responseData.data;
-    // console.log(responseData);
     return movies;
   }
 
@@ -40,17 +38,17 @@ class Api {
       ...searchParams,
       offset: limit
     }
+    // console.log(search)
     const response = await fetch(`${Api.baseUrl}?${QueryString.stringify(search)}`);
     const responseData = await response.json();
     const movies: IMovie[] = responseData.data;
-    console.log(movies)
     return movies;
   };
 
   static fetchMovie = async (id: string): Promise<IMovie> => {
     const response = await fetch(`${Api.baseUrl}/${id}`);
     const movie = await response.json();
-    console.log(movie)
+    // console.log(movie)
     return movie;
   }
 }

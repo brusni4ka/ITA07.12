@@ -12,7 +12,7 @@ const movieDefaultState: IMovieState = {
 }
 
 export const movieReducer = (state = movieDefaultState, action: MovieAction) => {
-  console.log(action, 'from movie reducer');
+  // console.log(action, 'from movie reducer');
   switch (action.type) {
         
     case MovieActionTypes.FETCH_MOVIE_REQUESTED:

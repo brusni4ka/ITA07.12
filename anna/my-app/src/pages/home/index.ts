@@ -1,15 +1,15 @@
 import {connect, ConnectedProps} from 'react-redux';
 import { IRootState } from '../../store/store';
 
-import {changeSortBy, fetchMoviesRequested, increaseCurrentCount, loadMoreMovies} from '../../store/redux/moviesActions'
+import {changeSortBy, fetchMoviesRequested, setOffset, loadMoreMovies} from '../../store/redux/moviesActions'
 import HomePage from './HomePage'
 
 const mapStateToProps = (state: IRootState) => {
-  console.log(state);
+  // console.log(state);
   return {
     movies: state.movies.items,
     sortBy: state.movies.sortBy,
-    currentCount: state.movies.currentCount,
+    offset: state.movies.offset,
     loading: state.movies.loading
   }
 }
@@ -17,7 +17,7 @@ const mapStateToProps = (state: IRootState) => {
 const mapDispatchToProps = {
   changeSortBy,
   fetchMoviesRequested,
-  increaseCurrentCount,
+  setOffset,
   loadMoreMovies
 }
 

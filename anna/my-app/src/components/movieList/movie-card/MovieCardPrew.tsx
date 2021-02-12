@@ -8,22 +8,35 @@ interface IMovieCardPrewProps {
   movie: IMovie,
 }
 
-class MovieCardPrew extends React.Component<IMovieCardPrewProps> {
-  private textInput: HTMLDivElement | null | undefined;
+interface IMovieCardPrewState {
+ isError: boolean,
+}
 
-  documentDiDUpdate() {
-     this.textInput && this.textInput.addEventListener('scroll', () => {
-       console.log('scroooooool')
-     });
+class MovieCardPrew extends React.Component<IMovieCardPrewProps, IMovieCardPrewState> {
+
+  state = {
+    isError: false
   }
-  
+
+  handleError = () => {
+    this.setState({
+      isError: true
+    })
+    console.log('can`t load image')
+  }
+
   render() {
     const { movie } = this.props;
+    const { isError} = this.state;
 
     return (
-      <Link to={`/film/${movie.id}`} className="movie-link">       
+      <Link to={`/film/${movie.id}`} className="movie-link">
         <div className="movie-card" >
-          <img src={movie.poster_path} className="movie-card-img" alt="movie poster" />
+          {isError && <div className="movie-card-img"></div>}
+          <img src={movie.poster_path} className="movie-card-img" alt="movie poster" onError={this.handleError}
+           style={{
+            display: isError ? "none" : "initial"
+          }}/>
           <div className="movie-card-body">
             <h2 className="movie-title">{movie.title}</h2>
             <p className="movie-release-date">{movie.release_date.split('-')[0]}</p>

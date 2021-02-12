@@ -47,8 +47,9 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
       this.setState({
         searchBy: searchParams.searchBy as SearchType
       });
-    } else if (searchParams.search) {
-      console.log("search catched")
+    } 
+
+    if (searchParams.search) {
       this.setState({
         search: searchParams.search as SearchType
       })
@@ -99,8 +100,6 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
           <label htmlFor="input-ganre"></label>
           <Button onClick={this.handleSubmit} className="btn-primary search-form-btn">Search</Button>
         </div>
-
-
       </form>
     );
   };

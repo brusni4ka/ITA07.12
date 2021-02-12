@@ -5,25 +5,16 @@ import IMovie from '../../components/movieList/movie-card/IMovie';
 export interface IMoviesState {
   items: IMovie[],
   sortBy: SortType,
-  currentCount: number,
+  offset: number,
   loading: boolean
 }
 
 const moviesDefaultState: IMoviesState = {
   items: [],
   sortBy: SortType.ReleaseDate,
-  currentCount: 0,
+  offset: 0,
   loading: false
 }
-
-// const tmpArray: number[] = [];
-// const checkMovie = (movie: IMovie) => {
-//   if (tmpArray.indexOf(movie.id) === -1) {
-//     tmpArray.push(movie.id);
-//     return true;
-//   }
-//   return false;
-// }
 
 export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) => {
   switch (action.type) {
@@ -63,7 +54,7 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
     case MoviesActionTypes.LOAD_MORE_MOVIES_REQUESTED:
       return {
         ...state,
-        loading: true,
+        // loading: true,
       };
 
     case MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS:
@@ -72,22 +63,19 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
            
       return {
         ...state,
-        items: [...items, ...newMovies],
-        loading: false,
+        items: [...items, ...newMovies]
       };
 
     case MoviesActionTypes.LOAD_MORE_MOVIES_ERROR:
       return {
-        ...state,
-        loading: false,
+        ...state
       };
 
-    case MoviesActionTypes.INCREASE_CURRENT_COUNT:
-      const newOffset = state.currentCount + action.payload;
-    console.log(state.currentCount + action.payload)
+    case MoviesActionTypes.SET_OFFSET:
+      const newOffset = state.offset + action.payload;
       return {
         ...state,
-        currentCount: newOffset,
+        offset: newOffset,
       };
 
     default:

@@ -7,14 +7,19 @@ import Container from '../../components/container';
 import MovieCard from '../../components/movieList/movie-card/MovieCard';
 import { RouteComponentProps } from "react-router-dom";
 import { MovieConnectedProps } from '.';
+import InfiniteScroll from '../../components/infiniteScroll';
 
 interface RouteParams { id: string }
 
 class MoviePage extends React.Component<RouteComponentProps<RouteParams> & MovieConnectedProps> {
 
-  componentDidUpdate(prewProps: RouteComponentProps<RouteParams>) {
-    const { match } = this.props;
-    window.scrollTo(0, 0);
+  componentDidUpdate(prewProps: RouteComponentProps<RouteParams> & MovieConnectedProps) {
+    const { match, movies } = this.props;
+
+    if(prewProps.movies.length === movies.length) {
+       window.scrollTo(0, 0);
+    }
+   
     if (prewProps.match.params.id !== match.params.id) {
       this.getMovies();
     }
@@ -36,8 +41,7 @@ class MoviePage extends React.Component<RouteComponentProps<RouteParams> & Movie
   }
 
   render() {
-    console.log(this.props)
-    const { movies, movie, loadingMovie, loadingMovies } = this.props;
+    const { movies, movie, loadingMovie, loadingMovies, loadMoreMovies, location } = this.props;
     return (
       <Layout className="movie-page" pageName={'moviePage'}>
         <section className="section-dark">
@@ -47,7 +51,9 @@ class MoviePage extends React.Component<RouteComponentProps<RouteParams> & Movie
         </section>
         <section className="section">
           <SortBox movieGanre={movie.genres ? movie.genres[0] : ''} />
-          {loadingMovies ? <p className="loading-list">Loading...</p> : <MovieList className="container" movies={movies} />}
+          <InfiniteScroll loadMoreMovies={loadMoreMovies} movies={movies} search={location.search}>
+            {loadingMovies ? <p className="loading-list">Loading...</p> : <MovieList className="container" movies={movies} />}
+          </InfiniteScroll>
         </section>
       </Layout>
     )

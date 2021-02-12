@@ -10,7 +10,7 @@ export enum MoviesActionTypes {
   LOAD_MORE_MOVIES_SUCCESS = 'LOAD_MORE_MOVIES_SUCCESS',
   LOAD_MORE_MOVIES_ERROR = 'LOAD_MORE_MOVIES_ERROR',
   SET_SORT_BY = 'SET_SORT_BY',
-  INCREASE_CURRENT_COUNT = 'INCREASE_CURRENT_COUNT',
+  SET_OFFSET = 'SET_OFFSET',
   RESET_MOVIES = 'RESET_MOVIES'
 }
 
@@ -30,10 +30,8 @@ export interface FetchMoviesErrorAction {
 
 export interface LoadMoreMoviesRequestedAction {
   type: MoviesActionTypes.LOAD_MORE_MOVIES_REQUESTED,
-  payload: {
-    searchParams: ISearchParams,
-    limit: number
-  }
+  payload: ISearchParams
+
 }
 
 export interface LoadMoreMoviesSuccessAction {
@@ -50,8 +48,8 @@ export interface SetSortByAction {
   payload: SortType
 }
 
-export interface IncreaseCurrentCountAction {
-  type: MoviesActionTypes.INCREASE_CURRENT_COUNT,
+export interface SetOffsetAction {
+  type: MoviesActionTypes.SET_OFFSET,
   payload: number
 }
 
@@ -64,8 +62,8 @@ export const changeSortBy = (value: SortType): SetSortByAction => ({
   payload: value
 })
 
-export const increaseCurrentCount = (value: number): IncreaseCurrentCountAction => ({
-  type: MoviesActionTypes.INCREASE_CURRENT_COUNT,
+export const setOffset = (value: number): SetOffsetAction => ({
+  type: MoviesActionTypes.SET_OFFSET,
   payload: value
 })
 
@@ -83,10 +81,10 @@ export const fetchMoviesError = (): FetchMoviesErrorAction => ({
   type: MoviesActionTypes.FETCH_MOVIES_ERROR
 })
 
-export const loadMoreMovies = (searchParams: ISearchParams, limit: number): LoadMoreMoviesRequestedAction => ({
+export const loadMoreMovies = (searchParams: ISearchParams): LoadMoreMoviesRequestedAction => ({
   type: MoviesActionTypes.LOAD_MORE_MOVIES_REQUESTED, 
-  payload: {searchParams: searchParams, limit: limit
-  }
+  payload: searchParams
+  
 })
 
 export const loadMoreMoviesSuccess = (movies: IMovie[]): LoadMoreMoviesSuccessAction => ({
@@ -110,4 +108,4 @@ export type MoviesAction =
   LoadMoreMoviesRequestedAction |
   LoadMoreMoviesSuccessAction |
   LoadMoreMoviesErrorAction |
-  IncreaseCurrentCountAction;
+  SetOffsetAction;
