@@ -26,25 +26,14 @@ export default class SearchBar extends React.Component<
   };
 
   componentDidMount() {
-    if (QueryString.parse(this.props.location.search).searchBy) {
-      this.toggleSearchCategoryByURL();
-    }
-    const { search } = QueryString.parse(this.props.location.search);
-    if (search) {
-      this.setState({ searchBarValue: search.toString() });
-    }
+    this.setFiltersFromURL();
   }
   componentDidUpdate(prevProps: SearchBarProps) {
     if (
       QueryString.parse(prevProps.location.search).search !==
       QueryString.parse(this.props.location.search).search
     ) {
-      const { search } = QueryString.parse(this.props.location.search);
-      if (search) {
-        this.setState({ searchBarValue: search.toString() });
-      } else {
-        this.setState({ searchBarValue: "" });
-      }
+      this.setFiltersFromURL();
     }
   }
   onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -66,11 +55,12 @@ export default class SearchBar extends React.Component<
     }
   };
 
-  toggleSearchCategoryByURL = () => {
+  setFiltersFromURL = () => {
+    const { search, searchBy } = QueryString.parse(this.props.location.search);
     this.setState({
+      searchBarValue: search ? search.toString() : "",
       searchBy:
-        QueryString.parse(this.props.location.search).searchBy ===
-        FilterProperty.title
+        searchBy === FilterProperty.title
           ? FilterProperty.title
           : FilterProperty.genre,
     });

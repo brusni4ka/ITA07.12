@@ -15,18 +15,20 @@ class MoviePage extends Component<
   MovieConnectProps & RouteComponentProps<{ id: string }>
 > {
   componentDidMount() {
-    const params = QueryString.parse(this.props.history.location.search);
-    let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
-    this.fetchAllMovies(pageNum);
+    this.checkPageNumbersAndFechMovie();
   }
   componentDidUpdate(
     prevProps: MovieConnectProps & RouteComponentProps<{ id: string }>
   ) {
     if (this.props.location !== prevProps.location) {
-      const params = QueryString.parse(this.props.history.location.search);
-      let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
-      this.fetchAllMovies(pageNum);
+      this.checkPageNumbersAndFechMovie();
     }
+  }
+
+  checkPageNumbersAndFechMovie() {
+    const params = QueryString.parse(this.props.history.location.search);
+    let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
+    this.fetchAllMovies(pageNum);
   }
   componentWillUnmount() {
     this.props.resetMovie();
