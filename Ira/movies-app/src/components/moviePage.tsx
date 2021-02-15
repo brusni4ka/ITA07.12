@@ -1,46 +1,42 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, RouteComponentProps} from "react-router-dom";
 import MoviePageHeader from './moviePageHeader';
-import Footer from './footer';
-import moviesData from './moviesData';
-import MovieCard from './movieCard';
 import Layout from './layout'; 
-import IMovieCard from './movieCard';
+import MoviesList from './moviesList';
+import {IMovieCard} from './homePage';
+import moviesData from './moviesData';
+import ErrorPage from './404';
+
+
+interface IMoviePageProps {
+   movies: IMovieCard[];
+   movie: IMovieCard;     
+}
 
 
 
-const MoviePage = () => {     
-    
-        return (
+const MoviePage = (props: RouteComponentProps<{id: string}>) => {      
+   const id = Number(props.match.params.id);    
+   console.log(props);
+
+   let foundMovie = moviesData.find(item => item.id === id );   
+   if(foundMovie === undefined) {
+      return <ErrorPage/>       
+   } else {  
+      let moviesByGenre = moviesData.filter(item => item.genres[0] === foundMovie?.genres[0]);     
+         return (
            <div>
               <Layout>          
-                 <MoviePageHeader/>
+                 <MoviePageHeader  movie = {foundMovie} />
                  <main>
-                    <section className="moviesBlock">                       
-                    {moviesData.map((item, index) => {
-                        if(index < 6) {
-                        return (
-                           <div className = "movieCardWrapper" key = {item.id}>
-                              <MovieCard movie = {item}                                             
-                               />           
-                           </div>         
-                        ); 
-                        }      
-                     }                   
-                  )}      
-              
-                                               
-                    </section>                  
+                     <MoviesList movies = {moviesByGenre}/>         
                  </main>          
-            </Layout>
-         </div>
+              </Layout>
+           </div>
          
-        );
-      
+         );   
+   }   
 }; 
-
-
-
 
 
 

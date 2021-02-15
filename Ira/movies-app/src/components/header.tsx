@@ -1,44 +1,46 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, RouteComponentProps} from "react-router-dom";
 import SearchForm from './searchForm';
 import SortBlock from './sortBlock';
 import headerBg from './images/headerBg.jpg';
+import {IMovieCard} from './homePage';
 
 
 
 
- interface IHeaderProps {
-   moviesCount: number;
-   searchInputValue: string;
-   changeSearchInputValue(e: React.ChangeEvent<HTMLInputElement>): void; 
-   searchBy: string;
-   setSearchByTitle(): void;
-   setSearchByGenre(): void;
- }
+ interface IHeaderProps extends RouteComponentProps {      
+   sortBy: string;     
+   setSortByDate(): void;
+   setSortByRating(): void;
+   movies: IMovieCard[];    
+  }
 
  const Header = (props: IHeaderProps) => {      
-        const {moviesCount, searchInputValue, changeSearchInputValue, searchBy,
-               setSearchByTitle, setSearchByGenre} = props;
+        const {sortBy, setSortByDate, setSortByRating, location, history, match, movies} = props;               
+               
         return (
           <>
-            <header className="header">                                 
+            <header className = {movies.length > 0 ? "header" :  "headerMarginBottom"}>                                 
                 <Link className = "logoLink" to = "/">netflixroulette</Link>
-                <SearchForm searchInputValue = {searchInputValue} 
-                            changeSearchInputValue = {changeSearchInputValue}
-                            searchBy = {searchBy}  setSearchByTitle = {setSearchByTitle} 
-                            setSearchByGenre ={setSearchByGenre}/>            
+                <SearchForm  location={location} history={history}
+                  match={match} />            
             </header>
+            {
+             movies.length > 0 ? 
             <div className="headerBottomBlock">
                 <div className="moviesQuantityBlock">
-                   <p className="moviesQuantity">{moviesCount} movies found</p>
+                   <p className="moviesQuantity">{movies.length} movies found</p>
                 </div>
-                <SortBlock />                
+               
+                <SortBlock sortBy = {sortBy} setSortByDate = {setSortByDate} 
+                           setSortByRating = {setSortByRating}/>                
+                            
             </div>
-
+            : null
+            }
           </>
         );   
-
-}
+ }
 
 
 
