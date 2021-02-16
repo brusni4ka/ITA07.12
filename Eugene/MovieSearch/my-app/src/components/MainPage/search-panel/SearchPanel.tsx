@@ -5,7 +5,7 @@ import "./SearchPanel.css";
 import { RouteComponentProps } from "react-router-dom";
 
 interface ISearchPanelProps extends RouteComponentProps {
-  handleSearch(input: string, searchBy: string): void;
+  handleSearch(input: string, searchBy: SearchBy): void;
 }
 
 interface ISearchPanelState {
@@ -28,6 +28,29 @@ class SearchPanel extends React.Component<
   };
 
   componentDidMount() {
+    this.checkParams();
+  }
+
+  componentDidUpdate(prevprops: RouteComponentProps) {
+    if (this.props.location.search !== prevprops.location.search) {
+      this.checkParams();
+    }
+  }
+  
+  handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      input: e.target.value,
+    });
+  };
+
+  handleSearchByBtn = (btnType: SearchBy) => {
+    this.setState({
+      input: "",
+      searchBy: btnType,
+    });
+  };
+
+  checkParams = () => {
     const searchParams = this.props.location.search.slice(1);
     const parsed = parse(searchParams) as {
       search: string;
@@ -43,48 +66,16 @@ class SearchPanel extends React.Component<
     }
   }
 
-  componentDidUpdate(prevprops: RouteComponentProps) {
-    if (this.props.location.search !== prevprops.location.search) {
-      const searchParams = this.props.location.search.slice(1);
-      const parsed = parse(searchParams) as {
-        search: string;
-        searchBy: string;
-      };
-
-      this.setState({ input: parsed.search || "" });
-
-      if (parsed.searchBy === SearchBy.Genre) {
-        this.setState({ searchBy: SearchBy.Genre });
-      } else {
-        this.setState({ searchBy: SearchBy.Title });
-      }
-    }
-  }
-
-  handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      input: e.target.value,
-    });
-  };
-
-  handleSearchByBtn = (btnType: SearchBy) => {
-    this.setState({
-      input: "",
-      searchBy: btnType,
-    });
-  };
-
-  handleSearchBtn = () => {
+  handleSearchSubmit = () => {
     this.props.handleSearch(this.state.input, this.state.searchBy);
-    this.setState({ input: "" });
   };
 
   keyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       this.props.handleSearch(this.state.input, this.state.searchBy);
-      this.setState({ input: "" });
     }
   };
+
   render() {
     return (
       <div className="search-panel-wrapper">
@@ -122,7 +113,7 @@ class SearchPanel extends React.Component<
             </button>
           </div>
           <div>
-            <button onClick={this.handleSearchBtn} className="search-btn">
+            <button onClick={this.handleSearchSubmit} className="search-btn">
               SEARCH
             </button>
           </div>

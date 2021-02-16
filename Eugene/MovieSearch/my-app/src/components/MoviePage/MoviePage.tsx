@@ -79,7 +79,7 @@ class MoviePage extends React.Component<PropsFromRedux> {
             dataLength={this.props.movies.length} //This is important field to render the next data
             next={this.uploadMoreMovieAndMovieByGenre}
             hasMore={true}
-            loader={<h4>Loading...</h4>}
+            loader={<h4></h4>}
             endMessage={
               <p style={{ textAlign: "center" }}>
                 <b>Yay! You have seen it all</b>

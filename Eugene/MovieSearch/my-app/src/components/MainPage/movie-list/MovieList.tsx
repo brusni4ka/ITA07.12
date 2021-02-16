@@ -20,7 +20,7 @@ class MovieList extends React.Component<IMainProps, {}> {
       return (
         <div className="movie-list">
           {this.props.movies.map((movie) => (
-            <Link to={`/movies/${movie.id}`}>
+            <Link key={movie.id} to={`/movies/${movie.id}`}>
               <Movie key={movie.id} movie={movie} />
             </Link>
           ))}

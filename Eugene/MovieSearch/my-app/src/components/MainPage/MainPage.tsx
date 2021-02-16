@@ -27,6 +27,20 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector> & RouteComponentProps;
 
 class MainPage extends React.Component<PropsFromRedux, {}> {
+  componentDidMount() {
+    this.uploadMovies();
+  }
+
+  componentDidUpdate(prevprops: RouteComponentProps) {
+    if (this.props.location.search !== prevprops.location.search) {
+      this.uploadMovies();
+    }
+  }
+
+  // componentWillUnmount() {
+  //   this.props.reset();
+  // }
+
   handleSearch = (search: string, searchBy: string) => {
     const parsed = parse(this.props.history.location.search) as {
       sortBy: string;
@@ -50,44 +64,15 @@ class MainPage extends React.Component<PropsFromRedux, {}> {
     });
   };
 
-  componentDidMount() {
-    this.uploadMovies();
-  }
-
-  componentDidUpdate(prevprops: RouteComponentProps) {
-    if (this.props.location.search !== prevprops.location.search) {
-      this.uploadMovies();
-    }
-  }
-
-  // componentWillUnmount() {
-  //   this.props.reset();
-  // }
-
-  uploadMovies() {
+  uploadMovies(offset = 0) {
     const parsed = parse(this.props.history.location.search) as {
       search: string;
       searchBy: string;
       sortBy: string;
     };
     let { search, searchBy, sortBy } = parsed;
-    this.props.requestMovies(search, searchBy, sortBy, 0);
+    this.props.requestMovies(search, searchBy, sortBy, offset);
   }
-
-  uploadMoreMovies = () => {
-    const parsed = parse(this.props.history.location.search) as {
-      search: string;
-      searchBy: string;
-      sortBy: string;
-    };
-    let { search, searchBy, sortBy } = parsed;
-    this.props.requestMovies(
-      search,
-      searchBy,
-      sortBy,
-      this.props.movies.length + 10
-    );
-  };
 
   render() {
     return (
@@ -102,9 +87,11 @@ class MainPage extends React.Component<PropsFromRedux, {}> {
 
           <InfiniteScroll
             dataLength={this.props.movies.length} //This is important field to render the next data
-            next={this.uploadMoreMovies}
+            next={() => {
+              this.uploadMovies(this.props.movies.length + 10);
+            }}
             hasMore={true}
-            loader={<h4>Loading...</h4>}
+            loader={<h4></h4>}
             endMessage={
               <p style={{ textAlign: "center" }}>
                 <b>Yay! You have seen it all</b>
