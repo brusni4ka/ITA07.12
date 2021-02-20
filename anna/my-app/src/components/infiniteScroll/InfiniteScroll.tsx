@@ -1,17 +1,14 @@
 import React from 'react';
-import IMovie from '../../components/movieList/movie-card/IMovie';
-import * as QueryString from "query-string";
-import { ISearchParams } from '../../Api';
-import { LoadMoreMoviesRequestedAction } from '../../store/redux/moviesActions';
 
 interface IInfScrollState {
   isLoadingMoreData: boolean
 }
 
 interface InfScrollProps {
-  movies: IMovie[],
-  loadMoreMovies: (searchParams: ISearchParams) => LoadMoreMoviesRequestedAction,
-  search: string
+  currentCount: number,
+  onLoadMore: () => void,
+  search: string,
+  total: number
 }
 
 class InfiniteScroll extends React.Component<InfScrollProps, IInfScrollState> {
@@ -31,24 +28,23 @@ class InfiniteScroll extends React.Component<InfScrollProps, IInfScrollState> {
   }
 
   componentDidUpdate(prevProps: InfScrollProps) {
-    const { loadMoreMovies } = this.props;
-
+    const { onLoadMore } = this.props;
+   
     if (this.state.isLoadingMoreData) {
-      loadMoreMovies(QueryString.parse(prevProps.search));
+      onLoadMore();
       window.removeEventListener('scroll', this.isScrolling)
       this.setState({ isLoadingMoreData: false })
     }
 
-    if (prevProps.movies.length < this.props.movies.length) {
+    if (prevProps.currentCount < this.props.currentCount && this.props.currentCount !== this.props.total) {
       window.addEventListener('scroll', this.isScrolling);
     }
   }
 
   render() {
+    const {isLoadingMoreData} = this.state
     return (
-      <>
-        {this.props.children}
-      </>
+      isLoadingMoreData ? <p>Loading...</p> : this.props.children    
     )
   }
 }

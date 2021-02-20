@@ -11,7 +11,7 @@ function* fetchMovieSaga(action: FetchMovieRequestedAction) {
     const movie: IMovie = yield call(Api.fetchMovie, action.payload);
     yield put({type: MovieActionTypes.FETCH_MOVIE_SUCCESS, movie});
     const movies = yield call(Api.fetchMovies, {searchBy: SearchType.Ganre, sotrBy: SortType.ReleaseDate, search: movie.genres[0]});
-    yield put({type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, movies});
+    yield put({type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, movies: movies.movies, total: movies.total});
     
   } catch (e) {
     yield put({type: MovieActionTypes.FETCH_MOVIE_ERROR, e})

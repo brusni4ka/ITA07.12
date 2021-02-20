@@ -10,7 +10,8 @@ const mapStateToProps = (state: IRootState) => {
     movies: state.movies.items,
     sortBy: state.movies.sortBy,
     offset: state.movies.offset,
-    loading: state.movies.loading
+    loading: state.movies.loading,
+    total: state.movies.total
   }
 }
 

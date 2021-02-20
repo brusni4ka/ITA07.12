@@ -8,10 +8,17 @@ import MovieCard from '../../components/movieList/movie-card/MovieCard';
 import { RouteComponentProps } from "react-router-dom";
 import { MovieConnectedProps } from '.';
 import InfiniteScroll from '../../components/infiniteScroll';
+import * as QueryString from "query-string";
+import { SearchType } from '../../components/searchForm/SearchForm';
 
 interface RouteParams { id: string }
 
 class MoviePage extends React.Component<RouteComponentProps<RouteParams> & MovieConnectedProps> {
+
+  componentDidMount() {
+    console.log("mount");
+    this.getMovies();
+  }
 
   componentDidUpdate(prewProps: RouteComponentProps<RouteParams> & MovieConnectedProps) {
     const { match, movies } = this.props;
@@ -27,12 +34,7 @@ class MoviePage extends React.Component<RouteComponentProps<RouteParams> & Movie
 
   componentWillUnmount() {
     this.props.resetMovies();
-  }
-
-  componentDidMount() {
-    console.log("mount");
-    this.getMovies();
-  }
+  }  
 
   getMovies() {
     const { match } = this.props;
@@ -40,8 +42,13 @@ class MoviePage extends React.Component<RouteComponentProps<RouteParams> & Movie
     this.props.fetchMovieRequested(movieId);
   }
 
+  handleLoad =() => {
+    this.props.loadMoreMovies({...QueryString.parse(this.props.location.search), search: this.props.movie.genres[0], searchBy: SearchType.Ganre})
+  }
+
   render() {
-    const { movies, movie, loadingMovie, loadingMovies, loadMoreMovies, location } = this.props;
+    const { movies, movie, loadingMovie, loadingMovies, location, total } = this.props;
+  
     return (
       <Layout className="movie-page" pageName={'moviePage'}>
         <section className="section-dark">
@@ -51,8 +58,8 @@ class MoviePage extends React.Component<RouteComponentProps<RouteParams> & Movie
         </section>
         <section className="section">
           <SortBox movieGanre={movie.genres ? movie.genres[0] : ''} />
-          <InfiniteScroll loadMoreMovies={loadMoreMovies} movies={movies} search={location.search}>
-            {loadingMovies ? <p className="loading-list">Loading...</p> : <MovieList className="container" movies={movies} />}
+          <InfiniteScroll onLoadMore={this.handleLoad} currentCount={movies.length} search={location.search} total={total}>
+            {loadingMovies ? <p className="loading-list">Loading...</p> : <MovieList className="container" movies={this.props.movies} />}
           </InfiniteScroll>
         </section>
       </Layout>

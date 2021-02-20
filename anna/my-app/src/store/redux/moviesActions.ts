@@ -21,7 +21,8 @@ export interface FetchMoviesRequestedAction {
 
 export interface FetchMoviesSuccessAction {
   type: MoviesActionTypes.FETCH_MOVIES_SUCCESS,
-  movies: IMovie[];
+  movies: IMovie[],
+  total: number
 }
 
 export interface FetchMoviesErrorAction {
@@ -36,7 +37,10 @@ export interface LoadMoreMoviesRequestedAction {
 
 export interface LoadMoreMoviesSuccessAction {
   type: MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS,
-  movies: IMovie[]
+  
+    movies: IMovie[],
+    total: number
+  
 }
 
 export interface LoadMoreMoviesErrorAction {
@@ -72,9 +76,10 @@ export const fetchMoviesRequested = (searchParams: ISearchParams): FetchMoviesRe
   payload: searchParams
 })
 
-export const fetchMoviesSuccess = (movies: IMovie[]): FetchMoviesSuccessAction => ({
+export const fetchMoviesSuccess = (movies: IMovie[], total: number): FetchMoviesSuccessAction => ({
   type: MoviesActionTypes.FETCH_MOVIES_SUCCESS,
-  movies: movies
+  movies: movies,
+  total: total
 })
 
 export const fetchMoviesError = (): FetchMoviesErrorAction => ({
@@ -87,9 +92,17 @@ export const loadMoreMovies = (searchParams: ISearchParams): LoadMoreMoviesReque
   
 })
 
-export const loadMoreMoviesSuccess = (movies: IMovie[]): LoadMoreMoviesSuccessAction => ({
-  type: MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS, movies
-});
+export const loadMoreMoviesSuccess = (movies: IMovie[], total: number): LoadMoreMoviesSuccessAction => {
+  console.log('load more action', movies);
+  return ({
+     type: MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS,
+  
+    movies: movies,
+    total: total
+
+  })
+ 
+}
 
 export const loadMoreMoviesError = (): LoadMoreMoviesErrorAction => ({
   type: MoviesActionTypes.LOAD_MORE_MOVIES_ERROR
@@ -98,6 +111,7 @@ export const loadMoreMoviesError = (): LoadMoreMoviesErrorAction => ({
 export const resetMovies = (): ResetMoviesAction => ({
   type: MoviesActionTypes.RESET_MOVIES
 })
+
 
 export type MoviesAction =
   FetchMoviesRequestedAction |

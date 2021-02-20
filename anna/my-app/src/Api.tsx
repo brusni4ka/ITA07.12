@@ -19,36 +19,24 @@ class Api {
     sortOrder: 'desc'
   }
 
-  static fetchMovies = async (searchParams: ISearchParams): Promise<IMovie[]> => {
-    const search = {
-      ...searchParams,
-      ...Api.baseSortingSettings
-    }
-    // console.log(search)
-   
-    const response = await fetch(`${Api.baseUrl}?${QueryString.stringify(search)}`);
-    const responseData = await response.json();
-    const movies: IMovie[] = responseData.data;
-    return movies;
-  }
-
-  static loadMoreMovies = async(searchParams: ISearchParams, limit: number) => {
+  static fetchMovies = async(searchParams: ISearchParams, limit: number) => {
     const search = {
       ...Api.baseSortingSettings,
       ...searchParams,
       offset: limit
     }
-    // console.log(search)
+   
     const response = await fetch(`${Api.baseUrl}?${QueryString.stringify(search)}`);
     const responseData = await response.json();
     const movies: IMovie[] = responseData.data;
-    return movies;
+    
+    return {movies: movies, total: responseData.total};
   };
 
   static fetchMovie = async (id: string): Promise<IMovie> => {
     const response = await fetch(`${Api.baseUrl}/${id}`);
     const movie = await response.json();
-    // console.log(movie)
+   
     return movie;
   }
 }

@@ -7,22 +7,21 @@ import ErrorBoundary from './components/errorBoundary';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-class App extends React.Component {
+const App: React.FC = () => {
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <Router>
-          <Switch>
-            <Route exact path={["/", "/search"]} component={HomePage} />
-            <Route path="/film/:id" component={MoviePage} />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </Router>
-      </ErrorBoundary>
-    );
-  }
+  return (
+    <ErrorBoundary>
+      <Router>
+        <Switch>
+          <Route exact path={["/", "/search"]} component={HomePage} />
+          <Route path="/film/:id" component={MoviePage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Router>
+    </ErrorBoundary>
+  );
 }
+
 
 
 // import {setMovies} from './pages/home/searchMovieActions'

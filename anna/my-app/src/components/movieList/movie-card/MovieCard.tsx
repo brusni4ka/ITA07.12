@@ -11,7 +11,7 @@ const MovieCard: React.FC<IMovieCardProps> = (props) => {
 
   return (
     
-    !movie.title ? <></> :
+    !movie.title ? null :
     <div className="movie-card-full">
       <img src={movie.poster_path} className="movie-card-full-img" alt="movie poster" />
       <div className="movie-card-body">

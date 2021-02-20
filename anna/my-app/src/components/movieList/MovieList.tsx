@@ -5,37 +5,35 @@ import IMovie from './movie-card/IMovie';
 import classNames from 'classnames';
 import { MoviesConnectedProps } from '../../pages/home';
 
-interface IMovieListProps {
+interface IMovieListOwnProps {
   movies: Array<IMovie>,
-  currentCount?: number,
   className?: string,
 }
 
-class MovieList extends React.Component<IMovieListProps, MoviesConnectedProps> {
+type IMovieListProps = IMovieListOwnProps | MoviesConnectedProps;
 
-  render() {
-    const { movies, className } = this.props;
+const MovieList: React.FC<IMovieListProps> = (props) => {
 
-    const classes = classNames(
-      'movie-search-result',
-      className
-    );
 
-    return (
-      movies.length > 0 ?
-        <div className={classes}>
-          {
-            movies.map((movie: IMovie, index: number) => {
-              if (movies.length - 1 === index) {
-                return <MovieCardPrew key={movie.id} movie={movie} />
-              }
-              return <MovieCardPrew key={movie.id} movie={movie} />
-            })
-          }
-        </div>
-        : <p className="movie-list-message">No films found</p>
-    )
-  }
+  const { movies } = props;
+
+  const classes = classNames(
+    'movie-search-result',
+    'container'
+  );
+
+  return (
+    movies.length > 0 ?
+      <div className={classes}>
+        {
+          movies.map((movie: IMovie) => {
+            return <MovieCardPrew key={movie.id} movie={movie} />
+          })
+        }
+      </div>
+      : <p className="movie-list-message">No films found</p>
+  )
 }
+
 
 export default MovieList;

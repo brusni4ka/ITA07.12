@@ -5,8 +5,9 @@ import * as selector from '../selectors';
 
 function* fetchMoviesSaga(action: FetchMoviesRequestedAction) {
   try {
-    const movies = yield call(Api.fetchMovies, action.payload);
-    yield put({ type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, movies });
+    const offset: number = yield select(selector.offset);    
+    const movies = yield call(Api.fetchMovies, action.payload, offset);
+    yield put({ type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, movies: movies.movies, total: movies.total });
   } catch (e) {
     yield put({ type: MoviesActionTypes.FETCH_MOVIES_ERROR, e })
   }
@@ -17,8 +18,8 @@ export function* loadMoreMoviesSaga(action: LoadMoreMoviesRequestedAction) {
     yield put({ type: MoviesActionTypes.SET_OFFSET, payload: Api.baseSortingSettings.limit });
    
     const offset: number = yield select(selector.offset);    
-    const movies = yield call(Api.loadMoreMovies, action.payload, offset);
-    yield put({ type: MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS, movies });
+    const movies = yield call(Api.fetchMovies, action.payload, offset);
+    yield put({ type: MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS, movies: movies.movies, total: movies.total });
   } catch (e) {
     yield put({ type: MoviesActionTypes.LOAD_MORE_MOVIES_ERROR, e });
   }

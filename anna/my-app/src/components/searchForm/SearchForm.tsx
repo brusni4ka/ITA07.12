@@ -27,6 +27,17 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
     searchBy: SearchType.Title
   };
 
+  componentDidMount() {
+    const { location } = this.props;
+    console.log(location.search, 'search mount')
+    const searchParams = QueryString.parse(location.search);
+
+    this.setState({
+      search: searchParams.search as SearchType || '',
+      searchBy: searchParams.searchBy as SearchType || SearchType.Title
+    })
+  }
+
   changeValue = (e: React.ChangeEvent<HTMLInputElement>) => this.setState({ search: e.target.value });
 
   handleSearchByChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,24 +47,6 @@ class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
     }, () => {
       this.props.onSearchByChange(this.state);
     });
-  }
-
-  componentDidMount() {
-    const { location } = this.props;
-    console.log(location.search, 'search mount')
-    const searchParams = QueryString.parse(location.search);
-
-    if (searchParams.searchBy) {
-      this.setState({
-        searchBy: searchParams.searchBy as SearchType
-      });
-    } 
-
-    if (searchParams.search) {
-      this.setState({
-        search: searchParams.search as SearchType
-      })
-    }
   }
 
   handleSubmit = () => {

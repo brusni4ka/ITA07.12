@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import IMovie from '../movie-card/IMovie';
+import Image from '../../image';
 import './movie.css';
 
 interface IMovieCardPrewProps {
@@ -27,16 +28,11 @@ class MovieCardPrew extends React.Component<IMovieCardPrewProps, IMovieCardPrewS
 
   render() {
     const { movie } = this.props;
-    const { isError} = this.state;
 
     return (
       <Link to={`/film/${movie.id}`} className="movie-link">
         <div className="movie-card" >
-          {isError && <div className="movie-card-img"></div>}
-          <img src={movie.poster_path} className="movie-card-img" alt="movie poster" onError={this.handleError}
-           style={{
-            display: isError ? "none" : "initial"
-          }}/>
+          <Image src={movie.poster_path}></Image>
           <div className="movie-card-body">
             <h2 className="movie-title">{movie.title}</h2>
             <p className="movie-release-date">{movie.release_date.split('-')[0]}</p>

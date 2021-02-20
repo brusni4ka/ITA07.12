@@ -6,17 +6,20 @@ export interface IMoviesState {
   items: IMovie[],
   sortBy: SortType,
   offset: number,
-  loading: boolean
+  loading: boolean,
+  total: number
 }
 
 const moviesDefaultState: IMoviesState = {
   items: [],
   sortBy: SortType.ReleaseDate,
   offset: 0,
-  loading: false
+  loading: false,
+  total: 0
 }
 
 export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) => {
+  // console.log(action)
   switch (action.type) {
     case MoviesActionTypes.SET_SORT_BY:
       return {
@@ -29,7 +32,8 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
         ...state,
         items: [],
         sortBy: SortType.ReleaseDate,
-        loading: false
+        loading: false,
+        offset: 0
       };
 
     case MoviesActionTypes.FETCH_MOVIES_REQUESTED:
@@ -42,7 +46,8 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
       return {
         ...state,
         items: action.movies,
-        loading: false
+        loading: false,
+        total: action.total
       };
 
     case MoviesActionTypes.FETCH_MOVIES_ERROR:
@@ -58,12 +63,14 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
       };
 
     case MoviesActionTypes.LOAD_MORE_MOVIES_SUCCESS:
-      const newMovies = action.movies;
+      const newMovies = action.movies
+      const total = action.total
       const { items } = state;
-           
+              
       return {
         ...state,
-        items: [...items, ...newMovies]
+        items: [...items, ...newMovies],
+        total: total
       };
 
     case MoviesActionTypes.LOAD_MORE_MOVIES_ERROR:
@@ -73,6 +80,7 @@ export const moviesReducer = (state = moviesDefaultState, action: MoviesAction) 
 
     case MoviesActionTypes.SET_OFFSET:
       const newOffset = state.offset + action.payload;
+   
       return {
         ...state,
         offset: newOffset,
