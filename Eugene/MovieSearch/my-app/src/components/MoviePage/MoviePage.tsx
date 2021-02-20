@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MoviePage.css";
 import MovieDetailHeader from "./MovieDetailHeader/MovieDetailHeader";
 import MovieDetail from "./MovieDetail/MovieDetail";
 import MovieSortPanel from "./MovieSortPanel/MovieSortPanel";
 import MovieList from "../MainPage/movie-list/MovieList";
 import Footer from "../MainPage/footer/Footer";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 
 import { connect, ConnectedProps } from "react-redux";
 import {
   requestMovie,
   requestMovies,
-  reset,
 } from "../../redux/reducers/moviesReducer";
 import { RootState } from "../../redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -27,7 +26,6 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = {
   requestMovie,
   requestMovies,
-  reset,
 };
 
 interface MatchParams {
@@ -39,45 +37,30 @@ type PropsFromRedux = ConnectedProps<typeof connector> &
   RouteComponentProps &
   RouteComponentProps<MatchParams>;
 
-class MoviePage extends React.Component<PropsFromRedux> {
-  componentDidMount() {
-    this.uploadMovieAndMovieByGenre();
-  }
+  function MoviePage(props: PropsFromRedux) {
+    let history = useHistory();
 
-  componentDidUpdate(prevprops: RouteComponentProps) {
-    if (this.props.location.pathname !== prevprops.location.pathname) {
-      this.uploadMovieAndMovieByGenre();
+    useEffect(() => {
+      uploadMovieAndMovieByGenre();
+    }, [history.location]);
+    const uploadMovieAndMovieByGenre = () => {
+      props.requestMovie({id: props.match.params.id});
     }
-  }
+  
+    const uploadMoreMovies = () => {
+      let search = props.movie.genres[0];
+        props.requestMovies({search:search, searchBy:"genres", sortBy:"vote_average", offset:props.movies.length + 10});
+    };
 
-  // componentWillUnmount() {
-  //   this.props.reset();
-  // }
-
-  uploadMovieAndMovieByGenre() {
-    this.props.requestMovie(this.props.match.params.id);
-  }
-
-  uploadMoreMovieAndMovieByGenre = () => {
-    let search = this.props.movie.genres[0];
-    this.props.requestMovies(
-      search,
-      "genres",
-      "rating",
-      this.props.movies.length + 10
-    );
-  };
-
-  render() {
     return (
       <div className="wrapper">
         <div className="container">
           <MovieDetailHeader />
-          <MovieDetail movie={this.props.movie} />
-          <MovieSortPanel genre={this.props.movie.genres[0]} />
+          <MovieDetail movie={props.movie} />
+          <MovieSortPanel genre={props.movie.genres[0]} />
           <InfiniteScroll
-            dataLength={this.props.movies.length} //This is important field to render the next data
-            next={this.uploadMoreMovieAndMovieByGenre}
+            dataLength={props.movies.length} //This is important field to render the next data
+            next={uploadMoreMovies}
             hasMore={true}
             loader={<h4></h4>}
             endMessage={
@@ -86,13 +69,12 @@ class MoviePage extends React.Component<PropsFromRedux> {
               </p>
             }
           >
-            <MovieList movies={this.props.movies} />
+            <MovieList movies={props.movies} />
           </InfiniteScroll>
           <Footer />
         </div>
       </div>
     );
   }
-}
 
 export default connector(MoviePage);

@@ -4,29 +4,27 @@ import IMovie from "../../../interface/IMovie/IMovie";
 import Movie from "../movie/Movie";
 import { Link } from "react-router-dom";
 
-interface IMainProps {
+interface IMovieListProps {
   movies: IMovie[];
 }
 
-class MovieList extends React.Component<IMainProps, {}> {
-  render() {
-    if (this.props.movies.length === 0) {
-      return (
-        <div className="movie-list-error">
-          <p>No films found</p>
-        </div>
-      );
-    } else {
-      return (
-        <div className="movie-list">
-          {this.props.movies.map((movie) => (
-            <Link key={movie.id} to={`/movies/${movie.id}`}>
-              <Movie key={movie.id} movie={movie} />
-            </Link>
-          ))}
-        </div>
-      );
-    }
+function MovieList(props: IMovieListProps) {
+  if (props.movies.length === 0) {
+    return (
+      <div className="movie-list-error">
+        <p>No films found</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="movie-list">
+        {props.movies.map((movie) => (
+          <Link key={movie.id} to={`/movies/${movie.id}`}>
+            <Movie key={movie.id} movie={movie} />
+          </Link>
+        ))}
+      </div>
+    );
   }
 }
 

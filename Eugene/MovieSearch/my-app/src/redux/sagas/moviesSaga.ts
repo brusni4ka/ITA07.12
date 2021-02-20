@@ -1,12 +1,13 @@
 import {
-  MoviesActionTypes,
-  requestMovieAction,
-  requestMovieError,
-  requestMoviesAction,
-  requestMoreMoviesSuccess,
-  requestMoviesError,
+  requestMovies,
   requestMoviesSuccess,
+  requestMoviesError,
+  requestMoreMoviesSuccess,
+  requestMovie,
   requestMovieSuccess,
+  requestMovieError,
+  requestMovieAction,
+  requestMoviesAction,
 } from "../reducers/moviesReducer";
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import { stringify } from "query-string";
@@ -15,12 +16,13 @@ import IMovie from "../../interface/IMovie/IMovie";
 const fetchMovies = (
   search: string,
   searchBy: string,
-  sortBy: string,
+  sortBy: string = "vote_average",
   offset: number
 ): Promise<IMovie[]> => {
   return new Promise((resolve, reject) => {
     const urlParams = stringify({ offset, search, searchBy, sortBy });
-    fetch(`https://reactjs-cdp.herokuapp.com/movies?${urlParams}&limit=9`)
+
+    fetch(`https://reactjs-cdp.herokuapp.com/movies?${urlParams}&limit=9&sortOrder=desc`)
       .then((response) => response.json())
       .then((receivedData) => {
         resolve(receivedData.data);
@@ -28,20 +30,20 @@ const fetchMovies = (
   });
 };
 
-function* requestMoviesSaga(action: requestMoviesAction) {
+function* requestMoviesSaga(action: any) {
   try {
     const movies = yield call(
       fetchMovies,
-      action.search,
-      action.searchBy,
-      action.sortBy,
-      action.offset
+      action.payload.search,
+      action.payload.searchBy,
+      action.payload.sortBy,
+      action.payload.offset
     );
 
-    if (action.offset === 0) {
-      yield put(requestMoviesSuccess(movies));
+    if (action.payload.offset === 0) {
+      yield put(requestMoviesSuccess({movies:movies}));
     } else {
-      yield put(requestMoreMoviesSuccess(movies));
+      yield put(requestMoreMoviesSuccess({movies:movies}));
     }
   } catch (e) {
     yield put(requestMoviesError());
@@ -49,7 +51,7 @@ function* requestMoviesSaga(action: requestMoviesAction) {
 }
 
 const fetchMoviesSub = () => {
-  return takeLatest(MoviesActionTypes.REQUEST_MOVIES, requestMoviesSaga);
+  return takeLatest(requestMovies, requestMoviesSaga);
 };
 
 const fetchMovie = async (id: string) => {
@@ -59,20 +61,20 @@ const fetchMovie = async (id: string) => {
   return movie;
 };
 
-function* requestMovieSaga(action: requestMovieAction) {
+function* requestMovieSaga(action: any) {
   try {
-    const movie = yield call(fetchMovie, action.id);
+    const movie = yield call(fetchMovie, action.payload.id);
     let search = movie.genres[0];
     const movies = yield fetchMovies(search, "genres", "rating", 0);
-    yield put(requestMovieSuccess(movie));
-    yield put(requestMoviesSuccess(movies));
+    yield put(requestMovieSuccess({movie:movie}));
+    yield put(requestMoviesSuccess({movies:movies}));
   } catch (e) {
     yield put(requestMovieError());
   }
 }
 
 const fetchMovieSub = () => {
-  return takeLatest(MoviesActionTypes.REQUEST_MOVIE, requestMovieSaga);
+  return takeLatest(requestMovie, requestMovieSaga);
 };
 
 export function* moviesSaga() {

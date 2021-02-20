@@ -1,15 +1,5 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IMovie from "../../interface/IMovie/IMovie";
-
-export enum MoviesActionTypes {
-  REQUEST_MOVIES = "REQUEST_MOVIES",
-  REQUEST_MOVIES_SUCCESS = "UPLOAD_MOVIES_SUCCESS",
-  REQUEST_MOVIES_ERROR = "REQUEST_MOVIES_ERROR",
-  REQUEST_MOVIE = "REQUEST_MOVIE",
-  REQUEST_MOVIE_SUCCESS = "REQUEST_MOVIE_SUCCESS",
-  REQUEST_MOVIE_ERROR = "REQUEST_MOVIE_ERROR",
-  RESET = "RESET",
-  REQUEST_MORE_MOVIES_SUCCESS = "REQUEST_MORE_MOVIES_SUCCESS",
-}
 
 export interface MoviesState {
   movies: IMovie[];
@@ -40,164 +30,81 @@ const MoviesDefaultState: MoviesState = {
 
 //   Actions
 export interface requestMoviesAction {
-  type: MoviesActionTypes.REQUEST_MOVIES;
   search: string;
   searchBy: string;
   sortBy: string;
   offset: number;
 }
 
-export const requestMovies = (
-  search: string,
-  searchBy: string,
-  sortBy: string,
-  offset: number
-): requestMoviesAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIES,
-  search,
-  searchBy,
-  sortBy,
-  offset,
-});
-
 interface requestMoviesSuccessAction {
-  type: MoviesActionTypes.REQUEST_MOVIES_SUCCESS;
   movies: IMovie[];
 }
-
-export const requestMoviesSuccess = (
-  movies: IMovie[]
-): requestMoviesSuccessAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIES_SUCCESS,
-  movies,
-});
-
-interface requestMoviesErrorAction {
-  type: MoviesActionTypes.REQUEST_MOVIES_ERROR;
-}
-
-export const requestMoviesError = (): requestMoviesErrorAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIES_ERROR,
-});
 
 interface requestMoreMoviesSuccessAction {
-  type: MoviesActionTypes.REQUEST_MORE_MOVIES_SUCCESS;
   movies: IMovie[];
 }
 
-export const requestMoreMoviesSuccess = (
-  movies: IMovie[]
-): requestMoreMoviesSuccessAction => ({
-  type: MoviesActionTypes.REQUEST_MORE_MOVIES_SUCCESS,
-  movies,
-});
-
 export interface requestMovieAction {
-  type: MoviesActionTypes.REQUEST_MOVIE;
   id: string;
 }
 
-export const requestMovie = (id: string): requestMovieAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIE,
-  id,
-});
-
 interface requestMovieSuccessAction {
-  type: MoviesActionTypes.REQUEST_MOVIE_SUCCESS;
   movie: IMovie;
 }
 
-export const requestMovieSuccess = (
-  movie: IMovie
-): requestMovieSuccessAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIE_SUCCESS,
-  movie,
+const moviesSlice = createSlice({
+  name: "movies",
+  initialState: MoviesDefaultState,
+  reducers: {
+    requestMovies(state, action: PayloadAction<requestMoviesAction>) {
+      state.loading = true;
+    },
+    requestMoviesSuccess(
+      state,
+      action: PayloadAction<requestMoviesSuccessAction>
+    ) {
+      console.log(action);
+      
+      state.loading = false;
+      state.movies = action.payload.movies;
+    },
+    requestMoviesError(state) {
+      state.loading = false;
+      state.error = "Something goes wrong...";
+    },
+    requestMoreMoviesSuccess(
+      state,
+      action: PayloadAction<requestMoreMoviesSuccessAction>
+    ) {
+      state.loading = false;
+      state.movies = [...state.movies, ...action.payload.movies];
+    },
+    requestMovie(state, action: PayloadAction<requestMovieAction>) {
+      state.loading = true;
+    },
+    requestMovieSuccess(
+      state,
+      action: PayloadAction<requestMovieSuccessAction>
+    ) {
+      state.loading = false;
+      state.movie = action.payload.movie;
+    },
+    requestMovieError(state) {
+      state.loading = false;
+      state.error = "Something goes wrong...";
+    },
+  },
 });
 
-interface requestMovieErrorAction {
-  type: MoviesActionTypes.REQUEST_MOVIE_ERROR;
-}
+export const {
+  requestMovies,
+  requestMoviesSuccess,
+  requestMoviesError,
+  requestMoreMoviesSuccess,
+  requestMovie,
+  requestMovieSuccess,
+  requestMovieError,
+} = moviesSlice.actions;
 
-export const requestMovieError = (): requestMovieErrorAction => ({
-  type: MoviesActionTypes.REQUEST_MOVIE_ERROR,
-});
 
-interface resetAction {
-  type: MoviesActionTypes.RESET;
-}
-
-export const reset = (): resetAction => ({
-  type: MoviesActionTypes.RESET,
-});
-type moviesAction =
-  | requestMoviesAction
-  | requestMoviesSuccessAction
-  | requestMoviesErrorAction
-  | requestMoreMoviesSuccessAction
-  | requestMovieAction
-  | requestMovieSuccessAction
-  | requestMovieErrorAction
-  | resetAction;
-
-export const moviesReducer = (
-  state = MoviesDefaultState,
-  action: moviesAction
-) => {
-  switch (action.type) {
-    case MoviesActionTypes.REQUEST_MOVIES: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-    case MoviesActionTypes.REQUEST_MOVIES_SUCCESS: {
-      return {
-        ...state,
-        loading: false,
-        movies: action.movies,
-      };
-    }
-    case MoviesActionTypes.REQUEST_MOVIES_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        error: "Something goes wrong...",
-      };
-    }
-    case MoviesActionTypes.REQUEST_MORE_MOVIES_SUCCESS: {
-      return {
-        ...state,
-        loading: false,
-        movies: [...state.movies, ...action.movies],
-      };
-    }
-    case MoviesActionTypes.REQUEST_MOVIE: {
-      return {
-        ...state,
-        loading: true,
-        id: action.id,
-      };
-    }
-    case MoviesActionTypes.REQUEST_MOVIE_SUCCESS: {
-      return {
-        ...state,
-        loading: false,
-        movie: action.movie,
-      };
-    }
-    case MoviesActionTypes.REQUEST_MOVIE_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        error: "Something goes wrong...",
-      };
-    }
-    case MoviesActionTypes.RESET: {
-      return {
-        movies: [],
-      };
-    }
-    default:
-      return state;
-  }
-};
+export const { reducer } = moviesSlice;

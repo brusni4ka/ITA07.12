@@ -1,25 +1,24 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { moviesReducer, MoviesState } from "./reducers/moviesReducer";
+import { reducer, MoviesState } from "./reducers/moviesReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./rootSaga";
+import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-  movies: moviesReducer,
+  movies: reducer,
 });
 
 export interface RootState {
   movies: MoviesState;
 }
 
-const composeEnhancers = composeWithDevTools({ trace: true });
-
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware :[sagaMiddleware],
+})
 
 sagaMiddleware.run(rootSaga);
 
