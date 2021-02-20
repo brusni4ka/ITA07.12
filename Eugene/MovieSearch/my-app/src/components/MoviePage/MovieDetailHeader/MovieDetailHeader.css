@@ -1,0 +1,26 @@
+header {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-title {
+    color: darkred;
+    font-size: 18px;
+  }
+  
+  .header-button {
+    color: coral;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+  }
+  
+  .header-button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  

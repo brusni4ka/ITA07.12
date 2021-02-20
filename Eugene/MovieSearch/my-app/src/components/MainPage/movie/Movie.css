@@ -1,0 +1,40 @@
+.movie {
+  margin: 10px;
+  padding: 10px;
+}
+
+.movie:hover {
+  border: 1px solid black;
+}
+
+.movie img {
+  width: 100%;
+  height: auto;
+}
+
+.description {
+  background-color: white;
+}
+
+.title-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.title {
+  font-size: 18px;
+}
+
+.release-date {
+  border: 1px solid black;
+  padding: 3px;
+  font-size: 14px;
+}
+
+.ganres span {
+  padding: 5px;
+  color: gray;
+  font-size: 14px;
+}

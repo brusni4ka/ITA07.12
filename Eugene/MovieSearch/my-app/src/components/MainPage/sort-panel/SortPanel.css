@@ -1,0 +1,42 @@
+.sort-panel-hidden {
+  display: none;
+}
+
+.sort-panel-wrapper {
+  background-color: #d3d3d3;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sort-by-btn {
+  background-color: inherit;
+  margin-left: 10px;
+  color: black;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sort-by-btn:hover {
+  opacity: 0.5;
+}
+
+.sort-by-btn-active {
+  background-color: inherit;
+  margin-left: 10px;
+  color: coral;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sort-by-btn-active:hover {
+  opacity: 0.5;
+}

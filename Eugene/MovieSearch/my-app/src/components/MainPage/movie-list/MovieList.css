@@ -1,0 +1,15 @@
+.movie-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: white;
+  justify-content: space-between;
+}
+
+.movie-list-error {
+  text-align: center;
+  padding-top: 300px;
+  padding-bottom: 300px;
+  font-size: 44px;
+  font-weight: bold;
+  background-color: white;
+}

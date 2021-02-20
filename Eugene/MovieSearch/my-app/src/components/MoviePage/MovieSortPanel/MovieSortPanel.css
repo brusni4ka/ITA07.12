@@ -1,0 +1,10 @@
+.sort-panel-wrapper {
+  background-color: #d3d3d3;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: bold;
+}

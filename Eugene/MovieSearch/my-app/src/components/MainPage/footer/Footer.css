@@ -1,0 +1,10 @@
+footer {
+  background-color: black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footer-title {
+  color: darkred;
+  margin: 0;
+}
