@@ -1,0 +1,17 @@
+.movies-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.nothing-msg {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 36px;
+}
+
+.movies-loader {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}

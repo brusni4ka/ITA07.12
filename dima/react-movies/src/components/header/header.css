@@ -1,0 +1,28 @@
+.logo {
+  color: #ff0040;
+  font-size: 25px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.header_search-btn {
+  display: block;
+  font-size: 18px;
+  padding: 13px 30px;
+  color: #ff0040;
+  background-color: white;
+}
+
+.header_search-btn:visited,
+.header_search-btn:focus {
+  background-color: white;
+}
+.header_search-btn:hover {
+  background-color: #ff0040;
+  color: white;
+}

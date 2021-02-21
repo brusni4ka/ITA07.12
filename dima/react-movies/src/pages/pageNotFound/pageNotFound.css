@@ -1,0 +1,22 @@
+.page-info {
+  color: white;
+  font-size: 48px;
+  line-height: 40vh;
+  text-align: center;
+}
+.first {
+  height: 80vh;
+}
+.footer {
+  height: 20vh;
+}
+
+.not-found {
+  overflow: hidden;
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  position: relative;
+}

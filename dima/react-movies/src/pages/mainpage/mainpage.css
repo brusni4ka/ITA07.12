@@ -1,0 +1,32 @@
+.wrapper {
+  background: url("../../imgs/2.jpg") center center, rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
+}
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.flex-wrapper {
+  display: flex;
+}
+
+.paginate-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.page-number {
+  background-color: #e0e0de;
+  padding: 7px 15px;
+  color: black;
+}
+
+.page-number-active {
+  background-color: #ff0040;
+  color: white;
+}
