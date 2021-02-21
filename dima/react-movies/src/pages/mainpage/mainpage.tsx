@@ -20,8 +20,8 @@ import MoviesDataInterface from "../../interfaces/moviesDataInterface";
 
 const MainPage = () => {
   const [currentSortType, setCurrentSortType] = useState(SortProperty.date);
-  let history = useHistory();
-  let location = useLocation();
+  const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const movies = useSelector<StateInterface, MoviesDataInterface>(
     (state) => state.movies
@@ -32,7 +32,6 @@ const MainPage = () => {
   );
 
   useEffect(() => {
-    const params = QueryString.parse(location.search);
     const compareSortFromUrlToState = (
       sortBy: string | string[] | null
     ): boolean => sortBy !== currentSortType;
@@ -46,10 +45,11 @@ const MainPage = () => {
       };
       const oldParamsObj = QueryString.parse(location.search);
       const { sortBy } = oldParamsObj;
-      if (sortBy && compareSortFromUrlToState(sortBy))
+      if (sortBy && compareSortFromUrlToState(sortBy)) {
         setCurrentSortType(
           sortBy === SortProperty.date ? SortProperty.date : SortProperty.rating
         );
+      }
 
       dispatch(
         fetchMovies({
@@ -60,8 +60,7 @@ const MainPage = () => {
         })
       );
     };
-    let pageNum = params.page ? Number(params.page.toString()) - 1 : 0;
-    fetchMoviesLocal(pageNum);
+    fetchMoviesLocal(getPage());
     return () => {
       dispatch(resetMovies());
     };

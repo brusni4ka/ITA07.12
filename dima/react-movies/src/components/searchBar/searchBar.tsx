@@ -11,7 +11,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ pushParamsOnSubmit }: SearchBarProps) => {
-  let location = useLocation();
+  const location = useLocation();
   const [searchBarValue, setSearchBarValue] = useState("");
   const [searchBy, setSearchBy] = useState(FilterProperty.title);
 
@@ -25,7 +25,6 @@ const SearchBar = ({ pushParamsOnSubmit }: SearchBarProps) => {
           : FilterProperty.genre
       );
     };
-
     setFiltersFromURL();
   }, [location.search]);
 

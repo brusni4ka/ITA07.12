@@ -35,20 +35,12 @@ const MoviePage = () => {
   );
 
   useEffect(() => {
-    const fetchAllMovies = (pageNum: number): void => {
-      dispatch(fetchMovie({ id: params.id, offset: pageNum * 9 }));
-    };
-    const checkPageNumbersAndFecthMovie = (): void => {
-      const urlParams = QueryString.parse(location.search);
-      let pageNum = urlParams.page ? Number(urlParams.page.toString()) - 1 : 0;
-      fetchAllMovies(pageNum);
-    };
-    checkPageNumbersAndFecthMovie();
+    dispatch(fetchMovie({ id: params.id, offset: getPage() * 9 }));
     return () => {
       dispatch(resetMovie());
     };
     // eslint-disable-next-line
-  }, [location]);
+  }, [location.search, params.id]);
 
   const getPage = (): number => {
     const urlParams = QueryString.parse(location.search);
