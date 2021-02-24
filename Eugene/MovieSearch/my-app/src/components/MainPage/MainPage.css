@@ -2,7 +2,8 @@
   background-repeat: repeat-y;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
     url("../../assets/325117.jpg");
-  background-size: 100%; /* Современные браузеры */
+  background-size: 100%;
+  /* Современные браузеры */
 }
 
 .container {

@@ -4,6 +4,7 @@ import IMovie from "../../interface/IMovie/IMovie";
 export interface MoviesState {
   movies: IMovie[];
   movie: IMovie;
+  totalMovies: number;
   loading: boolean;
   error: string;
 }
@@ -24,6 +25,7 @@ const MoviesDefaultState: MoviesState = {
     genres: [],
     runtime: 0,
   },
+  totalMovies: 0,
   loading: false,
   error: "",
 };
@@ -35,6 +37,18 @@ export interface requestMoviesAction {
   sortBy: string;
   offset: number;
 }
+
+export const requestMoviesF = (
+  search: string,
+  searchBy: string,
+  sortBy: string,
+  offset: number
+): requestMoviesAction => ({
+  search,
+  searchBy,
+  sortBy,
+  offset,
+});
 
 interface requestMoviesSuccessAction {
   movies: IMovie[];
@@ -50,6 +64,10 @@ export interface requestMovieAction {
 
 interface requestMovieSuccessAction {
   movie: IMovie;
+}
+
+interface setTotalMoviesAction {
+  totalMovies: number;
 }
 
 const moviesSlice = createSlice({
@@ -93,6 +111,9 @@ const moviesSlice = createSlice({
       state.loading = false;
       state.error = "Something goes wrong...";
     },
+    setTotalMovies(state, action: PayloadAction<setTotalMoviesAction>) {
+      state.totalMovies = action.payload.totalMovies;
+    },
   },
 });
 
@@ -104,6 +125,7 @@ export const {
   requestMovie,
   requestMovieSuccess,
   requestMovieError,
+  setTotalMovies
 } = moviesSlice.actions;
 
 

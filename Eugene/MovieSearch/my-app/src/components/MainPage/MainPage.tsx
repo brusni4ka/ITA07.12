@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./MainPage.css";
 import Header from "./header/Header";
 import SearchPanel from "./search-panel/SearchPanel";
@@ -6,34 +6,28 @@ import SortPanel from "./sort-panel/SortPanel";
 import MovieList from "./movie-list/MovieList";
 import Footer from "./footer/Footer";
 import { parse, stringify } from "query-string";
-import { RouteComponentProps, useHistory } from "react-router-dom";
-import { requestMovies } from "../../redux/reducers/moviesReducer";
-import { connect, ConnectedProps } from "react-redux";
+import { RouteComponentProps, useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { MoviesState } from "../../redux/reducers/moviesReducer";
+import { requestMovies } from "../../redux/reducers/moviesReducer";
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    movies: state.movies.movies,
-  };
-};
-
-const mapDispatchToProps = {
-  requestMovies,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector> & RouteComponentProps;
+type PropsFromRedux = RouteComponentProps;
 
 function MainPage(props: PropsFromRedux) {
-  let history = useHistory();
+  const history = useHistory();
+  const location = useLocation();
+
+  const movies = useSelector<RootState, MoviesState>((state) => state.movies);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     uploadMovies();
-  }, [history.location]);
+  }, [location.search]);
 
   const handleSearch = (search: string, searchBy: string) => {
-    const parsed = parse(history.location.search) as {
+    const parsed = parse(location.search) as {
       sortBy: string;
     };
     const urlParams = stringify({ ...parsed, search, searchBy });
@@ -44,7 +38,7 @@ function MainPage(props: PropsFromRedux) {
   };
 
   const handleSort = (sortBy: string) => {
-    const parsed = parse(history.location.search) as {
+    const parsed = parse(location.search) as {
       search: string;
       searchBy: string;
     };
@@ -56,28 +50,43 @@ function MainPage(props: PropsFromRedux) {
   };
 
   const uploadMovies = (offset = 0) => {
-    const parsed = parse(history.location.search) as {
+    const parsed = parse(location.search) as {
       search: string;
       searchBy: string;
       sortBy: string;
     };
     let { search, searchBy, sortBy } = parsed;
-    props.requestMovies({search:search, searchBy:searchBy, sortBy:sortBy, offset:offset});
+    dispatch(
+      requestMovies({
+        search: search,
+        searchBy: searchBy,
+        sortBy: sortBy,
+        offset: offset,
+      })
+    );
   };
 
+  const checkMoviesEnd = (): boolean => {
+    if (movies.movies.length < movies.totalMovies - 10) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  
   return (
     <div className="wrapper">
       <div className="container">
         <Header />
         <SearchPanel handleSearch={handleSearch} />
-        <SortPanel handleSort={handleSort} movieCount={props.movies.length} />
+        <SortPanel handleSort={handleSort} movieCount={movies.movies.length} />
 
         <InfiniteScroll
-          dataLength={props.movies.length} //This is important field to render the next data
+          dataLength={movies.movies.length} //This is important field to render the next data
           next={() => {
-            uploadMovies(props.movies.length + 10);
+            uploadMovies(movies.movies.length + 10);
           }}
-          hasMore={true}
+          hasMore={checkMoviesEnd()}
           loader={<h4></h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>
@@ -85,7 +94,7 @@ function MainPage(props: PropsFromRedux) {
             </p>
           }
         >
-          <MovieList movies={props.movies} />
+          <MovieList movies={movies.movies} />
         </InfiniteScroll>
         <Footer />
       </div>
@@ -93,4 +102,4 @@ function MainPage(props: PropsFromRedux) {
   );
 }
 
-export default connector(MainPage);
+export default MainPage;

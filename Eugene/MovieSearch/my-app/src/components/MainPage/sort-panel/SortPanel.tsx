@@ -22,10 +22,10 @@ function SortPanel(props: ISortPanelProps) {
   const [sortBy, setSortBy] = useState(SortBy.Rating);
 
   useEffect(() => {
-    checkParams();
+    setParamsFromUrl();
   }, [props.history.location]);
 
-  const checkParams = () => {
+  const setParamsFromUrl = () => {
     const searchParams = props.location.search.slice(1);
     const parsed = parse(searchParams) as {
       sortBy: string;
