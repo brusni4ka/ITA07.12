@@ -1,0 +1,10 @@
+.sort-box {
+  background-color: lightgrey;
+  padding: 15px 0;
+  margin-bottom: 50px;
+}
+
+.sortbox-wrapper {
+  display: flex;
+  justify-content: space-between;  
+}

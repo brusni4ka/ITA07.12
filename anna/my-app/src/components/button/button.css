@@ -1,0 +1,22 @@
+/* .btn {} */
+
+.btn-light {
+  margin-left: 30px;
+}
+
+.btn-active {
+  color: #f92b5b;
+  font-weight: 700;
+}
+
+.btn-header-light {
+  outline: none;
+  font-size: 17px;
+  font-weight: 600;
+  color: #f92b5b;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  background-color: #efe9de;
+}

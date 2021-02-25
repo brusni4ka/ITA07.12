@@ -1,0 +1,69 @@
+.search-form {
+  color: white;
+}
+
+.search-form .searchby-wrapper {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.search-form-input {
+  width: 100%;
+  padding: 17px 10px;
+  background-color: black;
+  border: none;
+  font-size: 16px;
+  color: white;
+  border-bottom: 4px solid #f92b5b;
+  margin-bottom: 25px;
+}
+
+.search-form-btn {
+  margin-left: auto;
+  background-color: #f92b5b;
+  font-size: 23px;
+  font-weight: 500;
+  padding: 7px 80px;
+  color: white;
+  border-radius: 5px;
+  outline: navajowhite;
+  border: 0;
+  text-transform: unset;
+}
+
+input[type=radio] {
+  visibility: hidden;
+  position: absolute;
+}
+
+input[type=radio]+label {
+  cursor: pointer;
+}
+
+#input-ganre[type=radio]+label {
+  content: "ganre";
+}
+
+#input-title[type=radio]+label:before {
+  content: "title";
+}
+
+#input-ganre[type=radio]+label:before {
+  content: "ganre";
+}
+
+input[type=radio]+label:before {
+  padding: 7px 40px;
+  margin-left: 30px;
+  vertical-align: baseline;
+  transition: 0.3s;
+  text-transform: uppercase;
+  border-radius: 5px;
+  background-color: #5a5757;
+}
+
+input[type=radio]:checked+label:before {
+  background-color: #f92b5b;
+}
