@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Layout from '../../components/layout';
 import './homePage.css';
 import MovieList from '../../components/movieList';
@@ -10,86 +12,110 @@ import Container from '../../components/container';
 import InfiniteScroll from '../../components/infiniteScroll';
 
 import * as QueryString from "query-string";
-import { RouteComponentProps } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { ISearchParams } from '../../Api';
-import { MoviesConnectedProps } from '.';
 
-class HomePage extends React.Component<RouteComponentProps & MoviesConnectedProps> {
+import { IRootState } from '../../store/store';
+import { setSortBy, fetchMoviesRequested, loadMoreMovies, resetMovies } from '../../store/redux/moviesActions';
 
-  componentDidMount() {
-    const searchParam = QueryString.parse(this.props.location.search);
+const HomePage = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  const sortBy = useSelector((state: IRootState) => state.movies.sortBy);
+  const movies = useSelector((state: IRootState) => state.movies.items);
+  const loading = useSelector((state: IRootState) => state.movies.loading);
+  const total = useSelector((state: IRootState) => state.movies.total);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    const searchParam = QueryString.parse(location.search);
 
     if (searchParam.sortBy) {
-      this.props.changeSortBy(searchParam.sortBy as SortType);
+      dispatch(setSortBy(searchParam.sortBy as SortType));
     }
-    this.changeMoviesByPath();
-  }
+    changeMoviesByPath();
 
-  componentDidUpdate(prevProps: RouteComponentProps & MoviesConnectedProps) {
-    const { location } = this.props;
-
-    if (prevProps.location.search !== location.search) {
-      this.changeMoviesByPath();
+    return () => {
+      dispatch(resetMovies());
     }
-  }
+  }, []);
 
-  changeMoviesByPath = async (): Promise<void> => {
-    const { location } = this.props;
-    const searchParams: ISearchParams = {sotrBy: this.props.sortBy}
+  useEffect(() => {
+    changeMoviesByPath();
+  }, [location.search])
+
+
+  // componentDidMount() {
+  //   const searchParam = QueryString.parse(this.props.location.search);
+
+  //   if (searchParam.sortBy) {
+  //     this.props.changeSortBy(searchParam.sortBy as SortType);
+  //   }
+  //   this.changeMoviesByPath();
+  // }
+
+  // componentDidUpdate(prevProps: RouteComponentProps & MoviesConnectedProps) {
+  //   const { location } = this.props;
+
+  //   if (prevProps.location.search !== location.search) {
+  //     this.changeMoviesByPath();
+  //   }
+  // }
+
+  const changeMoviesByPath = async (): Promise<void> => {
+    const searchParams: ISearchParams = { sotrBy: sortBy }
 
     if (location.pathname === "/") {
-      this.props.fetchMoviesRequested(searchParams)
+      dispatch(fetchMoviesRequested(searchParams));
 
     } else if (location.pathname === "/search") {
-      this.props.fetchMoviesRequested(QueryString.parse(location.search))
+      dispatch(fetchMoviesRequested(QueryString.parse(location.search)));
     }
   }
 
-  handleFormSubmit = (searchParams: ISearchFormState) => {
-    const { history, sortBy } = this.props;
-    const searchQuery = QueryString.stringify({...searchParams, sortBy});
+  const handleFormSubmit = (searchParams: ISearchFormState) => {
+    const searchQuery = QueryString.stringify({ ...searchParams, sortBy });
     history.push({
       pathname: '/search',
       search: `${searchQuery}`,
     });
   }
 
-  sortFilms = (sortBy: SortType) => {
-    const { history, location } = this.props;
-
-    this.props.changeSortBy(sortBy);
-    const searchParams = QueryString.parse(location.search);
-    searchParams.sortBy = sortBy;
-
+  const sortFilms = (sort: SortType) => {
+    const searchParams = QueryString.parse(location.search);    
+    searchParams.sortBy = sort;
+   
     history.push({
       pathname: '/search',
       search: `${QueryString.stringify(searchParams)}`,
     });
   };
 
-  handleLoad = () => {
-    this.props.loadMoreMovies(QueryString.parse(this.props.location.search))
+  const handleLoad = () => {
+    dispatch(loadMoreMovies(QueryString.parse(location.search)));
   }
-  render() {
-    const { movies, location, loading, total } = this.props;
-    return (
-      <Layout className="home-page" pageName={'home'}>
-        <section className="section-dark">
-          <Container>
-            <h1 className="section-dark-title">find your movie</h1>
-            <SearchForm onSubmit={this.handleFormSubmit} onSearchByChange={this.handleFormSubmit} location={location} />
-          </Container>
-        </section>
-        <section className="section">
-          <SortBox movieCount={total} onSortByChange={this.sortFilms} sortBy={this.props.sortBy} />
-          <InfiniteScroll onLoadMore={this.handleLoad} currentCount={movies.length} search={location.search} total={total}>
-            {loading ? <p className="loading-list">Loading...</p> : <MovieList  movies={movies} />}
-          </InfiniteScroll>
 
-        </section>
-      </Layout>
-    )
-  }
+  return (
+    <Layout className="home-page" pageName={'home'}>
+      <section className="section-dark">
+        <Container>
+          <h1 className="section-dark-title">find your movie</h1>
+          <SearchForm onSubmit={handleFormSubmit} onSearchByChange={handleFormSubmit} />
+        </Container>
+      </section>
+      <section className="section">
+        <SortBox movieCount={total} onSortByChange={sortFilms} sortBy={sortBy} />
+        <InfiniteScroll onLoadMore={handleLoad} currentCount={movies.length} total={total}>
+          {loading ? <p className="loading-list">Loading...</p> : <MovieList movies={movies} />}
+        </InfiniteScroll>
+
+      </section>
+    </Layout>
+  )
+
 }
 
 export default HomePage;

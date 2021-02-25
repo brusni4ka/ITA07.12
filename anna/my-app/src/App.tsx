@@ -22,23 +22,4 @@ const App: React.FC = () => {
   );
 }
 
-
-
-// import {setMovies} from './pages/home/searchMovieActions'
-// import HomePage from './HomePage'
-
-// const mapStateToProps = (state: IRootState) => {
-//   return {
-//     movies: state.movies,
-// sortBy: state.movies.sortBy
-//   }
-// }
-// const mapDispatchToProps = {
-//   setMovies
-// }
-// const connector = connect(mapStateToProps, mapDispatchToProps);
-// export type MoviesConnectedProps = ConnectedProps<typeof connector>
-// export default connector(App);
-
-
 export default App;

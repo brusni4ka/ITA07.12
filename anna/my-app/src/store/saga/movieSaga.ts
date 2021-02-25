@@ -9,9 +9,9 @@ import IMovie from '../../components/movieList/movie-card/IMovie';
 function* fetchMovieSaga(action: FetchMovieRequestedAction) {
   try {
     const movie: IMovie = yield call(Api.fetchMovie, action.payload);
-    yield put({type: MovieActionTypes.FETCH_MOVIE_SUCCESS, movie});
-    const movies = yield call(Api.fetchMovies, {searchBy: SearchType.Ganre, sotrBy: SortType.ReleaseDate, search: movie.genres[0]});
-    yield put({type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, movies: movies.movies, total: movies.total});
+    yield put({type: MovieActionTypes.FETCH_MOVIE_SUCCESS, payload: movie});
+    const movies = yield call(Api.fetchMovies, {searchBy: SearchType.Ganre, sotrBy: SortType.ReleaseDate, search: movie.genres[0]}, 0 );
+    yield put({type: MoviesActionTypes.FETCH_MOVIES_SUCCESS, payload: {movies: movies.movies, total: movies.total}});
     
   } catch (e) {
     yield put({type: MovieActionTypes.FETCH_MOVIE_ERROR, e})

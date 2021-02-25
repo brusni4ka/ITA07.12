@@ -1,9 +1,9 @@
 import IMovie from '../../components/movieList/movie-card/IMovie';
 
 export enum MovieActionTypes {
-  FETCH_MOVIE_REQUESTED = 'FETCH_MOVIE_REQUESTED',
-  FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS',
-  FETCH_MOVIE_ERROR = 'FETCH_MOVIE_ERROR',
+  FETCH_MOVIE_REQUESTED = 'movie/fetchMovieRequested',
+  FETCH_MOVIE_SUCCESS = 'movie/fetchMovieSuccess',
+  FETCH_MOVIE_ERROR = 'movie/fetchMovieError',
 }
 
 export interface FetchMovieRequestedAction {
@@ -13,7 +13,8 @@ export interface FetchMovieRequestedAction {
 
 export interface FetchMovieSuccessAction {
   type: MovieActionTypes.FETCH_MOVIE_SUCCESS,
-  movie: IMovie;
+  payload: {
+    movie: IMovie;}
 }
 
 export interface FetchMovieErrorAction {
@@ -27,7 +28,9 @@ export const fetchMovieRequested = (id: string): FetchMovieRequestedAction => ({
 
 export const fetchMovieSuccess = (movie: IMovie): FetchMovieSuccessAction => ({
   type: MovieActionTypes.FETCH_MOVIE_SUCCESS,
-  movie: movie
+  payload: {
+    movie
+  }
 })
 
 export const fetchMovieError = (): FetchMovieErrorAction => ({
