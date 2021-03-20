@@ -1,151 +1,126 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import Header from './header';
-import moviesData from './moviesData';
-import NotFound from './notFound';
 import Layout from './layout';
 import MoviesList from './moviesList';
+import {connect, ConnectedProps} from 'react-redux';
+import {rootState} from '../redux/store';
+import {requestMovies, fetchMovies, requestMoreMovies, errorMovies, clearMovies, setScroll} from '../redux/actions';
+import Loader from "react-loader-spinner";
+import InfiniteScroll from 'react-infinite-scroll-component';
 const queryString = require('query-string');
-//import {parse, stringify} from 'query-string';
+/*import {parse, stringify} from 'stringquery';*/
 
 
-
-
-
-interface IHomePageState {
-   movies: IMovieCard[];   
-   sortBy: string;
+export enum SortBy {
+   Rating = "rating",
+   Release = "release_date"
 }
 
-export interface IMovieCard {
-   id: number;
-   title: string;
-   tagline: string;
-   vote_average: number;
-   vote_count: number;
-   release_date: string;
-   poster_path: string;
-   overview: string;
-   budget: number;
-   revenue: number;
-   genres: Array<string>;
-   runtime: number;
+interface IHomePageState {     
+   sortBy: SortBy;
 }
 
+export interface IHomePageProps {
+   dataLength: number;
+   next(): Function;
+   hasMore: boolean; 
+   endMessage: {};    
+}
 
-class HomePage extends React.Component<RouteComponentProps, IHomePageState> {
+type HomePageProps = HomePageConnectProps & RouteComponentProps & IHomePageProps;
 
-   state = {
-      movies: moviesData,     
-      sortBy: "rating"
+class HomePage extends React.Component<HomePageProps, IHomePageState> {
+
+   state = {          
+      sortBy: SortBy.Rating
    }
 
-
-   setSortByDate = () => {
-      this.setState({ sortBy: "release_date" });
-      const locationSearch = queryString.parse(this.props.location.search);
-      locationSearch.sortBy = "release_date";
-      const locationSearchString = queryString.stringify(locationSearch);    
-      this.props.history.push(`/search?${locationSearchString}`);        
-   }
-   
-
-   setSortByRating = () => {
-      this.setState({ sortBy: "rating" });
-       const locationSearch = queryString.parse(this.props.location.search);
-       locationSearch.sortBy = "rating";
-       const locationSearchString = queryString.stringify(locationSearch);
-       this.props.history.push(`/search?${locationSearchString}`);      
-   }
-   
-   filterAndSort = () => {
-      const { searchValue, searchBy, sortBy } = queryString.parse(this.props.location.search);       
-      let filteredMovies, sortedMovies;
-
-      if (searchBy === "title") {
-         filteredMovies = moviesData.filter(item => item.title === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.vote_average < movie2.vote_average ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }
-      
-      if (searchBy === "genre") {
-         filteredMovies = moviesData.filter(item => item.genres[0] === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.vote_average < movie2.vote_average ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      } 
-
-      if (searchBy === "title" && sortBy === "rating") {
-         filteredMovies = moviesData.filter(item => item.title === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.vote_average < movie2.vote_average ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }
-
-      if (searchBy === "title" && sortBy === "release_date") {
-         filteredMovies = moviesData.filter(item => item.title === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.release_date < movie2.release_date ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      } 
-
-      if (searchBy === "genre" && sortBy === "rating") {
-         filteredMovies = moviesData.filter(item => item.genres[0] === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.vote_average < movie2.vote_average ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }
-
-      if (searchBy === "genre" && sortBy === "release_date") {
-         filteredMovies = moviesData.filter(item => item.genres[0] === searchValue);
-         sortedMovies = filteredMovies.sort((movie1, movie2) => movie1.release_date < movie2.release_date ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }
-
-      if (sortBy === "rating") {
-         sortedMovies = this.state.movies.sort((movie1, movie2) => movie1.vote_average < movie2.vote_average ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }
-
-      if (sortBy === "release_date") {
-         sortedMovies = this.state.movies.sort((movie1, movie2) => movie1.release_date < movie2.release_date ? 1 : -1);
-         this.setState({ movies: sortedMovies });
-      }  
-   }
-
-   componentDidMount() {
-      const { sortBy } = queryString.parse(this.props.location.search);
-      this.setState({sortBy: sortBy || "rating"});
-      this.filterAndSort();
+   componentDidMount() {      
+      const { sortBy, searchValue, searchBy } = queryString.parse(this.props.location.search);
+      this.setState({sortBy: sortBy || SortBy.Rating});
+      this.props.requestMovies( sortBy, searchValue, searchBy);             
    } 
    
 
    componentDidUpdate(prevProps: RouteComponentProps) {
-
       if (this.props.location.search !== prevProps.location.search) {
-         const {searchBy, searchValue, sortBy} = queryString.parse(this.props.location.search);
-         this.setState({ sortBy: sortBy || "rating"});
-         this.filterAndSort();
+         const {sortBy, searchValue, searchBy} = queryString.parse(this.props.location.search);
+         this.setState({ sortBy: sortBy || SortBy.Rating});
+         this.props.requestMovies(sortBy, searchValue, searchBy);      
       }
    }
-
-
-   render() {
-      const { movies, sortBy } = this.state;
+   
+   componentWillUnmount() {
+      this.props.clearMovies();
+   }
+   
+   setSortBy = (sortOption: SortBy) => {
+      this.setState({ sortBy: sortOption });
+      const locationSearch = queryString.parse(this.props.location.search);
+      locationSearch.sortBy = sortOption;
+      const locationSearchString = queryString.stringify(locationSearch);    
+      this.props.history.push(`/search?${locationSearchString}`);  
+   }   
+   
+ 
+   render() {            
+      const { sortBy, searchValue, searchBy } = queryString.parse(this.props.location.search);
+      let offset = this.props.movies.length;      
+      
       return (
          <div>
             <Layout>
-               <Header sortBy={sortBy}
-                  setSortByDate={this.setSortByDate} setSortByRating={this.setSortByRating}                                 
-                  movies={movies} location={this.props.location} history={this.props.history}
+               <Header sortBy={this.state.sortBy}
+                  setSortBy={this.setSortBy}                                
+                  movies={this.props.movies} location={this.props.location} history={this.props.history}
                   match={this.props.match} />
                <main>
-                  <MoviesList movies={movies} />
+                 {this.props.loading? 
+                    <div>
+                        <Loader type="BallTriangle" color="#00BFFF" height={120} width={120}/><br></br>
+                        <span> Loading...</span>
+                    </div> :
+                    <InfiniteScroll
+                        dataLength={this.props.movies.length}                         
+                        next={() => this.props.requestMoreMovies(offset, sortBy, searchValue, searchBy)}  
+                        hasMore={this.props.hasMore}                                                                 
+                        endMessage={
+                          <p style={{ textAlign: "center" }}>
+                          <b>You have seen it all</b>
+                         </p>
+                        }
+                     > 
+                        <MoviesList movies={this.props.movies} loading={this.props.loading}/>                                              
+                    </InfiniteScroll> 
+                  }   
                </main>
             </Layout>
          </div>
-
       );
    }
 
 }
 
+const mapStateToProps = (state: rootState) => {   
+   return {
+       movies: state.movies.movies,
+       loading: state.movies.loading,     
+       hasMore: state.movies.hasMore
+   }
+};
+
+const mapDispatchToProps = {
+   requestMovies,
+   fetchMovies, 
+   requestMoreMovies,    
+   errorMovies,
+   clearMovies,
+   setScroll   
+};
 
 
-export default HomePage;
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export type HomePageConnectProps = ConnectedProps<typeof connector>;
+export default connector(HomePage);

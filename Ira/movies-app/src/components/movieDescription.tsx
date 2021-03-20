@@ -1,9 +1,16 @@
-import React, {Component} from 'react';
-import {IMovieCard} from './homePage';
+
+import {IMovieCard} from './interfaces';
 
 
 
-const MovieDescription = (props: {movie: IMovieCard})=> {
+interface IMovieDescription {
+    movie: IMovieCard;        
+}
+
+
+
+const MovieDescription = (props: IMovieDescription)=> {
+    console.log(props);
     const {id, poster_path, title, vote_average, release_date, runtime, overview, genres} = props.movie;
     return (
         <>

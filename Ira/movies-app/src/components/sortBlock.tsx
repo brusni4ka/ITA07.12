@@ -1,27 +1,26 @@
 import React from 'react';
+import { SortBy } from './homePage';
 
 
 interface ISortProps {
     sortBy: string;
-    setSortByDate(): void;
-    setSortByRating(): void;  
+    setSortBy(sortOption: string): void;     
 }
-
 
 
 const SortBlock = (props: ISortProps) => {
     console.log(props);
-    const {sortBy, setSortByDate, setSortByRating} = props; 
+    const {sortBy, setSortBy} = props; 
     return (
         <div className ="sortBlock">
             <p className = "sortBlockCaption">Sort by</p>
             <button type = "button" className = {
-                                       sortBy === "release_date" ? "sortBlockButtonActive" : "sortBlockButtonNotActive"}                                                  
-                                    onClick = {setSortByDate}>release date</button>
+                                       sortBy === SortBy.Release ? "sortBlockButtonActive" : "sortBlockButtonNotActive"}                                                  
+                                    onClick = {() => setSortBy(SortBy.Release)}>release date</button>
                                     
             <button type="button" className = {
-                                       sortBy === "rating" ? "sortBlockButtonActive" : "sortBlockButtonNotActive"}                                                  
-                                    onClick = {setSortByRating}>rating</button>
+                                       sortBy === SortBy.Rating ? "sortBlockButtonActive" : "sortBlockButtonNotActive"}                                                  
+                                    onClick = {() => setSortBy(SortBy.Rating)}>rating</button>
         </div>
     );
     

@@ -2,27 +2,27 @@ import React from 'react';
 import {Link, RouteComponentProps} from "react-router-dom";
 import SearchForm from './searchForm';
 import SortBlock from './sortBlock';
-import headerBg from './images/headerBg.jpg';
-import {IMovieCard} from './homePage';
+import {IMovieCard} from './interfaces';
+import { SortBy } from './homePage';
 
 
 
 
  interface IHeaderProps extends RouteComponentProps {      
-   sortBy: string;     
-   setSortByDate(): void;
-   setSortByRating(): void;
-   movies: IMovieCard[];    
+   sortBy: SortBy;     
+   setSortBy(sortOption: string): void;   
+   movies: IMovieCard[];   
   }
 
  const Header = (props: IHeaderProps) => {      
-        const {sortBy, setSortByDate, setSortByRating, location, history, match, movies} = props;               
+   console.log(props);
+        const {sortBy, setSortBy, location, history, match, movies} = props;               
                
         return (
           <>
             <header className = {movies.length > 0 ? "header" :  "headerMarginBottom"}>                                 
                 <Link className = "logoLink" to = "/">netflixroulette</Link>
-                <SearchForm  location={location} history={history}
+                <SearchForm  location = {location} history = {history} sortBy = {sortBy}
                   match={match} />            
             </header>
             {
@@ -32,8 +32,8 @@ import {IMovieCard} from './homePage';
                    <p className="moviesQuantity">{movies.length} movies found</p>
                 </div>
                
-                <SortBlock sortBy = {sortBy} setSortByDate = {setSortByDate} 
-                           setSortByRating = {setSortByRating}/>                
+                <SortBlock sortBy = {sortBy} setSortBy = {setSortBy} 
+                           />                
                             
             </div>
             : null

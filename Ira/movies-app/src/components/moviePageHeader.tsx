@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
-import {IMovieCard} from './homePage';
+import {IMovieCard} from './interfaces';
 import MovieDescription from './movieDescription';
 
 
 interface IMovieDescriptionProps {
-    movie: IMovieCard;
+    movie: IMovieCard;    
 }
 
 
 const MoviePageHeader = (props: IMovieDescriptionProps)=> {
-    const {genres} = props.movie;
+ 
     return (  
         <>      
             <header className="moviePageHeader">
@@ -25,7 +25,7 @@ const MoviePageHeader = (props: IMovieDescriptionProps)=> {
             </header>  
             <div className="headerBottomBlock">
                 <div className="moviesGenreBlock">
-                  <p className="moviesGenre">Films by {genres[0]} genre</p>                            
+                  <p className="moviesGenre">Films by {props.movie.genres[0]} genre</p>                            
                 </div> 
             </div>    
         </>

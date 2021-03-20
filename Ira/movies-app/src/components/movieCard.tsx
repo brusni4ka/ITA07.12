@@ -1,7 +1,6 @@
 import React from 'react';
-import moviesData from './moviesData';
 import {Link} from "react-router-dom";
-import {IMovieCard} from './homePage';
+import {IMovieCard} from './interfaces';
 
 interface IMovieCardProps {
     movie: IMovieCard;
