@@ -36,6 +36,8 @@ const MoviePage = () => {
 
   useEffect(() => {
     dispatch(fetchMovie({ id: params.id, offset: getPage() * 9 }));
+    window.scrollTo(0, 0);
+
     return () => {
       dispatch(resetMovie());
     };

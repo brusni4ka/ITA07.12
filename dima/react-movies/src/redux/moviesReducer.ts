@@ -1,6 +1,5 @@
 import MovieInterface from "../interfaces/movieInterface";
 import { MoviesStateInterface } from "../interfaces/stateInterface";
-// import { MoviesAction, setMovies } from "./moviesActions";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { URLMovieParams } from "./moviesActions";
 import MoviesDataInterface from "../interfaces/moviesDataInterface";
